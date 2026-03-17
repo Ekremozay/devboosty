@@ -13,8 +13,10 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white font-bold text-sm">
-                D
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-purple-600 flex items-center justify-center shrink-0">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 2L4 9h4l-1 5 7-8H10L10 2z" fill="white"/>
+                </svg>
               </div>
               <span className="font-display text-xl font-bold text-white">
                 Dev<span className="text-brand-400">Boosty</span>

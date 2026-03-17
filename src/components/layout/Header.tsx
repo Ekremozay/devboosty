@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: 'SEO', href: '/tools/seo' },
   { label: 'Image', href: '/tools/image' },
   { label: 'PDF', href: '/tools/pdf' },
+  { label: 'Favorites', href: '/favorites' },
   { label: 'Blog', href: '/blog' },
 ];
 
@@ -27,8 +28,10 @@ export default function Header({ onSearchClick }: HeaderProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white font-bold text-sm font-display shadow-md group-hover:shadow-brand-200 transition-shadow">
-              D
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-purple-600 flex items-center justify-center shadow-md group-hover:shadow-brand-300/50 transition-shadow shrink-0">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 2L4 9h4l-1 5 7-8H10L10 2z" fill="white"/>
+              </svg>
             </div>
             <span className="font-display text-xl font-bold text-slate-900 dark:text-white">
               Dev<span className="text-brand-600 dark:text-brand-400">Boosty</span>

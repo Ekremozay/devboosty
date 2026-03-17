@@ -13,9 +13,9 @@
   --color-border: #e2e8f0;
   --color-text: #0f172a;
   --color-muted: #64748b;
-  --color-brand: #0ea5e9;
-  --color-brand-dark: #0369a1;
-  --color-accent: #f97316;
+  --color-brand: #6366f1;
+  --color-brand-dark: #4338ca;
+  --color-accent: #22c55e;
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.06);

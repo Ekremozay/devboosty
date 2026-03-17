@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   keywords: ['developer tools', 'free tools', 'online tools', 'json formatter', 'css minifier', 'base64', 'image compressor', 'pdf tools'],
   authors: [{ name: 'DevBoosty' }],
   creator: 'DevBoosty',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://devboosty.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://devboosty.com.tr'),
   openGraph: {
     type: 'website',
     locale: 'en_US',

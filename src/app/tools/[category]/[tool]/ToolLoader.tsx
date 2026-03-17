@@ -35,6 +35,11 @@ const TOOL_COMPONENTS: Record<string, React.ComponentType> = {
   CSSMinifier:           dynamic(() => import('@/components/tools/CSSMinifier'),           { loading: () => <ToolSkeleton /> }),
   JSMinifier:            dynamic(() => import('@/components/tools/JSMinifier'),            { loading: () => <ToolSkeleton /> }),
   ColorConverter:        dynamic(() => import('@/components/tools/ColorConverter'),        { loading: () => <ToolSkeleton /> }),
+  PasswordGenerator:     dynamic(() => import('@/components/tools/PasswordGenerator'),     { loading: () => <ToolSkeleton /> }),
+  UUIDGenerator:         dynamic(() => import('@/components/tools/UUIDGenerator'),         { loading: () => <ToolSkeleton /> }),
+  LoremIpsumGenerator:   dynamic(() => import('@/components/tools/LoremIpsumGenerator'),   { loading: () => <ToolSkeleton /> }),
+  NumberBaseConverter:   dynamic(() => import('@/components/tools/NumberBaseConverter'),   { loading: () => <ToolSkeleton /> }),
+  HTMLEntityEncoder:     dynamic(() => import('@/components/tools/HTMLEntityEncoder'),     { loading: () => <ToolSkeleton /> }),
 };
 
 function ToolSkeleton() {

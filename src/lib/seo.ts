@@ -1,8 +1,8 @@
 // src/lib/seo.ts
 import type { Metadata } from 'next';
 
-const SITE_NAME = 'ToolHub';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://toolhub.app';
+const SITE_NAME = 'DevBoosty';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://devboosty.com.tr';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 
 export function generateMetadata({
