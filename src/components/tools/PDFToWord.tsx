@@ -55,11 +55,11 @@ export default function PDFToWord() {
 
   return (
     <div className="space-y-5">
-      <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-red-300 hover:bg-slate-50 transition-all"
+      <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-red-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
         onClick={() => inputRef.current?.click()}>
         <input ref={inputRef} type="file" accept="application/pdf" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
         <div className="text-4xl mb-3">📄</div>
-        <p className="font-semibold text-slate-700">{file ? file.name : 'Click to upload a PDF'}</p>
+        <p className="font-semibold text-slate-700 dark:text-slate-300">{file ? file.name : 'Click to upload a PDF'}</p>
         <p className="text-sm text-slate-400 mt-1">Text-based PDFs work best · Scanned PDFs require OCR</p>
       </div>
 
@@ -74,7 +74,7 @@ export default function PDFToWord() {
               <button onClick={downloadTxt} className="btn-secondary text-xs">⬇ Download .txt</button>
             </div>
           </div>
-          <textarea className="tool-textarea bg-slate-50" value={text} onChange={e => setText(e.target.value)} style={{ minHeight: 320 }} />
+          <textarea className="tool-textarea bg-slate-50 dark:bg-slate-900/50" value={text} onChange={e => setText(e.target.value)} style={{ minHeight: 320 }} />
         </div>
       )}
 

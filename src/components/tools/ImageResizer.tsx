@@ -26,26 +26,26 @@ export default function ImageResizer() {
   };
   return (
     <div className="space-y-5">
-      <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-brand-300 hover:bg-slate-50 transition-all" onClick={() => inputRef.current?.click()}>
+      <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-brand-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" onClick={() => inputRef.current?.click()}>
         <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
         <div className="text-4xl mb-3">📐</div>
-        <p className="font-semibold text-slate-700">Click to upload an image</p>
-        {origW > 0 && <p className="text-sm text-slate-500 mt-1">Original: {origW} × {origH}px</p>}
+        <p className="font-semibold text-slate-700 dark:text-slate-300">Click to upload an image</p>
+        {origW > 0 && <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Original: {origW} × {origH}px</p>}
       </div>
       {file && (
-        <div className="bg-white rounded-xl border border-slate-100 p-4 space-y-4">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-4 space-y-4">
           <div className="flex items-end gap-3">
-            <div><label className="text-xs text-slate-500 block mb-1">Width (px)</label>
-              <input type="number" value={w} onChange={e => updateW(+e.target.value)} min="1" className="w-28 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" /></div>
-            <button onClick={() => setLock(v => !v)} className={`mb-0.5 px-3 py-2 rounded-lg border text-sm transition-colors ${lock ? 'bg-brand-50 border-brand-200 text-brand-600' : 'bg-slate-50 border-slate-200 text-slate-400'}`} title="Lock aspect ratio">
+            <div><label className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Width (px)</label>
+              <input type="number" value={w} onChange={e => updateW(+e.target.value)} min="1" className="w-28 border border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" /></div>
+            <button onClick={() => setLock(v => !v)} className={`mb-0.5 px-3 py-2 rounded-lg border text-sm transition-colors ${lock ? 'bg-brand-50 border-brand-200 text-brand-600' : 'bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-400'}`} title="Lock aspect ratio">
               {lock ? '🔒' : '🔓'}
             </button>
-            <div><label className="text-xs text-slate-500 block mb-1">Height (px)</label>
-              <input type="number" value={h} onChange={e => updateH(+e.target.value)} min="1" className="w-28 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" /></div>
+            <div><label className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Height (px)</label>
+              <input type="number" value={h} onChange={e => updateH(+e.target.value)} min="1" className="w-28 border border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" /></div>
           </div>
           <div className="flex flex-wrap gap-2">
             {[[640,480],[800,600],[1024,768],[1280,720],[1920,1080]].map(([pw,ph]) => (
-              <button key={`${pw}x${ph}`} onClick={() => { setW(pw); setH(ph); setLock(false); }} className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-lg">{pw}×{ph}</button>
+              <button key={`${pw}x${ph}`} onClick={() => { setW(pw); setH(ph); setLock(false); }} className="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-lg">{pw}×{ph}</button>
             ))}
           </div>
         </div>

@@ -34,15 +34,15 @@ export default function RegexTester() {
     <div className="space-y-5">
       <div className="flex gap-3">
         <div className="flex-1 space-y-1">
-          <label className="text-sm font-semibold text-slate-700">Regular Expression</label>
-          <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-brand-500">
-            <span className="px-3 text-slate-400 font-mono text-lg select-none">/</span>
+          <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Regular Expression</label>
+          <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-brand-500 bg-white dark:bg-slate-800">
+            <span className="px-3 text-slate-400 dark:text-slate-500 font-mono text-lg select-none">/</span>
             <input type="text" value={pattern} onChange={e => setPattern(e.target.value)}
               placeholder="([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})"
-              className="flex-1 py-2.5 font-mono text-sm focus:outline-none bg-white text-slate-800" />
-            <span className="text-slate-400 font-mono text-lg select-none">/</span>
+              className="flex-1 py-2.5 font-mono text-sm focus:outline-none bg-transparent text-slate-800 dark:text-slate-100" />
+            <span className="text-slate-400 dark:text-slate-500 font-mono text-lg select-none">/</span>
             <input type="text" value={flags} onChange={e => setFlags(e.target.value.replace(/[^gimsuy]/g, ''))}
-              className="w-16 px-3 py-2.5 font-mono text-sm focus:outline-none bg-slate-50 text-slate-700 border-l border-slate-200" placeholder="gim" />
+              className="w-16 px-3 py-2.5 font-mono text-sm focus:outline-none bg-slate-50 dark:bg-slate-900/50 text-slate-700 dark:text-slate-300 border-l border-slate-200 dark:border-slate-700" placeholder="gim" />
           </div>
         </div>
       </div>
@@ -51,12 +51,12 @@ export default function RegexTester() {
         {result.count ? `✓ ${result.count} match${result.count !== 1 ? 'es' : ''} found` : 'No matches'}
       </div>}
       <div className="space-y-2">
-        <div className="flex justify-between"><label className="text-sm font-semibold text-slate-700">Test String</label></div>
+        <div className="flex justify-between"><label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Test String</label></div>
         <textarea className="tool-textarea" value={testString} onChange={e => setTestString(e.target.value)} style={{ minHeight: 120 }} />
       </div>
       {result?.valid && (result.matches ?? []).length > 0 && (
-        <div className="bg-white rounded-xl border border-slate-100 p-4">
-          <h3 className="font-semibold text-sm text-slate-700 mb-3">Preview (matches highlighted)</h3>
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-4">
+          <h3 className="font-semibold text-sm text-slate-700 dark:text-slate-300 mb-3">Preview (matches highlighted)</h3>
           <div className="font-mono text-sm leading-relaxed break-all">
             {Array.isArray(highlightedText)
               ? highlightedText.map((p, i) => p.match
@@ -67,12 +67,12 @@ export default function RegexTester() {
         </div>
       )}
       {result?.valid && (result.matches ?? []).length > 0 && (
-        <div className="bg-white rounded-xl border border-slate-100 p-4 space-y-2">
-          <h3 className="font-semibold text-sm text-slate-700">Matches</h3>
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-4 space-y-2">
+          <h3 className="font-semibold text-sm text-slate-700 dark:text-slate-300">Matches</h3>
           {(result.matches ?? []).slice(0, 20).map((m, i) => (
-            <div key={i} className="flex items-start gap-3 text-xs font-mono bg-slate-50 rounded-lg px-3 py-2">
-              <span className="text-slate-400 w-6 text-right flex-shrink-0">{i + 1}</span>
-              <span className="font-semibold text-brand-700 break-all">{m.value}</span>
+            <div key={i} className="flex items-start gap-3 text-xs font-mono bg-slate-50 dark:bg-slate-900/50 rounded-lg px-3 py-2">
+              <span className="text-slate-400 dark:text-slate-500 w-6 text-right flex-shrink-0">{i + 1}</span>
+              <span className="font-semibold text-brand-700 dark:text-brand-400 break-all">{m.value}</span>
               <span className="text-slate-400 flex-shrink-0">@{m.index}</span>
               {m.groups.length > 0 && <span className="text-slate-500">Groups: [{m.groups.join(', ')}]</span>}
             </div>

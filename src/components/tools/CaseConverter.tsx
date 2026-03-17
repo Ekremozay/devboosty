@@ -27,7 +27,7 @@ export default function CaseConverter() {
   return (
     <div className="space-y-5">
       <div className="space-y-2">
-        <label className="text-sm font-semibold text-slate-700">Input Text</label>
+        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Input Text</label>
         <textarea className="tool-textarea" value={input} onChange={e => setInput(e.target.value)}
           placeholder="Type or paste your text here..." style={{ minHeight: 120 }} />
       </div>
@@ -35,15 +35,15 @@ export default function CaseConverter() {
         {CASES.map(({ key, label, fn }) => {
           const result = fn(input);
           return (
-            <div key={key} className="bg-white rounded-xl border border-slate-100 p-4 space-y-2 hover:border-slate-200 transition-colors">
+            <div key={key} className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-4 space-y-2 hover:border-slate-200 transition-colors">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{label}</span>
+                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</span>
                 <button onClick={() => copy(result, key)} className="btn-ghost text-xs">
                   {copied === key ? '✓' : 'Copy'}
                 </button>
               </div>
-              <p className="font-mono text-sm text-slate-800 break-all min-h-[2.5rem] leading-relaxed">
-                {result || <span className="text-slate-300 italic">output</span>}
+              <p className="font-mono text-sm text-slate-800 dark:text-slate-200 break-all min-h-[2.5rem] leading-relaxed">
+                {result || <span className="text-slate-300 dark:text-slate-600 italic">output</span>}
               </p>
             </div>
           );

@@ -39,23 +39,23 @@ export default function MetaTagGenerator() {
         {fields.map(({ key, label, placeholder, max }) => (
           <div key={key} className="space-y-1">
             <div className="flex justify-between">
-              <label className="text-sm font-semibold text-slate-700">{label}</label>
+              <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">{label}</label>
               {max && form[key as keyof typeof form] && <span className={`text-xs ${form[key as keyof typeof form].length > max ? 'text-red-500' : 'text-slate-400'}`}>{form[key as keyof typeof form].length}/{max}</span>}
             </div>
             <input type="text" value={form[key as keyof typeof form]} onChange={e => set(key, e.target.value)} placeholder={placeholder}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+              className="w-full rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500" />
           </div>
         ))}
         <div className="space-y-1">
-          <label className="text-sm font-semibold text-slate-700">Robots</label>
-          <select value={form.robots} onChange={e => set('robots', e.target.value)} className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Robots</label>
+          <select value={form.robots} onChange={e => set('robots', e.target.value)} className="w-full rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 px-3 py-2.5 text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
             <option>index, follow</option><option>noindex, nofollow</option><option>noindex, follow</option><option>index, nofollow</option>
           </select>
         </div>
       </div>
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-semibold text-slate-700">Generated Meta Tags</label>
+          <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Generated Meta Tags</label>
           <button onClick={copy} disabled={!tags.trim()} className={`btn-primary text-xs ${!tags.trim() ? 'opacity-50' : ''}`}>{copied ? '✓ Copied!' : '📋 Copy All Tags'}</button>
         </div>
         <pre className="tool-textarea bg-slate-900 text-green-300 text-xs overflow-x-auto whitespace-pre-wrap" style={{ minHeight: 240, fontFamily: 'var(--font-mono)' }}>{tags || '<!-- Fill in the fields above to generate meta tags -->'}</pre>

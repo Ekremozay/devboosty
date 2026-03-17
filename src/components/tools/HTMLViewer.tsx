@@ -71,13 +71,13 @@ export default function HTMLViewer() {
       {/* Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         {/* View mode */}
-        <div className="flex gap-1 p-1 bg-slate-100 rounded-xl">
+        <div className="flex gap-1 p-1 bg-slate-100 dark:bg-slate-700 rounded-xl">
           {(['split', 'code', 'preview'] as const).map(m => (
             <button
               key={m}
               onClick={() => setMode(m)}
               className={`px-4 py-1.5 rounded-lg text-sm font-medium capitalize transition-all ${
-                mode === m ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                mode === m ? 'bg-white dark:bg-slate-900 text-slate-800 dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
               {m === 'split' ? '⧉ Split' : m === 'code' ? '{ } Code' : '👁 Preview'}
@@ -126,7 +126,7 @@ export default function HTMLViewer() {
               <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
               <span className="text-xs text-slate-500">Live Preview</span>
             </div>
-            <div className="rounded-xl overflow-hidden border border-slate-200 bg-white" style={{ minHeight: 480 }}>
+            <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900" style={{ minHeight: 480 }}>
               <iframe
                 key={iframeKey}
                 ref={iframeRef}
@@ -142,7 +142,7 @@ export default function HTMLViewer() {
       </div>
 
       {/* Info bar */}
-      <div className="flex items-center gap-3 text-xs text-slate-400 bg-slate-50 rounded-lg px-3 py-2">
+      <div className="flex items-center gap-3 text-xs text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-900/50 rounded-lg px-3 py-2">
         <span>🛡 Sandboxed iframe — your code runs safely in isolation</span>
         <span>·</span>
         <span>⚡ Live preview updates as you type</span>
