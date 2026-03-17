@@ -31,6 +31,10 @@ const TOOL_COMPONENTS: Record<string, React.ComponentType> = {
   PDFCompressor:         dynamic(() => import('@/components/tools/PDFCompressor'),         { loading: () => <ToolSkeleton /> }),
   PDFToWord:             dynamic(() => import('@/components/tools/PDFToWord'),             { loading: () => <ToolSkeleton /> }),
   UnitConverter:         dynamic(() => import('@/components/tools/UnitConverter'),         { loading: () => <ToolSkeleton /> }),
+  TimestampConverter:    dynamic(() => import('@/components/tools/TimestampConverter'),    { loading: () => <ToolSkeleton /> }),
+  CSSMinifier:           dynamic(() => import('@/components/tools/CSSMinifier'),           { loading: () => <ToolSkeleton /> }),
+  JSMinifier:            dynamic(() => import('@/components/tools/JSMinifier'),            { loading: () => <ToolSkeleton /> }),
+  ColorConverter:        dynamic(() => import('@/components/tools/ColorConverter'),        { loading: () => <ToolSkeleton /> }),
 };
 
 function ToolSkeleton() {

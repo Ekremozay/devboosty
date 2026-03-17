@@ -35,13 +35,13 @@ export default function HomePage() {
             </div>
 
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-              Every tool you need,{' '}
+              Boost your dev workflow,{' '}
               <span className="gradient-text">completely free</span>
             </h1>
 
             <p className="mt-6 text-xl text-slate-300 leading-relaxed">
-              {allTools.length}+ online tools for developers, designers, and content creators.
-              Format JSON, compress images, merge PDFs, and more — all in your browser.
+              {allTools.length}+ developer tools for coders, designers, and content creators.
+              Format JSON, minify CSS, compress images, and more — all in your browser.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -75,10 +75,10 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="font-display text-3xl font-bold text-slate-900">Most Popular Tools</h2>
-            <p className="text-slate-500 mt-1">Used by thousands of developers and creators daily</p>
+            <h2 className="font-display text-3xl font-bold text-slate-900 dark:text-white">Most Popular Tools</h2>
+            <p className="text-slate-500 dark:text-slate-400 mt-1">Used by thousands of developers and creators daily</p>
           </div>
-          <Link href="/tools" className="text-sm text-brand-600 hover:text-brand-700 font-semibold hidden sm:block">
+          <Link href="/tools" className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-700 font-semibold hidden sm:block">
             View all {allTools.length} tools →
           </Link>
         </div>
@@ -88,10 +88,10 @@ export default function HomePage() {
       </section>
 
       {/* ── Categories ────────────────────────────────────────────────────────── */}
-      <section className="bg-slate-50 py-14">
+      <section className="bg-slate-50 dark:bg-slate-800/50 py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-bold text-slate-900 mb-2">Browse by Category</h2>
-          <p className="text-slate-500 mb-8">Organized into {categories.length} categories covering all your needs</p>
+          <h2 className="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Browse by Category</h2>
+          <p className="text-slate-500 dark:text-slate-400 mb-8">Organized into {categories.length} categories covering all your needs</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {categories.map((cat, i) => {
@@ -99,16 +99,16 @@ export default function HomePage() {
               const tools = allTools.filter(t => t.category === cat);
               return (
                 <Link key={cat} href={`/tools/${cat}`}
-                  className="group bg-white rounded-2xl border border-slate-100 p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 animate-slide-up"
+                  className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 animate-slide-up"
                   style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
                   <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${info.color} text-2xl shadow-md mb-4`}>
                     {info.icon}
                   </div>
-                  <h3 className="font-display font-bold text-slate-800 group-hover:text-brand-600 transition-colors text-xl">{info.name}</h3>
-                  <p className="text-slate-500 text-sm mt-1.5">{info.description}</p>
-                  <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-50">
+                  <h3 className="font-display font-bold text-slate-800 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors text-xl">{info.name}</h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5">{info.description}</p>
+                  <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-50 dark:border-slate-700">
                     <span className="text-xs text-slate-400 font-medium">{tools.length} tools</span>
-                    <span className="text-xs text-brand-500 ml-auto group-hover:translate-x-0.5 transition-transform">Browse →</span>
+                    <span className="text-xs text-brand-500 dark:text-brand-400 ml-auto group-hover:translate-x-0.5 transition-transform">Browse →</span>
                   </div>
                 </Link>
               );
@@ -122,10 +122,10 @@ export default function HomePage() {
         <AdBanner slot="HOME_MID_SLOT" format="rectangle" className="h-64 max-w-md mx-auto" />
       </div>
 
-      {/* ── Why ToolHub ───────────────────────────────────────────────────────── */}
+      {/* ── Why DevBoosty ─────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <h2 className="font-display text-3xl font-bold text-slate-900 mb-2 text-center">Why ToolHub?</h2>
-        <p className="text-slate-500 text-center mb-10">Simple, fast, and respects your privacy</p>
+        <h2 className="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2 text-center">Why DevBoosty?</h2>
+        <p className="text-slate-500 dark:text-slate-400 text-center mb-10">Simple, fast, and respects your privacy</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { icon: '🔒', title: 'Privacy First', desc: 'All tools run in your browser. Your data never leaves your device or gets uploaded to any server.' },
@@ -135,8 +135,8 @@ export default function HomePage() {
           ].map(({ icon, title, desc }) => (
             <div key={title} className="text-center p-6">
               <div className="text-4xl mb-4">{icon}</div>
-              <h3 className="font-display font-bold text-slate-800 mb-2">{title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+              <h3 className="font-display font-bold text-slate-800 dark:text-slate-100 mb-2">{title}</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>
