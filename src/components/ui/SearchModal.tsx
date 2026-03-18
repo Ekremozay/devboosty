@@ -79,7 +79,7 @@ export default function SearchModal({ open, onClose }: SearchModalProps) {
 
       {/* Modal */}
       <div
-        className="relative w-full max-w-xl bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 overflow-hidden animate-slide-up"
+        className="relative w-full max-w-2xl bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 overflow-hidden animate-slide-up"
         onClick={e => e.stopPropagation()}
       >
         {/* Search input */}
