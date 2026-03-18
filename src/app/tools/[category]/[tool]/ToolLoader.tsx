@@ -4,6 +4,8 @@
 // Add new tools here as you create them.
 
 import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
+import ToolErrorBoundary from '@/components/ui/ToolErrorBoundary';
 
 function ToolSkeleton() {
   return (
@@ -56,7 +58,11 @@ const TOOL_COMPONENTS: Record<string, React.ComponentType> = {
 };
 
 export default function ToolLoader({ component }: { component: string }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   const Component = TOOL_COMPONENTS[component];
+
   if (!Component) {
     return (
       <div className="text-center py-16 text-slate-400">
@@ -66,5 +72,12 @@ export default function ToolLoader({ component }: { component: string }) {
       </div>
     );
   }
-  return <Component />;
+
+  if (!mounted) return <ToolSkeleton />;
+
+  return (
+    <ToolErrorBoundary>
+      <Component />
+    </ToolErrorBoundary>
+  );
 }
