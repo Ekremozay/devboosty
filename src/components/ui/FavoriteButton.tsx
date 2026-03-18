@@ -1,5 +1,6 @@
 'use client';
 // src/components/ui/FavoriteButton.tsx
+import { useTranslations } from 'next-intl';
 import { useFavorites } from '@/hooks/useFavorites';
 import { toast } from '@/hooks/useToast';
 
@@ -10,6 +11,7 @@ interface FavoriteButtonProps {
 
 export default function FavoriteButton({ slug, name }: FavoriteButtonProps) {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const t = useTranslations('tool');
   const faved = isFavorite(slug);
 
   function handleClick() {
@@ -20,8 +22,8 @@ export default function FavoriteButton({ slug, name }: FavoriteButtonProps) {
   return (
     <button
       onClick={handleClick}
-      title={faved ? 'Remove from favorites' : 'Add to favorites'}
-      aria-label={faved ? 'Remove from favorites' : 'Add to favorites'}
+      title={faved ? t('saved') : t('save')}
+      aria-label={faved ? t('saved') : t('save')}
       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-sm font-medium transition-all duration-150 ${
         faved
           ? 'bg-rose-50 border-rose-200 text-rose-600 dark:bg-rose-950 dark:border-rose-800 dark:text-rose-400'
@@ -40,7 +42,7 @@ export default function FavoriteButton({ slug, name }: FavoriteButtonProps) {
       >
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
       </svg>
-      {faved ? 'Saved' : 'Save'}
+      {faved ? t('saved') : t('save')}
     </button>
   );
 }

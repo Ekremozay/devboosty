@@ -1,7 +1,9 @@
 'use client';
 // src/components/tools/ImageCompressor.tsx
+// Uses browser-image-compression library for best results
 
 import { useState, useRef, useCallback } from 'react';
+import imageCompression from 'browser-image-compression';
 
 interface CompressedFile {
   original: File;
@@ -18,33 +20,6 @@ function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-}
-
-async function compressImage(file: File, quality: number, maxWidth: number): Promise<Blob> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    const url = URL.createObjectURL(file);
-    img.onload = () => {
-      URL.revokeObjectURL(url);
-      const canvas = document.createElement('canvas');
-      let { width, height } = img;
-      if (width > maxWidth) {
-        height = Math.round((height * maxWidth) / width);
-        width = maxWidth;
-      }
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext('2d')!;
-      ctx.drawImage(img, 0, 0, width, height);
-      const outputType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
-      canvas.toBlob(blob => {
-        if (blob) resolve(blob);
-        else reject(new Error('Compression failed'));
-      }, outputType, quality / 100);
-    };
-    img.onerror = () => reject(new Error('Could not load image'));
-    img.src = url;
-  });
 }
 
 export default function ImageCompressor() {
@@ -69,15 +44,25 @@ export default function ImageCompressor() {
   }, []);
 
   const compressAll = async () => {
+    const pending = files.filter(f => f.status === 'pending');
+    if (pending.length === 0) return;
+
     setFiles(prev => prev.map(f => f.status === 'pending' ? { ...f, status: 'compressing' } : f));
 
     for (let i = 0; i < files.length; i++) {
-      const f = files[i];
-      if (f.status !== 'pending') continue;
+      if (files[i].status !== 'pending') continue;
       try {
-        const compressed = await compressImage(f.original, quality, maxWidth);
+        const options = {
+          maxSizeMB: 10,
+          maxWidthOrHeight: maxWidth,
+          useWebWorker: true,
+          initialQuality: quality / 100,
+          fileType: files[i].original.type as string,
+          alwaysKeepResolution: maxWidth >= 2400,
+        };
+        const compressed = await imageCompression(files[i].original, options);
         const downloadUrl = URL.createObjectURL(compressed);
-        const savings = Math.round(((f.originalSize - compressed.size) / f.originalSize) * 100);
+        const savings = Math.round(((files[i].originalSize - compressed.size) / files[i].originalSize) * 100);
         setFiles(prev => prev.map((item, idx) =>
           idx === i
             ? { ...item, compressed, compressedSize: compressed.size, savings, status: 'done', downloadUrl }
@@ -103,7 +88,10 @@ export default function ImageCompressor() {
   };
 
   const clearAll = () => {
-    files.forEach(f => { if (f.preview) URL.revokeObjectURL(f.preview); if (f.downloadUrl) URL.revokeObjectURL(f.downloadUrl); });
+    files.forEach(f => {
+      if (f.preview) URL.revokeObjectURL(f.preview);
+      if (f.downloadUrl) URL.revokeObjectURL(f.downloadUrl);
+    });
     setFiles([]);
   };
 
@@ -176,7 +164,6 @@ export default function ImageCompressor() {
       {/* File list */}
       {files.length > 0 && (
         <div className="space-y-3">
-          {/* Summary bar */}
           {doneCount > 0 && (
             <div className="bg-green-50 border border-green-100 rounded-xl px-4 py-3 flex items-center justify-between">
               <span className="text-sm font-semibold text-green-700">
@@ -190,13 +177,10 @@ export default function ImageCompressor() {
 
           {files.map((file, i) => (
             <div key={i} className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-4 flex items-center gap-4">
-              {/* Preview */}
               <div
                 className="w-14 h-14 rounded-lg bg-slate-100 dark:bg-slate-700 bg-center bg-cover bg-no-repeat flex-shrink-0"
                 style={{ backgroundImage: `url(${file.preview})` }}
               />
-
-              {/* Info */}
               <div className="flex-1 min-w-0">
                 <p className="font-medium text-slate-800 dark:text-slate-200 text-sm truncate">{file.original.name}</p>
                 <div className="flex items-center gap-3 mt-1 text-xs text-slate-500 dark:text-slate-400">
@@ -211,15 +195,13 @@ export default function ImageCompressor() {
                     </>
                   )}
                   {file.status === 'compressing' && (
-                    <span className="animate-pulse-soft text-brand-600">Compressing…</span>
+                    <span className="animate-pulse text-brand-600">Compressing…</span>
                   )}
                   {file.status === 'error' && (
                     <span className="text-red-500">Error compressing</span>
                   )}
                 </div>
               </div>
-
-              {/* Download */}
               {file.downloadUrl && (
                 <a
                   href={file.downloadUrl}

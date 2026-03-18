@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "allTools": "All Tools",
+    "developer": "Developer",
+    "text": "Text",
+    "seo": "SEO",
+    "image": "Image",
+    "pdf": "PDF",
+    "favorites": "Favorites",
+    "blog": "Blog"
+  },
+  "hero": {
+    "badge": "Free · No signup · Browser-based",
+    "title": "Boost your dev workflow,",
+    "highlight": "completely free",
+    "description": "{count}+ developer tools for coders, designers, and content creators. Format JSON, minify CSS, compress images, and more — all in your browser.",
+    "browseAll": "Browse All Tools",
+    "devTools": "Developer Tools →"
+  },
+  "stats": {
+    "freeTools": "Free Tools",
+    "browserBased": "Browser-Based",
+    "signups": "Sign-ups Needed",
+    "usesPerDay": "Uses Per Day"
+  },
+  "sections": {
+    "mostPopular": "Most Popular Tools",
+    "mostPopularSub": "Used by thousands of developers and creators daily",
+    "viewAll": "View all →",
+    "allTools": "All Tools"
+  },
+  "tool": {
+    "freeBadge": "Free · No signup · 100% browser-based",
+    "save": "Save",
+    "saved": "Saved",
+    "copy": "Copy",
+    "copied": "✓ Copied!",
+    "clear": "Clear",
+    "home": "Home",
+    "tools": "Tools",
+    "advertisement": "Advertisement",
+    "comingSoon": "Tool coming soon!",
+    "comingSoonDesc": "We're building this tool. Check back shortly.",
+    "loadError": "This tool failed to load.",
+    "loadErrorDesc": "Try refreshing the page.",
+    "retry": "Retry",
+    "aboutTitle": "About {name}",
+    "browserOnly": "This tool works entirely in your browser — no server uploads, no account required. Your data stays on your device at all times.",
+    "noTools": "{count} free tools · No signup required",
+    "loadSample": "Load Sample",
+    "download": "Download"
+  },
+  "search": {
+    "placeholder": "Search tools...",
+    "popular": "Popular tools",
+    "results": "{count} results",
+    "noResults": "No tools found for \"{query}\"",
+    "navigate": "navigate",
+    "open": "open",
+    "close": "close"
+  },
+  "favorites": {
+    "title": "Your Favorites",
+    "countOne": "{count} saved tool",
+    "countMany": "{count} saved tools",
+    "clickToAdd": "click the heart on any tool to add more.",
+    "empty": "No favorites yet. Browse tools and click the ♥ to save them here.",
+    "emptyTitle": "No favorites yet",
+    "emptyDesc": "Browse our tools and click the heart icon to save your favorites here.",
+    "browse": "Browse All Tools"
+  },
+  "footer": {
+    "tagline": "Free online tools for developers, designers, SEO professionals, and content creators. Fast, secure, no signup required.",
+    "categories": "Categories",
+    "popularTools": "Popular Tools",
+    "company": "Company",
+    "about": "About",
+    "blog": "Blog",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact",
+    "copyright": "© {year} DevBoosty. All tools are free and run in your browser.",
+    "noSignup": "No signup required · No data sent to servers · Open source friendly"
+  },
+  "language": {
+    "select": "Language",
+    "en": "English",
+    "tr": "Türkçe",
+    "ar": "العربية",
+    "de": "Deutsch"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Guides, tutorials, and tips on tools, SEO, and development.",
+    "readMore": "Read more →",
+    "minRead": "min read"
+  }
+}

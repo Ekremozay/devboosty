@@ -1,6 +1,7 @@
 'use client';
 // src/components/ui/SearchModal.tsx
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useTranslations } from 'next-intl';
 import { getAllTools } from '@/lib/tools-registry';
 import type { Tool } from '@/lib/tools-registry';
 import Link from 'next/link';
@@ -30,18 +31,19 @@ export default function SearchModal({ open, onClose }: SearchModalProps) {
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const allTools = getAllTools();
+  const t = useTranslations();
 
   const results: Tool[] = query.trim()
-    ? allTools.filter(t => {
+    ? allTools.filter(tool => {
         const q = query.toLowerCase();
         return (
-          t.name.toLowerCase().includes(q) ||
-          t.description.toLowerCase().includes(q) ||
-          t.category.toLowerCase().includes(q) ||
-          t.keywords.some(k => k.toLowerCase().includes(q))
+          tool.name.toLowerCase().includes(q) ||
+          tool.description.toLowerCase().includes(q) ||
+          tool.category.toLowerCase().includes(q) ||
+          tool.keywords.some(k => k.toLowerCase().includes(q))
         );
       }).slice(0, 12)
-    : allTools.filter(t => t.popular).slice(0, 8);
+    : allTools.filter(tool => tool.popular).slice(0, 8);
 
   useEffect(() => {
     if (open) {
@@ -93,7 +95,7 @@ export default function SearchModal({ open, onClose }: SearchModalProps) {
             value={query}
             onChange={e => { setQuery(e.target.value); setActiveIdx(0); }}
             onKeyDown={handleKey}
-            placeholder="Search tools..."
+            placeholder={t('search.placeholder')}
             className="flex-1 bg-transparent text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none text-sm font-medium"
           />
           {query && (
@@ -106,13 +108,13 @@ export default function SearchModal({ open, onClose }: SearchModalProps) {
         <div className="max-h-80 overflow-y-auto">
           {results.length === 0 ? (
             <div className="py-12 text-center text-slate-400 dark:text-slate-500 text-sm">
-              No tools found for &ldquo;{query}&rdquo;
+              {t('search.noResults', { query })}
             </div>
           ) : (
             <>
               <div className="px-4 pt-2.5 pb-1">
                 <span className="text-xs text-slate-400 dark:text-slate-500 font-medium uppercase tracking-wider">
-                  {query ? `${results.length} results` : 'Popular tools'}
+                  {query ? t('search.results', { count: results.length }) : t('search.popular')}
                 </span>
               </div>
               <ul>
@@ -148,9 +150,9 @@ export default function SearchModal({ open, onClose }: SearchModalProps) {
 
         {/* Footer */}
         <div className="px-4 py-2.5 border-t border-slate-100 dark:border-slate-700 flex items-center gap-4 text-xs text-slate-400 dark:text-slate-500">
-          <span><kbd className="font-mono">↑↓</kbd> navigate</span>
-          <span><kbd className="font-mono">↵</kbd> open</span>
-          <span><kbd className="font-mono">Esc</kbd> close</span>
+          <span><kbd className="font-mono">↑↓</kbd> {t('search.navigate')}</span>
+          <span><kbd className="font-mono">↵</kbd> {t('search.open')}</span>
+          <span><kbd className="font-mono">Esc</kbd> {t('search.close')}</span>
         </div>
       </div>
     </div>

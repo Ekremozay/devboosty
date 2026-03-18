@@ -2,9 +2,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import AppShell from '@/components/layout/AppShell';
+import { LocaleProvider } from '@/contexts/LocaleContext';
 
 export const metadata: Metadata = {
   title: {
@@ -55,9 +54,11 @@ export default function RootLayout({
         )}
       </head>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <AppShell>{children}</AppShell>
-        </ThemeProvider>
+        <LocaleProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <AppShell>{children}</AppShell>
+          </ThemeProvider>
+        </LocaleProvider>
       </body>
     </html>
   );
