@@ -72,7 +72,7 @@ export default function WordCounter() {
       {/* Textarea */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-semibold text-slate-700">Your Text</label>
+          <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Your Text</label>
           <div className="flex gap-2">
             <button onClick={loadSample} className="btn-ghost text-xs">Sample</button>
             <button onClick={clear} disabled={!text} className="btn-ghost text-xs disabled:opacity-40">Clear</button>
@@ -102,48 +102,48 @@ export default function WordCounter() {
 
       {/* Reading/Speaking time */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="bg-white rounded-xl border border-slate-100 p-4 flex items-center gap-4">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-4 flex items-center gap-4">
           <div className="text-3xl">📖</div>
           <div>
-            <div className="font-display font-bold text-2xl text-slate-800">
+            <div className="font-display font-bold text-2xl text-slate-800 dark:text-slate-100">
               {stats.readingTime < 1 ? '<1' : stats.readingTime} min
             </div>
-            <div className="text-sm text-slate-500">Reading time (200 wpm)</div>
+            <div className="text-sm text-slate-500 dark:text-slate-400">Reading time (200 wpm)</div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-slate-100 p-4 flex items-center gap-4">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-4 flex items-center gap-4">
           <div className="text-3xl">🎙️</div>
           <div>
-            <div className="font-display font-bold text-2xl text-slate-800">
+            <div className="font-display font-bold text-2xl text-slate-800 dark:text-slate-100">
               {stats.speakingTime < 1 ? '<1' : stats.speakingTime} min
             </div>
-            <div className="text-sm text-slate-500">Speaking time (130 wpm)</div>
+            <div className="text-sm text-slate-500 dark:text-slate-400">Speaking time (130 wpm)</div>
           </div>
         </div>
       </div>
 
       {/* Top keywords */}
       {stats.topWords.length > 0 && (
-        <div className="bg-white rounded-xl border border-slate-100 p-5">
-          <h3 className="font-semibold text-slate-700 mb-3 text-sm">Top Keywords</h3>
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-5">
+          <h3 className="font-semibold text-slate-700 dark:text-slate-300 mb-3 text-sm">Top Keywords</h3>
           <div className="flex flex-wrap gap-2">
             {stats.topWords.map(([word, count]) => (
-              <span key={word} className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-sm">
-                <span className="font-medium text-slate-700">{word}</span>
-                <span className="text-xs text-slate-400 bg-slate-200 rounded-full px-1.5 py-0.5">{count}</span>
+              <span key={word} className="inline-flex items-center gap-1.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full px-3 py-1 text-sm">
+                <span className="font-medium text-slate-700 dark:text-slate-200">{word}</span>
+                <span className="text-xs text-slate-400 dark:text-slate-500 bg-slate-200 dark:bg-slate-600 rounded-full px-1.5 py-0.5">{count}</span>
               </span>
             ))}
           </div>
-          <p className="text-xs text-slate-400 mt-3">
-            Unique words: <span className="font-semibold text-slate-600">{stats.uniqueWords}</span>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">
+            Unique words: <span className="font-semibold text-slate-600 dark:text-slate-300">{stats.uniqueWords}</span>
           </p>
         </div>
       )}
 
       {/* Social limits */}
       {stats.chars > 0 && (
-        <div className="bg-white rounded-xl border border-slate-100 p-5">
-          <h3 className="font-semibold text-slate-700 mb-3 text-sm">Platform Character Limits</h3>
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-5">
+          <h3 className="font-semibold text-slate-700 dark:text-slate-300 mb-3 text-sm">Platform Character Limits</h3>
           <div className="space-y-3">
             {[
               { label: 'Twitter / X', limit: 280, icon: '🐦' },
@@ -155,13 +155,13 @@ export default function WordCounter() {
               const over = stats.chars > limit;
               return (
                 <div key={label}>
-                  <div className="flex justify-between text-xs text-slate-500 mb-1">
+                  <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
                     <span>{icon} {label}</span>
-                    <span className={over ? 'text-red-500 font-semibold' : 'text-slate-500'}>
+                    <span className={over ? 'text-red-500 font-semibold' : 'text-slate-500 dark:text-slate-400'}>
                       {stats.chars} / {limit} {over ? '(over by ' + (stats.chars - limit) + ')' : ''}
                     </span>
                   </div>
-                  <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all duration-300 ${over ? 'bg-red-400' : pct > 80 ? 'bg-amber-400' : 'bg-emerald-400'}`}
                       style={{ width: `${pct}%` }}

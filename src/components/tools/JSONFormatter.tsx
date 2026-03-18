@@ -75,7 +75,7 @@ export default function JSONFormatter() {
         {/* Input */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-semibold text-slate-700">Input JSON</label>
+            <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Input JSON</label>
             <div className="flex gap-2">
               <button onClick={loadSample} className="btn-ghost text-xs">Load Sample</button>
               <button onClick={clear} className="btn-ghost text-xs">Clear</button>
@@ -100,8 +100,8 @@ export default function JSONFormatter() {
         {/* Output */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-semibold text-slate-700">
-              Output {output && <span className="text-xs font-normal text-slate-400">({output.length} chars)</span>}
+            <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+              Output {output && <span className="text-xs font-normal text-slate-400 dark:text-slate-500">({output.length} chars)</span>}
             </label>
             <button
               onClick={copyOutput}
@@ -112,7 +112,7 @@ export default function JSONFormatter() {
             </button>
           </div>
           <textarea
-            className="tool-textarea bg-slate-50"
+            className="tool-textarea bg-slate-50 dark:bg-slate-900/50"
             value={output}
             readOnly
             placeholder="Output will appear here..."

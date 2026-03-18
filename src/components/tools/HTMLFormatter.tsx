@@ -23,11 +23,11 @@ export default function HTMLFormatter() {
   return (
     <div className="space-y-5">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="space-y-2"><label className="text-sm font-semibold text-slate-700">Input HTML</label>
+        <div className="space-y-2"><label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Input HTML</label>
           <textarea className="tool-textarea" value={input} onChange={e => setInput(e.target.value)} placeholder="<html><head><title>Page</title></head><body><h1>Hello</h1></body></html>" style={{ minHeight: 300 }} /></div>
-        <div className="space-y-2"><div className="flex justify-between"><label className="text-sm font-semibold text-slate-700">Formatted HTML</label>
+        <div className="space-y-2"><div className="flex justify-between"><label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Formatted HTML</label>
           <button onClick={copy} disabled={!output} className="btn-ghost text-xs">{copied ? '✓ Copied' : 'Copy'}</button></div>
-          <textarea className="tool-textarea bg-slate-50" value={output} readOnly style={{ minHeight: 300 }} /></div>
+          <textarea className="tool-textarea bg-slate-50 dark:bg-slate-900/50" value={output} readOnly style={{ minHeight: 300 }} /></div>
       </div>
       <button onClick={format} disabled={!input.trim()} className={`btn-primary ${!input.trim() ? 'opacity-50 cursor-not-allowed' : ''}`}>🎨 Format HTML</button>
     </div>

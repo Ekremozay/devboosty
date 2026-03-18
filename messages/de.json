@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "allTools": "Alle Tools",
+    "developer": "Entwickler",
+    "text": "Text",
+    "seo": "SEO",
+    "image": "Bilder",
+    "pdf": "PDF",
+    "favorites": "Favoriten",
+    "blog": "Blog"
+  },
+  "hero": {
+    "badge": "Kostenlos · Kein Login · Browserbasiert",
+    "title": "Optimiere deinen Entwickler-Workflow,",
+    "highlight": "völlig kostenlos",
+    "description": "{count}+ Entwicklertools für Programmierer, Designer und Content Creator. JSON formatieren, CSS minifizieren, Bilder komprimieren und mehr — alles im Browser.",
+    "browseAll": "Alle Tools ansehen",
+    "devTools": "Entwickler-Tools →"
+  },
+  "stats": {
+    "freeTools": "Kostenlose Tools",
+    "browserBased": "Browserbasiert",
+    "signups": "Benötigte Registrierungen",
+    "usesPerDay": "Nutzungen pro Tag"
+  },
+  "sections": {
+    "mostPopular": "Beliebteste Tools",
+    "mostPopularSub": "Täglich von tausenden Entwicklern und Kreativen genutzt",
+    "viewAll": "Alle ansehen →",
+    "allTools": "Alle Tools"
+  },
+  "tool": {
+    "freeBadge": "Kostenlos · Kein Login · 100% browserbasiert",
+    "save": "Speichern",
+    "saved": "Gespeichert",
+    "copy": "Kopieren",
+    "copied": "✓ Kopiert!",
+    "clear": "Löschen",
+    "home": "Startseite",
+    "tools": "Tools",
+    "advertisement": "Werbung",
+    "comingSoon": "Tool demnächst verfügbar!",
+    "comingSoonDesc": "Wir entwickeln dieses Tool. Schau bald wieder vorbei.",
+    "loadError": "Dieses Tool konnte nicht geladen werden.",
+    "loadErrorDesc": "Versuche die Seite zu aktualisieren.",
+    "retry": "Erneut versuchen",
+    "aboutTitle": "Über {name}",
+    "browserOnly": "Dieses Tool arbeitet vollständig in Ihrem Browser — keine Server-Uploads, kein Konto erforderlich. Ihre Daten bleiben auf Ihrem Gerät.",
+    "noTools": "{count} kostenlose Tools · Keine Registrierung",
+    "loadSample": "Beispiel laden",
+    "download": "Herunterladen"
+  },
+  "search": {
+    "placeholder": "Tools suchen...",
+    "popular": "Beliebte Tools",
+    "results": "{count} Ergebnisse",
+    "noResults": "Keine Tools gefunden für \"{query}\"",
+    "navigate": "navigieren",
+    "open": "öffnen",
+    "close": "schließen"
+  },
+  "favorites": {
+    "title": "Ihre Favoriten",
+    "countOne": "{count} gespeichertes Tool",
+    "countMany": "{count} gespeicherte Tools",
+    "clickToAdd": "Klicke auf das Herz bei einem Tool, um mehr hinzuzufügen.",
+    "empty": "Noch keine Favoriten. Durchsuche die Tools und klicke auf ♥ zum Speichern.",
+    "emptyTitle": "Noch keine Favoriten",
+    "emptyDesc": "Durchsuche unsere Tools und klicke auf das Herz-Symbol, um Favoriten zu speichern.",
+    "browse": "Alle Tools ansehen"
+  },
+  "footer": {
+    "tagline": "Kostenlose Online-Tools für Entwickler, Designer, SEO-Profis und Content Creator. Schnell, sicher, keine Registrierung.",
+    "categories": "Kategorien",
+    "popularTools": "Beliebte Tools",
+    "company": "Unternehmen",
+    "about": "Über uns",
+    "blog": "Blog",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "contact": "Kontakt",
+    "copyright": "© {year} DevBoosty. Alle Tools sind kostenlos und laufen in Ihrem Browser.",
+    "noSignup": "Keine Registrierung · Keine Daten an Server · Open-Source-freundlich"
+  },
+  "language": {
+    "select": "Sprache",
+    "en": "English",
+    "tr": "Türkçe",
+    "ar": "العربية",
+    "de": "Deutsch"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Anleitungen, Tutorials und Tipps zu Tools, SEO und Entwicklung.",
+    "readMore": "Mehr lesen →",
+    "minRead": "Min. Lesezeit"
+  }
+}

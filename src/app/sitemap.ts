@@ -4,7 +4,7 @@ import { getAllTools, CATEGORIES } from '@/lib/tools-registry';
 import type { ToolCategory } from '@/lib/tools-registry';
 import { getAllBlogPosts } from '@/lib/blog-registry';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://toolhub.app';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://devboosty.com.tr';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const tools = getAllTools();

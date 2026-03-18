@@ -16,9 +16,9 @@ export default function SlugGenerator() {
   return (
     <div className="space-y-5">
       <div className="space-y-2">
-        <label className="text-sm font-semibold text-slate-700">Title or Phrase</label>
+        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Title or Phrase</label>
         <input type="text" value={input} onChange={e => setInput(e.target.value)} placeholder="How to Format JSON: A Complete Guide"
-          className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 text-base" />
+          className="w-full rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 text-base" />
       </div>
       {slug && (
         <div className="bg-slate-900 rounded-xl p-5 flex items-center justify-between gap-4">
@@ -27,9 +27,9 @@ export default function SlugGenerator() {
         </div>
       )}
       <div className="space-y-2">
-        <p className="text-sm font-semibold text-slate-600">Try these examples:</p>
+        <p className="text-sm font-semibold text-slate-600 dark:text-slate-400">Try these examples:</p>
         <div className="flex flex-wrap gap-2">
-          {samples.map(s => <button key={s} onClick={() => setInput(s)} className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg transition-colors">{s}</button>)}
+          {samples.map(s => <button key={s} onClick={() => setInput(s)} className="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg transition-colors">{s}</button>)}
         </div>
       </div>
     </div>

@@ -100,7 +100,7 @@ export default function PDFMerge() {
       {/* Drop zone */}
       <div
         className={`border-2 border-dashed rounded-2xl transition-all cursor-pointer
-          ${dragging ? 'border-red-400 bg-red-50' : 'border-slate-200 hover:border-red-300 hover:bg-slate-50'}`}
+          ${dragging ? 'border-red-400 bg-red-50' : 'border-slate-200 hover:border-red-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
         onClick={() => inputRef.current?.click()}
         onDragOver={e => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
@@ -117,7 +117,7 @@ export default function PDFMerge() {
         <div className="py-12 flex flex-col items-center gap-3 pointer-events-none">
           <div className="text-5xl">📄</div>
           <div className="text-center">
-            <p className="font-semibold text-slate-700">Drop PDF files here or click to browse</p>
+            <p className="font-semibold text-slate-700 dark:text-slate-300">Drop PDF files here or click to browse</p>
             <p className="text-sm text-slate-400 mt-1">Select multiple PDFs · Up to 20 files · All processing is local</p>
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function PDFMerge() {
       {files.length > 0 && (
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <div className="text-sm font-semibold text-slate-700">
+            <div className="text-sm font-semibold text-slate-700 dark:text-slate-300">
               {files.length} file{files.length !== 1 ? 's' : ''} · {formatBytes(totalSize)} total
             </div>
             <p className="text-xs text-slate-400">Drag rows to reorder</p>
@@ -146,16 +146,16 @@ export default function PDFMerge() {
                 setDragOver(null);
               }}
               onDragLeave={() => setDragOver(null)}
-              className={`bg-white rounded-xl border flex items-center gap-4 px-4 py-3 transition-all cursor-grab active:cursor-grabbing
-                ${dragOver === i ? 'border-brand-400 shadow-md' : 'border-slate-100 hover:border-slate-200'}`}
+              className={`bg-white dark:bg-slate-800 rounded-xl border flex items-center gap-4 px-4 py-3 transition-all cursor-grab active:cursor-grabbing
+                ${dragOver === i ? 'border-brand-400 shadow-md' : 'border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600'}`}
             >
-              <div className="text-slate-300 text-lg select-none">⠿</div>
+              <div className="text-slate-300 dark:text-slate-600 text-lg select-none">⠿</div>
               <div className="w-8 h-8 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-sm font-bold text-red-600">
                 {i + 1}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-slate-800 truncate">{file.name}</p>
-                <p className="text-xs text-slate-400">{formatBytes(file.size)}</p>
+                <p className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{file.name}</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(file.size)}</p>
               </div>
               <button
                 onClick={() => removeFile(file.id)}

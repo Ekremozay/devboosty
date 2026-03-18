@@ -69,29 +69,29 @@ export default function PDFSplit() {
 
   return (
     <div className="space-y-5">
-      <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-red-300 hover:bg-slate-50 transition-all"
+      <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-red-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
         onClick={() => inputRef.current?.click()}>
         <input ref={inputRef} type="file" accept="application/pdf" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
         <div className="text-4xl mb-3">✂️</div>
-        <p className="font-semibold text-slate-700">{file ? file.name : 'Click to upload a PDF'}</p>
-        {pageCount > 0 && <p className="text-sm text-slate-500 mt-1">{pageCount} pages detected</p>}
+        <p className="font-semibold text-slate-700 dark:text-slate-300">{file ? file.name : 'Click to upload a PDF'}</p>
+        {pageCount > 0 && <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{pageCount} pages detected</p>}
       </div>
 
       {pageCount > 0 && (
-        <div className="bg-white rounded-xl border border-slate-100 p-4 space-y-4">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-4 space-y-4">
           <div className="flex gap-3">
             {[['all', `Extract all ${pageCount} pages`], ['range', 'Extract specific pages']].map(([k, l]) => (
               <button key={k} onClick={() => setSplitMode(k as 'all' | 'range')}
-                className={`flex-1 py-2.5 rounded-xl text-sm font-medium border transition-all ${splitMode === k ? 'bg-red-50 border-red-200 text-red-700' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'}`}>
+                className={`flex-1 py-2.5 rounded-xl text-sm font-medium border transition-all ${splitMode === k ? 'bg-red-50 border-red-200 text-red-700' : 'bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-600'}`}>
                 {l}
               </button>
             ))}
           </div>
           {splitMode === 'range' && (
             <div className="space-y-1">
-              <label className="text-sm font-medium text-slate-700">Page range (e.g. 1-3, 5, 7-9)</label>
+              <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Page range (e.g. 1-3, 5, 7-9)</label>
               <input type="text" value={rangeInput} onChange={e => setRangeInput(e.target.value)}
-                placeholder="1-3, 5, 7-9" className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                placeholder="1-3, 5, 7-9" className="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
             </div>
           )}
         </div>

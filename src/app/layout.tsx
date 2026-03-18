@@ -1,27 +1,28 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next';
 import './globals.css';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import { ThemeProvider } from 'next-themes';
+import AppShell from '@/components/layout/AppShell';
+import { LocaleProvider } from '@/contexts/LocaleContext';
 
 export const metadata: Metadata = {
   title: {
-    default: 'ToolHub – Free Online Developer, SEO & Productivity Tools',
-    template: '%s | ToolHub',
+    default: 'DevBoosty – Free Online Developer Tools',
+    template: '%s | DevBoosty',
   },
-  description: 'Free online tools for developers, SEO professionals, and content creators. JSON formatter, image compressor, PDF merger, word counter, and 100+ more tools.',
-  keywords: ['online tools', 'free tools', 'developer tools', 'seo tools', 'text tools', 'image tools', 'pdf tools'],
-  authors: [{ name: 'ToolHub' }],
-  creator: 'ToolHub',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://toolhub.app'),
+  description: 'Free online tools for developers and coders. JSON formatter, CSS minifier, Base64 encoder, image compressor, PDF merger, and 100+ more tools. No signup, no limits.',
+  keywords: ['developer tools', 'free tools', 'online tools', 'json formatter', 'css minifier', 'base64', 'image compressor', 'pdf tools'],
+  authors: [{ name: 'DevBoosty' }],
+  creator: 'DevBoosty',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://devboosty.com.tr'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'ToolHub',
+    siteName: 'DevBoosty',
   },
   twitter: {
     card: 'summary_large_image',
-    creator: '@toolhub',
+    creator: '@devboosty',
   },
   robots: {
     index: true,
@@ -39,12 +40,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Google Ads — replace CA-PUB-XXXXXXXXXX with your publisher ID */}
         {process.env.NEXT_PUBLIC_ADSENSE_ID && (
           <script
             async
@@ -54,9 +54,11 @@ export default function RootLayout({
         )}
       </head>
       <body>
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <LocaleProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <AppShell>{children}</AppShell>
+          </ThemeProvider>
+        </LocaleProvider>
       </body>
     </html>
   );

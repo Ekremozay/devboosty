@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <defs>
+    <linearGradient id="iconBg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#iconBg)"/>
+  <path d="M23 6L11 22h8l-2 12 14-16h-8L23 6z" fill="white"/>
+  <text x="50" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#ffffff">Dev<tspan fill="#818cf8">Boosty</tspan></text>
+</svg>

@@ -24,22 +24,22 @@ export default function TextSorter() {
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap gap-3 items-center">
-        <div className="flex gap-1 p-1 bg-slate-100 rounded-xl">
+        <div className="flex gap-1 p-1 bg-slate-100 dark:bg-slate-700 rounded-xl">
           {[['az','A → Z'],['za','Z → A'],['len','By length'],['num','Numeric'],['rand','Random']].map(([k,l]) => (
-            <button key={k} onClick={() => setMode(k as 'az')} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${mode === k ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'}`}>{l}</button>
+            <button key={k} onClick={() => setMode(k as 'az')} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${mode === k ? 'bg-white text-slate-800 shadow-sm dark:bg-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>{l}</button>
           ))}
         </div>
-        <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
+        <label className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
           <input type="checkbox" checked={removeDups} onChange={e => setRemoveDups(e.target.checked)} className="rounded accent-brand-600" />
           Remove duplicates
         </label>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="space-y-2"><label className="text-sm font-semibold text-slate-700">Input (one item per line)</label>
+        <div className="space-y-2"><label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Input (one item per line)</label>
           <textarea className="tool-textarea" value={input} onChange={e => setInput(e.target.value)} placeholder={"banana\napple\ncherry\ndate"} style={{ minHeight: 260 }} /></div>
-        <div className="space-y-2"><div className="flex justify-between"><label className="text-sm font-semibold text-slate-700">Sorted Output</label>
+        <div className="space-y-2"><div className="flex justify-between"><label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Sorted Output</label>
           <button onClick={copy} disabled={!output} className="btn-ghost text-xs">{copied ? '✓ Copied' : 'Copy'}</button></div>
-          <textarea className="tool-textarea bg-slate-50" value={output} readOnly style={{ minHeight: 260 }} /></div>
+          <textarea className="tool-textarea bg-slate-50 dark:bg-slate-900/50" value={output} readOnly style={{ minHeight: 260 }} /></div>
       </div>
       <button onClick={run} disabled={!input.trim()} className={`btn-primary ${!input.trim() ? 'opacity-50 cursor-not-allowed' : ''}`}>🔤 Sort Lines</button>
     </div>

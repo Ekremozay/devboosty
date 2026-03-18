@@ -33,7 +33,7 @@ export default function JWTDecoder() {
   return (
     <div className="space-y-5">
       <div className="space-y-2">
-        <label className="text-sm font-semibold text-slate-700">JWT Token</label>
+        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">JWT Token</label>
         <textarea className="tool-textarea font-mono text-xs" value={token} onChange={e => setToken(e.target.value)}
           placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
           style={{ minHeight: 100 }} />
@@ -52,14 +52,14 @@ export default function JWTDecoder() {
             { label: 'Payload', data: result.payload, color: 'text-brand-600 bg-brand-50 border-brand-100' }].map(({ label, data, color }) => (
             <div key={label} className={`rounded-xl border p-4 ${color}`}>
               <h3 className="font-semibold text-sm mb-2 uppercase tracking-wider">{label}</h3>
-              <pre className="text-xs overflow-x-auto whitespace-pre-wrap break-all font-mono bg-white bg-opacity-60 rounded-lg p-3">
+              <pre className="text-xs overflow-x-auto whitespace-pre-wrap break-all font-mono bg-white bg-opacity-60 dark:bg-slate-900/60 rounded-lg p-3">
                 {JSON.stringify(data, null, 2)}
               </pre>
             </div>
           ))}
-          <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
-            <h3 className="font-semibold text-sm text-slate-600 mb-2 uppercase tracking-wider">Signature (Base64Url)</h3>
-            <p className="text-xs font-mono text-slate-500 break-all">{result.signature}</p>
+          <div className="rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 p-4">
+            <h3 className="font-semibold text-sm text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-wider">Signature (Base64Url)</h3>
+            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 break-all">{result.signature}</p>
           </div>
         </div>
       )}

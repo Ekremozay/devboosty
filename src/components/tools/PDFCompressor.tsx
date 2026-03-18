@@ -36,12 +36,12 @@ export default function PDFCompressor() {
 
   return (
     <div className="space-y-5">
-      <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-red-300 hover:bg-slate-50 transition-all"
+      <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-red-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
         onClick={() => inputRef.current?.click()}>
         <input ref={inputRef} type="file" accept="application/pdf" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
         <div className="text-4xl mb-3">📉</div>
-        <p className="font-semibold text-slate-700">{file ? file.name : 'Click to upload a PDF'}</p>
-        {originalSize > 0 && <p className="text-sm text-slate-500 mt-1">Size: {fmt(originalSize)}</p>}
+        <p className="font-semibold text-slate-700 dark:text-slate-300">{file ? file.name : 'Click to upload a PDF'}</p>
+        {originalSize > 0 && <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Size: {fmt(originalSize)}</p>}
       </div>
 
       {error && <div className="text-red-600 bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm">⚠ {error}</div>}
@@ -51,7 +51,7 @@ export default function PDFCompressor() {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-semibold text-green-700">✓ PDF optimized</p>
-              <div className="flex gap-4 mt-1 text-sm text-slate-600">
+              <div className="flex gap-4 mt-1 text-sm text-slate-600 dark:text-slate-400">
                 <span>Before: <strong>{fmt(originalSize)}</strong></span>
                 <span>After: <strong>{fmt(compressedSize)}</strong></span>
                 <span className={`font-bold ${savings > 0 ? 'text-green-600' : 'text-slate-500'}`}>

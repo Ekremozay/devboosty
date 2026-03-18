@@ -20,7 +20,7 @@ export default function ToolCard({ tool, index = 0 }: { tool: Tool; index?: numb
     >
       {/* Icon + badges row */}
       <div className="flex items-start justify-between">
-        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center text-xl border border-slate-100">
+        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center text-xl border border-slate-100 dark:border-slate-600">
           {tool.icon}
         </div>
         <div className="flex gap-1.5">

@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "allTools": "Tüm Araçlar",
+    "developer": "Geliştirici",
+    "text": "Metin",
+    "seo": "SEO",
+    "image": "Görsel",
+    "pdf": "PDF",
+    "favorites": "Favoriler",
+    "blog": "Blog"
+  },
+  "hero": {
+    "badge": "Ücretsiz · Kayıt yok · Tarayıcı tabanlı",
+    "title": "Geliştirme iş akışınızı hızlandırın,",
+    "highlight": "tamamen ücretsiz",
+    "description": "{count}+ geliştirici aracı — kodcular, tasarımcılar ve içerik üreticileri için. JSON biçimlendirin, CSS küçültün, görsel sıkıştırın ve daha fazlası — hepsi tarayıcınızda.",
+    "browseAll": "Tüm Araçlara Göz At",
+    "devTools": "Geliştirici Araçları →"
+  },
+  "stats": {
+    "freeTools": "Ücretsiz Araç",
+    "browserBased": "Tarayıcı Tabanlı",
+    "signups": "Kayıt Gerekmez",
+    "usesPerDay": "Günlük Kullanım"
+  },
+  "sections": {
+    "mostPopular": "En Popüler Araçlar",
+    "mostPopularSub": "Geliştiriciler ve yaratıcılar tarafından günlük binlerce kez kullanılır",
+    "viewAll": "Tümünü Görüntüle →",
+    "allTools": "Tüm Araçlar"
+  },
+  "tool": {
+    "freeBadge": "Ücretsiz · Kayıt yok · %100 tarayıcı tabanlı",
+    "save": "Kaydet",
+    "saved": "Kaydedildi",
+    "copy": "Kopyala",
+    "copied": "✓ Kopyalandı!",
+    "clear": "Temizle",
+    "home": "Ana Sayfa",
+    "tools": "Araçlar",
+    "advertisement": "Reklam",
+    "comingSoon": "Araç çok yakında!",
+    "comingSoonDesc": "Bu aracı geliştiriyoruz. Kısa süre içinde kontrol edin.",
+    "loadError": "Bu araç yüklenemedi.",
+    "loadErrorDesc": "Sayfayı yenilemeyi deneyin.",
+    "retry": "Tekrar Dene",
+    "aboutTitle": "{name} Hakkında",
+    "browserOnly": "Bu araç tamamen tarayıcınızda çalışır — sunucuya yükleme yok, hesap gerekmez. Verileriniz her zaman cihazınızda kalır.",
+    "noTools": "{count} ücretsiz araç · Kayıt gerekmez",
+    "loadSample": "Örnek Yükle",
+    "download": "İndir"
+  },
+  "search": {
+    "placeholder": "Araçlarda ara...",
+    "popular": "Popüler araçlar",
+    "results": "{count} sonuç",
+    "noResults": "\"{query}\" için araç bulunamadı",
+    "navigate": "gezin",
+    "open": "aç",
+    "close": "kapat"
+  },
+  "favorites": {
+    "title": "Favorileriniz",
+    "countOne": "{count} kayıtlı araç",
+    "countMany": "{count} kayıtlı araç",
+    "clickToAdd": "Daha fazla eklemek için herhangi bir araçtaki kalp simgesine tıklayın.",
+    "empty": "Henüz favori yok. Araçlara göz atın ve ♥ simgesine tıklayarak buraya kaydedin.",
+    "emptyTitle": "Henüz favori yok",
+    "emptyDesc": "Araçlarımıza göz atın ve kalp simgesine tıklayarak favorilerinizi buraya kaydedin.",
+    "browse": "Tüm Araçlara Göz At"
+  },
+  "footer": {
+    "tagline": "Geliştiriciler, tasarımcılar, SEO uzmanları ve içerik üreticileri için ücretsiz çevrimiçi araçlar. Hızlı, güvenli, kayıt gerektirmez.",
+    "categories": "Kategoriler",
+    "popularTools": "Popüler Araçlar",
+    "company": "Şirket",
+    "about": "Hakkımızda",
+    "blog": "Blog",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Koşulları",
+    "contact": "İletişim",
+    "copyright": "© {year} DevBoosty. Tüm araçlar ücretsizdir ve tarayıcınızda çalışır.",
+    "noSignup": "Kayıt gerektirmez · Sunuculara veri gönderilmez · Açık kaynak dostu"
+  },
+  "language": {
+    "select": "Dil",
+    "en": "English",
+    "tr": "Türkçe",
+    "ar": "العربية",
+    "de": "Deutsch"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Araçlar, SEO ve geliştirme hakkında kılavuzlar, eğitimler ve ipuçları.",
+    "readMore": "Devamını Oku →",
+    "minRead": "dk okuma"
+  }
+}

@@ -2,10 +2,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
-import { getAllTools, getToolBySlug, getRelatedTools, getToolsByCategory } from '@/lib/tools-registry';
+import { getAllTools, getToolBySlug, getRelatedTools } from '@/lib/tools-registry';
 import { generateMetadata as genMeta, generateToolSchema, generateFAQSchema, SITE_URL_EXPORT } from '@/lib/seo';
 import FAQSection from '@/components/ui/FAQSection';
 import RelatedTools from '@/components/ui/RelatedTools';
+import FavoriteButton from '@/components/ui/FavoriteButton';
+import RecentToolTracker from '@/components/ui/RecentToolTracker';
 import { AdBanner, StickyMobileAd } from '@/components/layout/AdBanner';
 import ToolLoader from './ToolLoader';
 
@@ -40,7 +42,6 @@ export default function ToolPage({ params }: PageProps) {
   const toolSchema = generateToolSchema({ name: tool.name, description: tool.description, url: toolUrl });
   const faqSchema = tool.faq?.length ? generateFAQSchema(tool.faq) : null;
 
-  // Breadcrumb schema
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -59,16 +60,19 @@ export default function ToolPage({ params }: PageProps) {
       <Script id="breadcrumb-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
 
+      {/* Track recent tools (client-side, invisible) */}
+      <RecentToolTracker slug={tool.slug} />
+
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-1.5 text-xs text-slate-400 mb-6" aria-label="Breadcrumb">
-          <a href="/" className="hover:text-slate-600 transition-colors">Home</a>
+        <nav className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 mb-6" aria-label="Breadcrumb">
+          <a href="/" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">Home</a>
           <span>/</span>
-          <a href="/tools" className="hover:text-slate-600 transition-colors">Tools</a>
+          <a href="/tools" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">Tools</a>
           <span>/</span>
-          <a href={`/tools/${tool.category}`} className="hover:text-slate-600 transition-colors capitalize">{tool.category}</a>
+          <a href={`/tools/${tool.category}`} className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors capitalize">{tool.category}</a>
           <span>/</span>
-          <span className="text-slate-600 font-medium">{tool.name}</span>
+          <span className="text-slate-600 dark:text-slate-300 font-medium">{tool.name}</span>
         </nav>
 
         {/* Top Ad */}
@@ -77,33 +81,34 @@ export default function ToolPage({ params }: PageProps) {
         {/* Hero */}
         <div className="mb-8">
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 flex items-center justify-center text-2xl flex-shrink-0 shadow-sm">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-2xl flex-shrink-0 shadow-sm">
               {tool.icon}
             </div>
-            <div>
-              <h1 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
+            <div className="flex-1 min-w-0">
+              <h1 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
                 {tool.h1}
               </h1>
-              <p className="text-slate-500 mt-2 text-base max-w-2xl leading-relaxed">
+              <p className="text-slate-500 dark:text-slate-400 mt-2 text-base max-w-2xl leading-relaxed">
                 {tool.description}
               </p>
               <div className="flex flex-wrap items-center gap-3 mt-3">
                 <span className={`text-xs font-semibold border px-3 py-1 rounded-full capitalize chip-${tool.category}`}>
                   {tool.category}
                 </span>
-                <span className="text-xs text-slate-400 flex items-center gap-1">
+                <span className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1">
                   <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   Free · No signup · 100% browser-based
                 </span>
+                <FavoriteButton slug={tool.slug} name={tool.name} />
               </div>
             </div>
           </div>
         </div>
 
         {/* Tool UI */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 sm:p-8">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm p-6 sm:p-8">
           <ToolLoader component={tool.component} />
         </div>
 
@@ -116,9 +121,9 @@ export default function ToolPage({ params }: PageProps) {
         {/* Related Tools */}
         <RelatedTools tools={related} currentSlug={tool.slug} />
 
-        {/* How-to section for SEO */}
-        <section className="mt-16 bg-slate-50 rounded-2xl p-6 sm:p-8">
-          <h2 className="font-display text-2xl font-bold text-slate-900 mb-4">
+        {/* About section for SEO */}
+        <section className="mt-16 bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 sm:p-8">
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-4">
             About {tool.name}
           </h2>
           <div className="prose-blog">
