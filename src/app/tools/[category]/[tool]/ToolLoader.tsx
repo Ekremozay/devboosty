@@ -5,43 +5,6 @@
 
 import dynamic from 'next/dynamic';
 
-const TOOL_COMPONENTS: Record<string, React.ComponentType> = {
-  JSONFormatter:         dynamic(() => import('@/components/tools/JSONFormatter'),        { loading: () => <ToolSkeleton /> }),
-  JSONMinify:            dynamic(() => import('@/components/tools/JSONMinify'),            { loading: () => <ToolSkeleton /> }),
-  Base64Tool:            dynamic(() => import('@/components/tools/Base64Tool'),            { loading: () => <ToolSkeleton /> }),
-  HTMLViewer:            dynamic(() => import('@/components/tools/HTMLViewer'),            { loading: () => <ToolSkeleton /> }),
-  HTMLFormatter:         dynamic(() => import('@/components/tools/HTMLFormatter'),         { loading: () => <ToolSkeleton /> }),
-  URLEncoderDecoder:     dynamic(() => import('@/components/tools/URLEncoderDecoder'),     { loading: () => <ToolSkeleton /> }),
-  JWTDecoder:            dynamic(() => import('@/components/tools/JWTDecoder'),            { loading: () => <ToolSkeleton /> }),
-  RegexTester:           dynamic(() => import('@/components/tools/RegexTester'),           { loading: () => <ToolSkeleton /> }),
-  WordCounter:           dynamic(() => import('@/components/tools/WordCounter'),           { loading: () => <ToolSkeleton /> }),
-  CaseConverter:         dynamic(() => import('@/components/tools/CaseConverter'),         { loading: () => <ToolSkeleton /> }),
-  RemoveLineBreaks:      dynamic(() => import('@/components/tools/RemoveLineBreaks'),      { loading: () => <ToolSkeleton /> }),
-  TextSorter:            dynamic(() => import('@/components/tools/TextSorter'),            { loading: () => <ToolSkeleton /> }),
-  DuplicateLineRemover:  dynamic(() => import('@/components/tools/DuplicateLineRemover'),  { loading: () => <ToolSkeleton /> }),
-  MetaTagGenerator:      dynamic(() => import('@/components/tools/MetaTagGenerator'),      { loading: () => <ToolSkeleton /> }),
-  KeywordDensity:        dynamic(() => import('@/components/tools/KeywordDensity'),        { loading: () => <ToolSkeleton /> }),
-  SlugGenerator:         dynamic(() => import('@/components/tools/SlugGenerator'),         { loading: () => <ToolSkeleton /> }),
-  RobotsTxtGenerator:    dynamic(() => import('@/components/tools/RobotsTxtGenerator'),   { loading: () => <ToolSkeleton /> }),
-  ImageCompressor:       dynamic(() => import('@/components/tools/ImageCompressor'),       { loading: () => <ToolSkeleton /> }),
-  ImageConverter:        dynamic(() => import('@/components/tools/ImageConverter'),        { loading: () => <ToolSkeleton /> }),
-  ImageResizer:          dynamic(() => import('@/components/tools/ImageResizer'),          { loading: () => <ToolSkeleton /> }),
-  PDFMerge:              dynamic(() => import('@/components/tools/PDFMerge'),              { loading: () => <ToolSkeleton /> }),
-  PDFSplit:              dynamic(() => import('@/components/tools/PDFSplit'),              { loading: () => <ToolSkeleton /> }),
-  PDFCompressor:         dynamic(() => import('@/components/tools/PDFCompressor'),         { loading: () => <ToolSkeleton /> }),
-  PDFToWord:             dynamic(() => import('@/components/tools/PDFToWord'),             { loading: () => <ToolSkeleton /> }),
-  UnitConverter:         dynamic(() => import('@/components/tools/UnitConverter'),         { loading: () => <ToolSkeleton /> }),
-  TimestampConverter:    dynamic(() => import('@/components/tools/TimestampConverter'),    { loading: () => <ToolSkeleton /> }),
-  CSSMinifier:           dynamic(() => import('@/components/tools/CSSMinifier'),           { loading: () => <ToolSkeleton /> }),
-  JSMinifier:            dynamic(() => import('@/components/tools/JSMinifier'),            { loading: () => <ToolSkeleton /> }),
-  ColorConverter:        dynamic(() => import('@/components/tools/ColorConverter'),        { loading: () => <ToolSkeleton /> }),
-  PasswordGenerator:     dynamic(() => import('@/components/tools/PasswordGenerator'),     { loading: () => <ToolSkeleton /> }),
-  UUIDGenerator:         dynamic(() => import('@/components/tools/UUIDGenerator'),         { loading: () => <ToolSkeleton /> }),
-  LoremIpsumGenerator:   dynamic(() => import('@/components/tools/LoremIpsumGenerator'),   { loading: () => <ToolSkeleton /> }),
-  NumberBaseConverter:   dynamic(() => import('@/components/tools/NumberBaseConverter'),   { loading: () => <ToolSkeleton /> }),
-  HTMLEntityEncoder:     dynamic(() => import('@/components/tools/HTMLEntityEncoder'),     { loading: () => <ToolSkeleton /> }),
-};
-
 function ToolSkeleton() {
   return (
     <div className="space-y-4 animate-pulse">
@@ -54,6 +17,45 @@ function ToolSkeleton() {
     </div>
   );
 }
+
+const opts = { loading: () => <ToolSkeleton />, ssr: false } as const;
+
+const TOOL_COMPONENTS: Record<string, React.ComponentType> = {
+  JSONFormatter:         dynamic(() => import('@/components/tools/JSONFormatter'),        opts),
+  JSONMinify:            dynamic(() => import('@/components/tools/JSONMinify'),            opts),
+  Base64Tool:            dynamic(() => import('@/components/tools/Base64Tool'),            opts),
+  HTMLViewer:            dynamic(() => import('@/components/tools/HTMLViewer'),            opts),
+  HTMLFormatter:         dynamic(() => import('@/components/tools/HTMLFormatter'),         opts),
+  URLEncoderDecoder:     dynamic(() => import('@/components/tools/URLEncoderDecoder'),     opts),
+  JWTDecoder:            dynamic(() => import('@/components/tools/JWTDecoder'),            opts),
+  RegexTester:           dynamic(() => import('@/components/tools/RegexTester'),           opts),
+  WordCounter:           dynamic(() => import('@/components/tools/WordCounter'),           opts),
+  CaseConverter:         dynamic(() => import('@/components/tools/CaseConverter'),         opts),
+  RemoveLineBreaks:      dynamic(() => import('@/components/tools/RemoveLineBreaks'),      opts),
+  TextSorter:            dynamic(() => import('@/components/tools/TextSorter'),            opts),
+  DuplicateLineRemover:  dynamic(() => import('@/components/tools/DuplicateLineRemover'),  opts),
+  MetaTagGenerator:      dynamic(() => import('@/components/tools/MetaTagGenerator'),      opts),
+  KeywordDensity:        dynamic(() => import('@/components/tools/KeywordDensity'),        opts),
+  SlugGenerator:         dynamic(() => import('@/components/tools/SlugGenerator'),         opts),
+  RobotsTxtGenerator:    dynamic(() => import('@/components/tools/RobotsTxtGenerator'),   opts),
+  ImageCompressor:       dynamic(() => import('@/components/tools/ImageCompressor'),       opts),
+  ImageConverter:        dynamic(() => import('@/components/tools/ImageConverter'),        opts),
+  ImageResizer:          dynamic(() => import('@/components/tools/ImageResizer'),          opts),
+  PDFMerge:              dynamic(() => import('@/components/tools/PDFMerge'),              opts),
+  PDFSplit:              dynamic(() => import('@/components/tools/PDFSplit'),              opts),
+  PDFCompressor:         dynamic(() => import('@/components/tools/PDFCompressor'),         opts),
+  PDFToWord:             dynamic(() => import('@/components/tools/PDFToWord'),             opts),
+  UnitConverter:         dynamic(() => import('@/components/tools/UnitConverter'),         opts),
+  TimestampConverter:    dynamic(() => import('@/components/tools/TimestampConverter'),    opts),
+  CSSMinifier:           dynamic(() => import('@/components/tools/CSSMinifier'),           opts),
+  JSMinifier:            dynamic(() => import('@/components/tools/JSMinifier'),            opts),
+  ColorConverter:        dynamic(() => import('@/components/tools/ColorConverter'),        opts),
+  PasswordGenerator:     dynamic(() => import('@/components/tools/PasswordGenerator'),     opts),
+  UUIDGenerator:         dynamic(() => import('@/components/tools/UUIDGenerator'),         opts),
+  LoremIpsumGenerator:   dynamic(() => import('@/components/tools/LoremIpsumGenerator'),   opts),
+  NumberBaseConverter:   dynamic(() => import('@/components/tools/NumberBaseConverter'),   opts),
+  HTMLEntityEncoder:     dynamic(() => import('@/components/tools/HTMLEntityEncoder'),     opts),
+};
 
 export default function ToolLoader({ component }: { component: string }) {
   const Component = TOOL_COMPONENTS[component];
