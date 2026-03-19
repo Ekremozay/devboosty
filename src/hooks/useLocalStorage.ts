@@ -19,14 +19,17 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
   }, [key]);
 
   const setValue = useCallback((value: T | ((prev: T) => T)) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      console.warn(`useLocalStorage: error setting key "${key}"`, error);
-    }
-  }, [key, storedValue]);
+    setStoredValue(prev => {
+      try {
+        const valueToStore = value instanceof Function ? value(prev) : value;
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        return valueToStore;
+      } catch (error) {
+        console.warn(`useLocalStorage: error setting key "${key}"`, error);
+        return prev;
+      }
+    });
+  }, [key]);
 
   return [storedValue, setValue, hydrated] as const;
 }

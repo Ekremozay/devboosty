@@ -1,43 +1,67 @@
 'use client';
-// src/app/favorites/page.tsx
 
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import ToolCard from '@/components/ui/ToolCard';
 import { useFavorites } from '@/hooks/useFavorites';
 import { getToolBySlug } from '@/lib/tools-registry';
-import ToolCard from '@/components/ui/ToolCard';
-import Link from 'next/link';
 
 export default function FavoritesPage() {
+  const t = useTranslations('favoritesPage');
   const { favorites } = useFavorites();
-  const tools = favorites.map(slug => getToolBySlug(slug)).filter(Boolean) as NonNullable<ReturnType<typeof getToolBySlug>>[];
+  const tools = favorites
+    .map((slug) => getToolBySlug(slug))
+    .filter(Boolean) as NonNullable<ReturnType<typeof getToolBySlug>>[];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="mb-8">
-        <h1 className="font-display text-4xl font-bold text-slate-900 dark:text-white mb-2">
-          ♥ Your Favorites
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400">
-          {tools.length > 0
-            ? `${tools.length} saved tool${tools.length > 1 ? 's' : ''} — click the heart on any tool to add more.`
-            : 'No favorites yet. Browse tools and click the ♥ to save them here.'}
-        </p>
-      </div>
+    <div className="space-y-6">
+      <section className="dashboard-panel px-6 py-6 sm:px-8">
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.3fr)_320px]">
+          <div>
+            <span className="dashboard-badge">{t('badge')}</span>
+            <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-5xl">
+              {t('title')}
+            </h1>
+            <p className="mt-3 max-w-3xl text-base leading-7 text-slate-500 dark:text-slate-400">
+              {t('description')}
+            </p>
+          </div>
+
+          <div className="dashboard-panel-muted px-5 py-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">{t('status')}</p>
+            <div className="mt-4 rounded-[24px] border border-slate-200 bg-white/80 p-5 dark:border-slate-800 dark:bg-slate-950/70">
+              <p className="font-display text-4xl font-bold text-slate-950 dark:text-white">{tools.length}</p>
+              <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                {t('savedTools')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {tools.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {tools.map((tool, i) => (
-            <ToolCard key={tool.slug} tool={tool} index={i} />
-          ))}
-        </div>
+        <section className="dashboard-panel px-5 py-5 sm:px-6">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {tools.map((tool, index) => (
+              <ToolCard key={tool.slug} tool={tool} index={index} />
+            ))}
+          </div>
+        </section>
       ) : (
-        <div className="text-center py-20 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700">
-          <div className="text-6xl mb-4">🔍</div>
-          <p className="text-xl font-semibold text-slate-700 dark:text-slate-200 mb-2">No favorites yet</p>
-          <p className="text-slate-500 dark:text-slate-400 mb-6">Browse our tools and click the heart icon to save your favorites here.</p>
-          <Link href="/tools" className="btn-primary">
-            Browse All Tools
-          </Link>
-        </div>
+        <section className="dashboard-panel px-6 py-10 text-center sm:px-8">
+          <div className="mx-auto max-w-md">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[28px] border border-slate-200 bg-white text-4xl shadow-sm dark:border-slate-700 dark:bg-slate-950">
+              ☆
+            </div>
+            <h2 className="mt-6 font-display text-3xl font-bold text-slate-950 dark:text-white">{t('emptyTitle')}</h2>
+            <p className="mt-3 text-base leading-7 text-slate-500 dark:text-slate-400">
+              {t('emptyDesc')}
+            </p>
+            <Link href="/tools" className="btn-primary mt-6">
+              {t('browseAll')}
+            </Link>
+          </div>
+        </section>
       )}
     </div>
   );

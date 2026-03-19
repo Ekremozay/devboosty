@@ -3,11 +3,9 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import enMessages from '../../messages/en.json';
+import { DEFAULT_LOCALE, DEFAULT_TIME_ZONE, LOCALES, isRtlLocale, type Locale } from '@/i18n/config';
 
-export type Locale = 'en' | 'tr' | 'ar' | 'de';
-
-const LOCALES: Locale[] = ['en', 'tr', 'ar', 'de'];
-const RTL_LOCALES: Locale[] = ['ar'];
+export type { Locale } from '@/i18n/config';
 
 interface LocaleContextType {
   locale: Locale;
@@ -15,7 +13,7 @@ interface LocaleContextType {
 }
 
 const LocaleContext = createContext<LocaleContextType>({
-  locale: 'en',
+  locale: DEFAULT_LOCALE,
   changeLocale: () => {},
 });
 
@@ -33,13 +31,13 @@ async function loadMessages(locale: Locale): Promise<object> {
 }
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>('en');
+  const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE);
   const [messages, setMessages] = useState<object>(enMessages);
 
   useEffect(() => {
-    const saved = (localStorage.getItem('locale') || 'en') as Locale;
-    const safeLocale = LOCALES.includes(saved) ? saved : 'en';
-    if (safeLocale !== 'en') {
+    const saved = (localStorage.getItem('locale') || DEFAULT_LOCALE) as Locale;
+    const safeLocale = LOCALES.includes(saved) ? saved : DEFAULT_LOCALE;
+    if (safeLocale !== DEFAULT_LOCALE) {
       loadMessages(safeLocale).then((msgs) => {
         setLocale(safeLocale);
         setMessages(msgs);
@@ -49,7 +47,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const applyDir = (l: Locale) => {
-    const dir = RTL_LOCALES.includes(l) ? 'rtl' : 'ltr';
+    const dir = isRtlLocale(l) ? 'rtl' : 'ltr';
     document.documentElement.dir = dir;
     document.documentElement.lang = l;
   };
@@ -64,7 +62,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
 
   return (
     <LocaleContext.Provider value={{ locale, changeLocale }}>
-      <NextIntlClientProvider locale={locale} messages={messages}>
+      <NextIntlClientProvider locale={locale} messages={messages} timeZone={DEFAULT_TIME_ZONE}>
         {children}
       </NextIntlClientProvider>
     </LocaleContext.Provider>

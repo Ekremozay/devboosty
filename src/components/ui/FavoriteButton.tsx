@@ -12,11 +12,12 @@ interface FavoriteButtonProps {
 export default function FavoriteButton({ slug, name }: FavoriteButtonProps) {
   const { isFavorite, toggleFavorite } = useFavorites();
   const t = useTranslations('tool');
+  const tu = useTranslations('ui');
   const faved = isFavorite(slug);
 
   function handleClick() {
     toggleFavorite(slug);
-    toast(faved ? `Removed "${name}" from favorites` : `Added "${name}" to favorites`, faved ? 'info' : 'success');
+    toast(faved ? tu('toastRemoved', { name }) : tu('toastAdded', { name }), faved ? 'info' : 'success');
   }
 
   return (
@@ -24,10 +25,10 @@ export default function FavoriteButton({ slug, name }: FavoriteButtonProps) {
       onClick={handleClick}
       title={faved ? t('saved') : t('save')}
       aria-label={faved ? t('saved') : t('save')}
-      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-sm font-medium transition-all duration-150 ${
+      className={`inline-flex items-center gap-1.5 rounded-[20px] border px-4 py-2.5 text-sm font-medium transition-all duration-150 ${
         faved
-          ? 'bg-rose-50 border-rose-200 text-rose-600 dark:bg-rose-950 dark:border-rose-800 dark:text-rose-400'
-          : 'bg-white border-slate-200 text-slate-500 hover:border-rose-200 hover:text-rose-500 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-400 dark:hover:border-rose-700'
+          ? 'border-brand-200 bg-brand-50 text-brand-800 dark:border-brand-500/30 dark:bg-brand-500/10 dark:text-brand-200'
+          : 'border-slate-200 bg-white text-slate-500 hover:border-brand-200 hover:text-brand-700 dark:border-slate-700 dark:bg-slate-950/70 dark:text-slate-400 dark:hover:border-brand-500/30 dark:hover:text-brand-200'
       }`}
     >
       <svg

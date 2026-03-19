@@ -49,28 +49,28 @@ export default function ImageCompressor() {
 
     setFiles(prev => prev.map(f => f.status === 'pending' ? { ...f, status: 'compressing' } : f));
 
-    for (let i = 0; i < files.length; i++) {
-      if (files[i].status !== 'pending') continue;
+    for (const pendingFile of pending) {
+      const index = files.indexOf(pendingFile);
       try {
         const options = {
           maxSizeMB: 10,
           maxWidthOrHeight: maxWidth,
           useWebWorker: true,
           initialQuality: quality / 100,
-          fileType: files[i].original.type as string,
+          fileType: pendingFile.original.type as string,
           alwaysKeepResolution: maxWidth >= 2400,
         };
-        const compressed = await imageCompression(files[i].original, options);
+        const compressed = await imageCompression(pendingFile.original, options);
         const downloadUrl = URL.createObjectURL(compressed);
-        const savings = Math.round(((files[i].originalSize - compressed.size) / files[i].originalSize) * 100);
+        const savings = Math.round(((pendingFile.originalSize - compressed.size) / pendingFile.originalSize) * 100);
         setFiles(prev => prev.map((item, idx) =>
-          idx === i
+          idx === index
             ? { ...item, compressed, compressedSize: compressed.size, savings, status: 'done', downloadUrl }
             : item
         ));
       } catch {
         setFiles(prev => prev.map((item, idx) =>
-          idx === i ? { ...item, status: 'error' } : item
+          idx === index ? { ...item, status: 'error' } : item
         ));
       }
     }

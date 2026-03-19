@@ -1,7 +1,6 @@
 'use client';
 // src/components/tools/JSMinifier.tsx
 import { useState, useCallback } from 'react';
-import { toast } from '@/hooks/useToast';
 
 const SAMPLE_JS = `// Utility functions for a web application
 function formatDate(date, locale = 'en-US') {
@@ -92,7 +91,6 @@ export default function JSMinifier() {
     if (!output) return;
     navigator.clipboard.writeText(output).then(() => {
       setCopied(true);
-      toast('Copied to clipboard!');
       setTimeout(() => setCopied(false), 2000);
     });
   }, [output]);

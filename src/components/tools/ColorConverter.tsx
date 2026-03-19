@@ -1,252 +1,326 @@
 'use client';
-// src/components/tools/ColorConverter.tsx
-import { useState, useCallback } from 'react';
-import { toast } from '@/hooks/useToast';
 
-interface RGB { r: number; g: number; b: number }
-interface HSL { h: number; s: number; l: number }
+import { useMemo, useState } from 'react';
 
-// ── Converters ─────────────────────────────────────────────────────────────
+interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}
+
+interface HSL {
+  h: number;
+  s: number;
+  l: number;
+}
 
 function hexToRgb(hex: string): RGB | null {
-  const clean = hex.replace('#', '');
-  const full = clean.length === 3
-    ? clean.split('').map(c => c + c).join('')
-    : clean;
+  const normalized = hex.replace('#', '');
+  const full = normalized.length === 3
+    ? normalized.split('').map((value) => value + value).join('')
+    : normalized;
+
   if (!/^[0-9a-f]{6}$/i.test(full)) return null;
+
   return {
-    r: parseInt(full.substring(0, 2), 16),
-    g: parseInt(full.substring(2, 4), 16),
-    b: parseInt(full.substring(4, 6), 16),
+    r: parseInt(full.slice(0, 2), 16),
+    g: parseInt(full.slice(2, 4), 16),
+    b: parseInt(full.slice(4, 6), 16),
   };
 }
 
-function rgbToHex({ r, g, b }: RGB): string {
-  return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+function rgbToHex({ r, g, b }: RGB) {
+  return `#${[r, g, b].map((value) => value.toString(16).padStart(2, '0')).join('')}`;
 }
 
 function rgbToHsl({ r, g, b }: RGB): HSL {
-  const rn = r / 255, gn = g / 255, bn = b / 255;
-  const max = Math.max(rn, gn, bn), min = Math.min(rn, gn, bn);
-  const l = (max + min) / 2;
-  if (max === min) return { h: 0, s: 0, l: Math.round(l * 100) };
-  const d = max - min;
-  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-  let h = max === rn ? (gn - bn) / d + (gn < bn ? 6 : 0)
-        : max === gn ? (bn - rn) / d + 2
-        : (rn - gn) / d + 4;
-  h /= 6;
-  return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+  const red = r / 255;
+  const green = g / 255;
+  const blue = b / 255;
+  const max = Math.max(red, green, blue);
+  const min = Math.min(red, green, blue);
+  const lightness = (max + min) / 2;
+
+  if (max === min) {
+    return { h: 0, s: 0, l: Math.round(lightness * 100) };
+  }
+
+  const diff = max - min;
+  const saturation = lightness > 0.5 ? diff / (2 - max - min) : diff / (max + min);
+  let hue = 0;
+
+  if (max === red) hue = (green - blue) / diff + (green < blue ? 6 : 0);
+  else if (max === green) hue = (blue - red) / diff + 2;
+  else hue = (red - green) / diff + 4;
+
+  return {
+    h: Math.round((hue / 6) * 360),
+    s: Math.round(saturation * 100),
+    l: Math.round(lightness * 100),
+  };
 }
 
 function hslToRgb({ h, s, l }: HSL): RGB {
-  const hue = h / 360, sat = s / 100, lit = l / 100;
-  if (sat === 0) {
-    const v = Math.round(lit * 255);
-    return { r: v, g: v, b: v };
+  const hue = h / 360;
+  const saturation = s / 100;
+  const lightness = l / 100;
+
+  if (saturation === 0) {
+    const value = Math.round(lightness * 255);
+    return { r: value, g: value, b: value };
   }
-  const q = lit < 0.5 ? lit * (1 + sat) : lit + sat - lit * sat;
-  const p = 2 * lit - q;
-  const hue2rgb = (t: number) => {
-    if (t < 0) t += 1;
-    if (t > 1) t -= 1;
-    if (t < 1 / 6) return p + (q - p) * 6 * t;
-    if (t < 1 / 2) return q;
-    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+
+  const q = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation;
+  const p = 2 * lightness - q;
+
+  const hueToRgb = (offset: number) => {
+    let temp = offset;
+    if (temp < 0) temp += 1;
+    if (temp > 1) temp -= 1;
+    if (temp < 1 / 6) return p + (q - p) * 6 * temp;
+    if (temp < 1 / 2) return q;
+    if (temp < 2 / 3) return p + (q - p) * (2 / 3 - temp) * 6;
     return p;
   };
+
   return {
-    r: Math.round(hue2rgb(hue + 1 / 3) * 255),
-    g: Math.round(hue2rgb(hue) * 255),
-    b: Math.round(hue2rgb(hue - 1 / 3) * 255),
+    r: Math.round(hueToRgb(hue + 1 / 3) * 255),
+    g: Math.round(hueToRgb(hue) * 255),
+    b: Math.round(hueToRgb(hue - 1 / 3) * 255),
   };
 }
 
-function isValidRgb(r: number, g: number, b: number) {
-  return [r, g, b].every(v => !isNaN(v) && v >= 0 && v <= 255);
+function createPalette(base: HSL) {
+  return [94, 86, 76, 66, 56, 46, 36, 26, 18].map((lightness, index) => {
+    const swatch = hslToRgb({
+      h: base.h,
+      s: Math.max(18, Math.min(100, base.s - (index < 3 ? 24 - index * 6 : 0))),
+      l: lightness,
+    });
+
+    return {
+      step: [50, 100, 200, 300, 400, 500, 600, 700, 900][index],
+      hex: rgbToHex(swatch).toUpperCase(),
+      rgb: swatch,
+    };
+  });
 }
 
-function isValidHsl(h: number, s: number, l: number) {
-  return !isNaN(h) && h >= 0 && h <= 360 && !isNaN(s) && s >= 0 && s <= 100 && !isNaN(l) && l >= 0 && l <= 100;
-}
-
-const PRESET_COLORS = [
-  '#0ea5e9', '#0284c7', '#f97316', '#10b981', '#8b5cf6',
-  '#ef4444', '#f59e0b', '#06b6d4', '#64748b', '#0f172a',
-];
+const PRESETS = ['#0EA5E9', '#14B8A6', '#F97316', '#F43F5E', '#6366F1', '#0F172A'];
 
 export default function ColorConverter() {
-  const [hex, setHex] = useState('#0ea5e9');
+  const [hex, setHex] = useState('#0EA5E9');
   const [rgb, setRgb] = useState<RGB>({ r: 14, g: 165, b: 233 });
   const [hsl, setHsl] = useState<HSL>({ h: 199, s: 89, l: 48 });
   const [error, setError] = useState('');
+  const [copiedKey, setCopiedKey] = useState('');
 
-  const syncFromHex = useCallback((hexVal: string) => {
-    const cleaned = hexVal.startsWith('#') ? hexVal : '#' + hexVal;
-    setHex(cleaned);
-    setError('');
-    const parsed = hexToRgb(cleaned);
-    if (parsed) {
-      setRgb(parsed);
-      setHsl(rgbToHsl(parsed));
-    } else if (cleaned.length > 1) {
+  const palette = useMemo(() => createPalette(hsl), [hsl]);
+
+  const syncFromHex = (nextHex: string) => {
+    const normalized = nextHex.startsWith('#') ? nextHex : `#${nextHex}`;
+    setHex(normalized);
+
+    const parsed = hexToRgb(normalized);
+    if (!parsed) {
       setError('Invalid HEX color');
+      return;
     }
-  }, []);
 
-  const syncFromRgb = useCallback((r: number, g: number, b: number) => {
-    setRgb({ r, g, b });
     setError('');
-    if (isValidRgb(r, g, b)) {
-      const h = rgbToHex({ r, g, b });
-      setHex(h);
-      setHsl(rgbToHsl({ r, g, b }));
-    }
-  }, []);
-
-  const syncFromHsl = useCallback((h: number, s: number, l: number) => {
-    setHsl({ h, s, l });
-    setError('');
-    if (isValidHsl(h, s, l)) {
-      const rgbVal = hslToRgb({ h, s, l });
-      setRgb(rgbVal);
-      setHex(rgbToHex(rgbVal));
-    }
-  }, []);
-
-  const copy = (value: string, label: string) => {
-    navigator.clipboard.writeText(value).then(() => toast(`Copied ${label}!`));
+    setRgb(parsed);
+    setHsl(rgbToHsl(parsed));
   };
 
-  const CopyRow = ({ label, value }: { label: string; value: string }) => (
-    <div className="flex items-center justify-between bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 px-4 py-3">
-      <div>
-        <div className="text-xs text-slate-400 dark:text-slate-500 font-medium mb-0.5">{label}</div>
-        <div className="font-mono text-sm text-slate-800 dark:text-slate-200 font-semibold">{value}</div>
-      </div>
-      <button onClick={() => copy(value, label)} className="btn-ghost text-xs">Copy</button>
-    </div>
-  );
+  const syncFromRgb = (nextRgb: RGB) => {
+    setRgb(nextRgb);
+
+    if ([nextRgb.r, nextRgb.g, nextRgb.b].some((value) => Number.isNaN(value) || value < 0 || value > 255)) {
+      setError('RGB values must stay between 0 and 255');
+      return;
+    }
+
+    setError('');
+    setHex(rgbToHex(nextRgb).toUpperCase());
+    setHsl(rgbToHsl(nextRgb));
+  };
+
+  const syncFromHsl = (nextHsl: HSL) => {
+    setHsl(nextHsl);
+
+    if (
+      Number.isNaN(nextHsl.h) || nextHsl.h < 0 || nextHsl.h > 360 ||
+      Number.isNaN(nextHsl.s) || nextHsl.s < 0 || nextHsl.s > 100 ||
+      Number.isNaN(nextHsl.l) || nextHsl.l < 0 || nextHsl.l > 100
+    ) {
+      setError('HSL values must stay in range');
+      return;
+    }
+
+    setError('');
+    const nextRgb = hslToRgb(nextHsl);
+    setRgb(nextRgb);
+    setHex(rgbToHex(nextRgb).toUpperCase());
+  };
+
+  const copy = (value: string, key: string) => {
+    void navigator.clipboard.writeText(value).then(() => {
+      setCopiedKey(key);
+      setTimeout(() => setCopiedKey(''), 1800);
+    });
+  };
 
   return (
     <div className="space-y-6">
-      {/* Color preview */}
-      <div className="flex items-center gap-4">
-        <div
-          className="w-24 h-24 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 flex-shrink-0"
-          style={{ backgroundColor: hex }}
-        />
-        <div className="flex-1">
-          <div className="text-lg font-bold font-mono text-slate-800 dark:text-slate-100">{hex.toUpperCase()}</div>
-          <div className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-            rgb({rgb.r}, {rgb.g}, {rgb.b})
-          </div>
-          <div className="text-sm text-slate-500 dark:text-slate-400">
-            hsl({hsl.h}°, {hsl.s}%, {hsl.l}%)
-          </div>
-          {/* Color picker */}
-          <input
-            type="color"
-            value={hex.length === 7 ? hex : '#000000'}
-            onChange={e => syncFromHex(e.target.value)}
-            className="mt-2 w-10 h-8 rounded cursor-pointer border-0 bg-transparent p-0"
-            title="Pick a color"
-          />
-        </div>
-      </div>
-
-      {/* Preset palette */}
-      <div>
-        <div className="text-xs text-slate-400 dark:text-slate-500 font-medium mb-2">Quick presets</div>
-        <div className="flex flex-wrap gap-2">
-          {PRESET_COLORS.map(c => (
-            <button
-              key={c}
-              onClick={() => syncFromHex(c)}
-              className="w-8 h-8 rounded-lg border-2 transition-transform hover:scale-110"
-              style={{ backgroundColor: c, borderColor: hex === c ? '#fff' : 'transparent' }}
-              title={c}
+      <div className="grid gap-4 xl:grid-cols-[320px_minmax(0,1fr)]">
+        <div className="space-y-4 rounded-[24px] border border-slate-200 bg-white/80 p-5 dark:border-slate-800 dark:bg-slate-950/60">
+          <div className="flex items-center gap-4">
+            <div
+              className="h-24 w-24 rounded-[24px] border border-slate-200 shadow-lg dark:border-slate-700"
+              style={{ backgroundColor: hex }}
             />
-          ))}
-        </div>
-      </div>
-
-      {/* HEX input */}
-      <div className="space-y-2">
-        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">HEX</label>
-        <input
-          type="text"
-          value={hex}
-          onChange={e => syncFromHex(e.target.value)}
-          placeholder="#0ea5e9"
-          className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-500"
-        />
-      </div>
-
-      {/* RGB inputs */}
-      <div className="space-y-2">
-        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">RGB</label>
-        <div className="grid grid-cols-3 gap-2">
-          {(['r', 'g', 'b'] as const).map((channel, i) => (
-            <div key={channel}>
-              <div className="text-xs text-slate-400 dark:text-slate-500 mb-1 text-center">{['Red', 'Green', 'Blue'][i]}</div>
+            <div>
+              <p className="font-mono text-lg font-bold text-slate-900 dark:text-white">{hex.toUpperCase()}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">rgb({rgb.r}, {rgb.g}, {rgb.b})</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">hsl({hsl.h}, {hsl.s}%, {hsl.l}%)</p>
               <input
-                type="number"
-                min={0} max={255}
-                value={rgb[channel]}
-                onChange={e => {
-                  const v = parseInt(e.target.value, 10);
-                  const newRgb = { ...rgb, [channel]: isNaN(v) ? 0 : v };
-                  syncFromRgb(newRgb.r, newRgb.g, newRgb.b);
-                }}
-                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-2.5 text-sm font-mono text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                type="color"
+                value={hex.length === 7 ? hex : '#000000'}
+                onChange={(event) => syncFromHex(event.target.value)}
+                className="mt-3 h-10 w-14 cursor-pointer rounded-xl border-0 bg-transparent p-0"
+                title="Pick a color"
               />
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
 
-      {/* HSL inputs */}
-      <div className="space-y-2">
-        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">HSL</label>
-        <div className="grid grid-cols-3 gap-2">
-          {(['h', 's', 'l'] as const).map((channel, i) => (
-            <div key={channel}>
-              <div className="text-xs text-slate-400 dark:text-slate-500 mb-1 text-center">
-                {['Hue (0-360)', 'Sat (0-100)', 'Light (0-100)'][i]}
+          <div>
+            <p className="text-sm font-semibold text-slate-900 dark:text-white">Quick presets</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {PRESETS.map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => syncFromHex(preset)}
+                  className="h-10 w-10 rounded-full border border-white/50 shadow-sm"
+                  style={{ backgroundColor: preset }}
+                  aria-label={`Use preset color ${preset}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-900 dark:text-white">HEX</label>
+            <input
+              type="text"
+              value={hex}
+              onChange={(event) => syncFromHex(event.target.value)}
+              className="w-full rounded-[18px] border border-slate-200 bg-white px-4 py-3 text-sm font-mono text-slate-800 outline-none focus:border-brand-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              placeholder="#0EA5E9"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-900 dark:text-white">RGB</label>
+            <div className="grid grid-cols-3 gap-2">
+              {(['r', 'g', 'b'] as const).map((channel) => (
+                <input
+                  key={channel}
+                  type="number"
+                  min={0}
+                  max={255}
+                  value={rgb[channel]}
+                  onChange={(event) => {
+                    const value = parseInt(event.target.value, 10);
+                    syncFromRgb({ ...rgb, [channel]: Number.isNaN(value) ? 0 : value });
+                  }}
+                  className="rounded-[18px] border border-slate-200 bg-white px-3 py-3 text-center text-sm font-mono text-slate-800 outline-none focus:border-brand-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-900 dark:text-white">HSL</label>
+            <div className="grid grid-cols-3 gap-2">
+              {([
+                ['h', 360],
+                ['s', 100],
+                ['l', 100],
+              ] as const).map(([channel, max]) => (
+                <input
+                  key={channel}
+                  type="number"
+                  min={0}
+                  max={max}
+                  value={hsl[channel]}
+                  onChange={(event) => {
+                    const value = parseInt(event.target.value, 10);
+                    syncFromHsl({ ...hsl, [channel]: Number.isNaN(value) ? 0 : value });
+                  }}
+                  className="rounded-[18px] border border-slate-200 bg-white px-3 py-3 text-center text-sm font-mono text-slate-800 outline-none focus:border-brand-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                />
+              ))}
+            </div>
+          </div>
+
+          {error && (
+            <div className="rounded-[18px] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-300">
+              {error}
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-4">
+          <div className="rounded-[24px] border border-slate-200 bg-white/80 p-5 dark:border-slate-800 dark:bg-slate-950/60">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-white">Generated palette</p>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Use the scale for UI states, backgrounds, and semantic design tokens.</p>
               </div>
-              <input
-                type="number"
-                min={0} max={[360, 100, 100][i]}
-                value={hsl[channel]}
-                onChange={e => {
-                  const v = parseInt(e.target.value, 10);
-                  const newHsl = { ...hsl, [channel]: isNaN(v) ? 0 : v };
-                  syncFromHsl(newHsl.h, newHsl.s, newHsl.l);
-                }}
-                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-2.5 text-sm font-mono text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
-              />
+              <button type="button" onClick={() => copy(palette.map((item) => `${item.step}: ${item.hex}`).join('\n'), 'palette')} className="btn-secondary px-4 py-2 text-xs">
+                {copiedKey === 'palette' ? '✓ Copied' : 'Copy scale'}
+              </button>
             </div>
-          ))}
-        </div>
-      </div>
 
-      {error && (
-        <div className="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-xl px-4 py-3 text-sm text-red-700 dark:text-red-300">
-          ⚠ {error}
-        </div>
-      )}
+            <div className="mt-4 grid gap-3 md:grid-cols-3">
+              {palette.map((item) => (
+                <button
+                  key={item.step}
+                  type="button"
+                  onClick={() => copy(item.hex, `shade ${item.step}`)}
+                  className="overflow-hidden rounded-[20px] border border-slate-200 text-left transition-transform hover:-translate-y-0.5 dark:border-slate-800"
+                >
+                  <div className="h-24 w-full" style={{ backgroundColor: item.hex }} />
+                  <div className="bg-white/95 px-4 py-3 dark:bg-slate-950/90">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500">{item.step}</p>
+                    <p className="mt-1 font-mono text-sm font-semibold text-slate-900 dark:text-white">{item.hex}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
 
-      {/* Copy values */}
-      <div className="space-y-2">
-        <div className="text-sm font-semibold text-slate-700 dark:text-slate-300">Copy values</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <CopyRow label="HEX" value={hex.toUpperCase()} />
-          <CopyRow label="HEX (no #)" value={hex.replace('#', '').toUpperCase()} />
-          <CopyRow label="RGB" value={`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`} />
-          <CopyRow label="HSL" value={`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`} />
-          <CopyRow label="Tailwind-style" value={`${rgb.r} ${rgb.g} ${rgb.b}`} />
-          <CopyRow label="CSS var" value={`--color: ${hex.toUpperCase()};`} />
+          <div className="grid gap-3 md:grid-cols-2">
+            {[
+              ['HEX', hex.toUpperCase()],
+              ['RGB', `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`],
+              ['HSL', `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`],
+              ['CSS variable', `--brand-color: ${hex.toUpperCase()};`],
+            ].map(([label, value]) => (
+              <div key={label as string} className="rounded-[20px] border border-slate-200 bg-white/80 px-4 py-4 dark:border-slate-800 dark:bg-slate-950/60">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500">{label as string}</p>
+                    <p className="mt-2 break-all font-mono text-sm font-semibold text-slate-900 dark:text-white">{value as string}</p>
+                  </div>
+                  <button type="button" onClick={() => copy(value as string, label as string)} className="btn-ghost rounded-xl px-3 py-1.5 text-xs">
+                    {copiedKey === label ? '✓' : 'Copy'}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

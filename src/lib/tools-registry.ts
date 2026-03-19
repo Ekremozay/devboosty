@@ -13,7 +13,19 @@ export type ToolCategory =
   | 'pdf'
   | 'converter';
 
-export interface Tool {
+export type WorkspaceCategory =
+  | 'frontend-tools'
+  | 'backend-api'
+  | 'devops-ci-cd'
+  | 'testing'
+  | 'code-editors-ide'
+  | 'package-managers'
+  | 'ui-ux-design'
+  | 'performance-seo'
+  | 'security'
+  | 'ai-developer';
+
+export interface ToolDefinition {
   slug: string;          // URL slug: /tools/{category}/{slug}
   category: ToolCategory;
   name: string;          // Display name
@@ -31,7 +43,11 @@ export interface Tool {
   faq?: { q: string; a: string }[];
 }
 
-export const TOOLS: Tool[] = [
+export interface Tool extends ToolDefinition {
+  workspaceCategory: WorkspaceCategory;
+}
+
+export const TOOL_DEFINITIONS: ToolDefinition[] = [
   // ── DEVELOPER ──────────────────────────────────────────────────────────────
   {
     slug: 'json-formatter',
@@ -684,13 +700,13 @@ export const TOOLS: Tool[] = [
   {
     slug: 'color-converter',
     category: 'developer',
-    name: 'Color Converter',
-    tagline: 'Convert between HEX, RGB, and HSL color formats',
-    description: 'Free online color converter. Convert colors between HEX, RGB, and HSL formats instantly. Includes a color picker, presets, and copy-ready CSS values.',
-    h1: 'Color Converter – HEX to RGB to HSL Online',
-    metaTitle: 'Color Converter Online – HEX to RGB to HSL Free',
-    metaDescription: 'Convert colors between HEX, RGB, and HSL formats online. Includes color picker and CSS copy values — free color converter, no signup.',
-    keywords: ['color converter', 'hex to rgb', 'rgb to hex', 'hex to hsl', 'color format converter', 'css color'],
+    name: 'Color Picker & Palette Generator',
+    tagline: 'Pick a color, generate scales, and copy design-ready values',
+    description: 'Free online color picker and palette generator. Create design-ready shade scales, convert between HEX, RGB, and HSL, and copy CSS-ready values instantly.',
+    h1: 'Color Picker & Palette Generator Online',
+    metaTitle: 'Color Picker & Palette Generator – HEX, RGB & HSL',
+    metaDescription: 'Generate palettes from any color, convert HEX, RGB, and HSL, and copy CSS-ready values instantly. Free, fast, and browser-based.',
+    keywords: ['color picker', 'palette generator', 'hex to rgb', 'rgb to hex', 'hex to hsl', 'design palette'],
     icon: '🎨',
     component: 'ColorConverter',
     new: true,
@@ -699,6 +715,416 @@ export const TOOLS: Tool[] = [
     faq: [
       { q: 'What is HEX color?', a: 'HEX (hexadecimal) color is a 6-digit code that represents a color using values 00-FF for red, green, and blue channels. Example: #0ea5e9 is a sky blue.' },
       { q: 'What is HSL color?', a: 'HSL stands for Hue, Saturation, and Lightness. It is a more human-intuitive way to describe colors — hue (0-360°), saturation (0-100%), and lightness (0-100%).' },
+    ],
+  },
+  {
+    slug: 'background-remover',
+    category: 'image',
+    name: 'Background Remover',
+    tagline: 'Remove flat backdrops and export transparent PNG files',
+    description: 'Free online background remover for clean product shots and UI assets. Upload an image, tune the threshold, and export a transparent PNG directly in the browser.',
+    h1: 'Background Remover Tool (Free & Online)',
+    metaTitle: 'Background Remover Online – Transparent PNG Export',
+    metaDescription: 'Remove simple image backgrounds online, fine-tune threshold controls, and download transparent PNG files instantly. Free and browser-based.',
+    keywords: ['background remover', 'transparent png', 'remove image background', 'product photo cleaner'],
+    icon: '✂️',
+    component: 'BackgroundRemover',
+    new: true,
+    popular: true,
+    relatedSlugs: ['image-enhancer', 'image-resizer', 'png-to-webp'],
+    faq: [
+      { q: 'Does this tool use an API?', a: 'This version runs in your browser and is optimized for simple flat or studio-style backdrops. It is designed as a fast built-in workspace tool.' },
+      { q: 'What file format should I export?', a: 'PNG is the best choice when you need transparency, especially for product cards, mockups, or UI assets.' },
+    ],
+  },
+  {
+    slug: 'image-enhancer',
+    category: 'image',
+    name: 'Image Cleaner / Enhancer',
+    tagline: 'Improve clarity, contrast, saturation, and exposure in one pass',
+    description: 'Free online image cleaner and enhancer. Adjust brightness, contrast, saturation, and cleanup intensity to prep screenshots, mockups, and marketing visuals.',
+    h1: 'Image Cleaner & Enhancer Tool (Free Online)',
+    metaTitle: 'Image Cleaner & Enhancer Online – Improve Photos Fast',
+    metaDescription: 'Clean up and enhance images in your browser. Tune exposure, contrast, saturation, and clarity, then export the improved image instantly.',
+    keywords: ['image enhancer', 'image cleaner', 'photo enhancement', 'improve screenshot quality'],
+    icon: '✨',
+    component: 'ImageEnhancer',
+    new: true,
+    relatedSlugs: ['background-remover', 'image-compressor', 'image-resizer'],
+    faq: [
+      { q: 'What kind of improvements can I make?', a: 'You can quickly improve screenshots and product visuals with exposure, contrast, saturation, warmth, and cleanup adjustments.' },
+      { q: 'Is the original file uploaded anywhere?', a: 'No. Image processing happens locally in the browser, so the file stays on the device.' },
+    ],
+  },
+  {
+    slug: 'markdown-previewer',
+    category: 'developer',
+    name: 'Markdown Previewer',
+    tagline: 'Write Markdown on the left and preview it live on the right',
+    description: 'Free online Markdown previewer with live rendering, copy actions, and sample content. Great for README files, docs, release notes, and internal guides.',
+    h1: 'Markdown Previewer Tool (Free Online)',
+    metaTitle: 'Markdown Previewer Online – Live README Preview',
+    metaDescription: 'Preview Markdown live in your browser. Ideal for README files, documentation, and changelogs. Free, fast, and no signup required.',
+    keywords: ['markdown previewer', 'markdown editor', 'readme preview', 'markdown live preview'],
+    icon: '📝',
+    component: 'MarkdownPreviewer',
+    new: true,
+    popular: true,
+    relatedSlugs: ['html-viewer', 'code-formatter', 'remove-line-breaks'],
+    faq: [
+      { q: 'What is Markdown used for?', a: 'Markdown is commonly used for README files, technical docs, changelogs, wikis, and note-taking because it is easy to write and easy to render.' },
+    ],
+  },
+  {
+    slug: 'code-formatter',
+    category: 'developer',
+    name: 'Code Formatter',
+    tagline: 'Format HTML, CSS, and JavaScript from one workspace',
+    description: 'Free online code formatter for HTML, CSS, and JavaScript. Switch languages, format messy snippets, and copy clean output instantly.',
+    h1: 'Code Formatter – HTML, CSS & JavaScript',
+    metaTitle: 'Code Formatter Online – HTML, CSS & JS Beautifier',
+    metaDescription: 'Format HTML, CSS, and JavaScript online from a single browser-based workspace. Clean code fast with copy-ready output.',
+    keywords: ['code formatter', 'html formatter', 'css formatter', 'javascript formatter', 'beautify code'],
+    icon: '🧩',
+    component: 'CodeFormatter',
+    new: true,
+    popular: true,
+    relatedSlugs: ['html-formatter', 'css-minifier', 'js-minifier'],
+    faq: [
+      { q: 'Which languages are supported?', a: 'The formatter supports HTML, CSS, and JavaScript in one interface so you can clean up front-end snippets quickly.' },
+    ],
+  },
+  {
+    slug: 'data-format-converter',
+    category: 'developer',
+    name: 'Data Format Converter',
+    tagline: 'Convert JSON, YAML, XML, and CSV in one browser workspace',
+    description: 'Free online data format converter for JSON, YAML, XML, and CSV. Transform payloads, config files, and exports instantly without leaving the browser.',
+    h1: 'Data Format Converter – JSON, YAML, XML & CSV',
+    metaTitle: 'Data Format Converter Online – JSON, YAML, XML & CSV',
+    metaDescription: 'Convert JSON, YAML, XML, and CSV instantly in your browser. Great for config files, API payloads, and tabular exports.',
+    keywords: ['json yaml converter', 'xml to json', 'csv converter', 'data format converter', 'yaml xml csv'],
+    icon: '⇄',
+    component: 'DataFormatConverter',
+    new: true,
+    popular: true,
+    relatedSlugs: ['json-formatter', 'query-params-parser', 'json-diff'],
+    faq: [
+      { q: 'Which formats can I convert between?', a: 'This tool supports JSON, YAML, XML, and CSV in one browser-based workspace.' },
+    ],
+  },
+  {
+    slug: 'json-diff',
+    category: 'developer',
+    name: 'JSON Diff Checker',
+    tagline: 'Compare two JSON payloads after formatting normalization',
+    description: 'Free online JSON diff checker. Compare two JSON documents side by side after normalizing formatting, then quickly spot added, removed, or unchanged lines.',
+    h1: 'JSON Diff Checker (Free Online)',
+    metaTitle: 'JSON Diff Checker Online – Compare JSON Payloads',
+    metaDescription: 'Compare two JSON payloads online, normalize formatting, and review line-level differences instantly. Free and browser-based.',
+    keywords: ['json diff', 'compare json', 'json compare online', 'json diff checker'],
+    icon: 'Δ',
+    component: 'DiffChecker',
+    new: true,
+    popular: true,
+    relatedSlugs: ['json-formatter', 'text-diff', 'data-format-converter'],
+    faq: [
+      { q: 'Does the JSON diff normalize formatting first?', a: 'Yes. The tool parses and reprints JSON before comparing so whitespace differences do not create noisy output.' },
+    ],
+  },
+  {
+    slug: 'text-diff',
+    category: 'text',
+    name: 'Text Diff Checker',
+    tagline: 'Compare two text blocks line by line in the browser',
+    description: 'Free online text diff checker. Paste two text blocks and compare them line by line to highlight additions, removals, and unchanged content.',
+    h1: 'Text Diff Checker (Free Online)',
+    metaTitle: 'Text Diff Checker Online – Compare Text Side by Side',
+    metaDescription: 'Compare two text blocks online and review line-by-line differences instantly. Great for notes, content edits, and plain text changes.',
+    keywords: ['text diff', 'compare text online', 'line diff checker', 'plain text compare'],
+    icon: '≠',
+    component: 'DiffChecker',
+    new: true,
+    relatedSlugs: ['json-diff', 'remove-line-breaks', 'text-sorter'],
+    faq: [
+      { q: 'How does the text diff work?', a: 'It compares your left and right inputs line by line so small edits are easy to spot in plain text.' },
+    ],
+  },
+  {
+    slug: 'hash-generator',
+    category: 'developer',
+    name: 'Hash Generator',
+    tagline: 'Generate SHA hashes in the browser for quick verification',
+    description: 'Free online hash generator for SHA-1, SHA-256, SHA-384, and SHA-512. Generate browser-side hashes for integrity checks and quick verification workflows.',
+    h1: 'Hash Generator – SHA-1, SHA-256, SHA-384 & SHA-512',
+    metaTitle: 'Hash Generator Online – SHA Hash Tool Free',
+    metaDescription: 'Generate SHA hashes online in the browser. Supports SHA-1, SHA-256, SHA-384, and SHA-512 for quick verification workflows.',
+    keywords: ['hash generator', 'sha256 generator', 'sha512 hash', 'sha hash online'],
+    icon: '#',
+    component: 'HashToolkit',
+    new: true,
+    popular: true,
+    relatedSlugs: ['hmac-generator', 'base64-encode', 'jwt-decoder'],
+    faq: [
+      { q: 'Is hashing the same as encryption?', a: 'No. Hashing is one-way and is commonly used for checksums, verification, and fingerprints rather than reversible encryption.' },
+    ],
+  },
+  {
+    slug: 'hmac-generator',
+    category: 'developer',
+    name: 'HMAC Generator',
+    tagline: 'Generate keyed HMAC signatures for API authentication flows',
+    description: 'Free online HMAC generator. Create SHA-based HMAC signatures in the browser for request signing, API authentication, and secure message verification.',
+    h1: 'HMAC Generator for API Signing',
+    metaTitle: 'HMAC Generator Online – Browser-Based API Signing Tool',
+    metaDescription: 'Generate keyed HMAC signatures online for API authentication and request signing. Free, fast, and browser-based.',
+    keywords: ['hmac generator', 'api signing', 'request signature generator', 'hmac sha256'],
+    icon: '🔏',
+    component: 'HashToolkit',
+    new: true,
+    relatedSlugs: ['hash-generator', 'curl-fetch-converter', 'query-params-parser'],
+    faq: [
+      { q: 'What is HMAC used for?', a: 'HMAC combines a secret key and message to create a signature that can be used to verify authenticity and integrity in API workflows.' },
+    ],
+  },
+  {
+    slug: 'curl-fetch-converter',
+    category: 'developer',
+    name: 'cURL ↔ Fetch Converter',
+    tagline: 'Convert API request snippets between cURL and fetch',
+    description: 'Free online cURL and fetch converter. Turn terminal-ready API calls into browser fetch snippets or reverse them for docs, debugging, and handoff workflows.',
+    h1: 'cURL ↔ Fetch Converter Tool',
+    metaTitle: 'cURL to Fetch Converter Online – Fetch to cURL Too',
+    metaDescription: 'Convert cURL commands to fetch requests and fetch snippets back to cURL. Free online tool for API docs and debugging workflows.',
+    keywords: ['curl to fetch', 'fetch to curl', 'api snippet converter', 'curl fetch converter'],
+    icon: '⇆',
+    component: 'CurlFetchConverter',
+    new: true,
+    popular: true,
+    relatedSlugs: ['query-params-parser', 'hmac-generator', 'json-formatter'],
+    faq: [
+      { q: 'Why convert between cURL and fetch?', a: 'Teams often document APIs in cURL but implement them in JavaScript, so converting quickly reduces copy-paste friction.' },
+    ],
+  },
+  {
+    slug: 'query-params-parser',
+    category: 'developer',
+    name: 'Query Params Parser',
+    tagline: 'Parse query strings into JSON and build them back again',
+    description: 'Free online query params parser and builder. Inspect URL search parameters as JSON, generate query strings from JSON, and copy clean outputs instantly.',
+    h1: 'Query Params Parser & JSON Builder',
+    metaTitle: 'Query Params Parser Online – URL Search Params to JSON',
+    metaDescription: 'Parse URL query strings into JSON and generate query strings from JSON in one browser-based tool. Fast, free, and developer-friendly.',
+    keywords: ['query params parser', 'url search params', 'query string to json', 'json to query'],
+    icon: '?=',
+    component: 'QueryParamsParser',
+    new: true,
+    relatedSlugs: ['url-encoder', 'curl-fetch-converter', 'data-format-converter'],
+    faq: [
+      { q: 'Can I convert JSON back into a query string?', a: 'Yes. This tool works both ways so you can parse a URL or generate a fresh query string from JSON input.' },
+    ],
+  },
+  {
+    slug: 'contrast-checker',
+    category: 'developer',
+    name: 'WCAG Contrast Checker',
+    tagline: 'Test text and background colors for accessibility compliance',
+    description: 'Free online WCAG contrast checker. Test foreground and background color pairs, review AA and AAA accessibility thresholds, and preview a real UI block instantly.',
+    h1: 'WCAG Contrast Checker Tool',
+    metaTitle: 'Contrast Checker Online – WCAG AA & AAA Color Test',
+    metaDescription: 'Check color contrast online against WCAG AA and AAA standards. Preview text pairs and accessibility pass or fail states instantly.',
+    keywords: ['contrast checker', 'wcag contrast', 'accessibility color checker', 'aa aaa checker'],
+    icon: '◐',
+    component: 'ContrastChecker',
+    new: true,
+    popular: true,
+    relatedSlugs: ['color-converter', 'css-gradient-generator', 'svg-optimizer'],
+    faq: [
+      { q: 'What contrast ratio passes WCAG AA?', a: 'For normal body text, WCAG AA requires a contrast ratio of at least 4.5:1. Large text can pass at 3:1.' },
+    ],
+  },
+  {
+    slug: 'css-gradient-generator',
+    category: 'developer',
+    name: 'CSS Gradient Generator',
+    tagline: 'Create layered gradients and copy production-ready CSS',
+    description: 'Free online CSS gradient generator. Pick colors, tune the angle, preview the gradient instantly, and copy the final CSS background declaration.',
+    h1: 'CSS Gradient Generator (Free Online)',
+    metaTitle: 'CSS Gradient Generator Online – Copy Gradient CSS',
+    metaDescription: 'Generate modern linear gradients online, adjust colors and angle, and copy ready-to-use CSS instantly. Free and browser-based.',
+    keywords: ['css gradient generator', 'linear gradient css', 'gradient maker', 'css background gradient'],
+    icon: '🌈',
+    component: 'CSSGradientGenerator',
+    new: true,
+    relatedSlugs: ['color-converter', 'contrast-checker', 'html-viewer'],
+    faq: [
+      { q: 'What CSS does this tool generate?', a: 'It outputs a copy-ready linear-gradient declaration you can drop directly into a CSS background rule.' },
+    ],
+  },
+  {
+    slug: 'svg-optimizer',
+    category: 'image',
+    name: 'SVG Optimizer',
+    tagline: 'Optimize and format SVG markup for cleaner frontend assets',
+    description: 'Free online SVG optimizer and formatter. Remove unnecessary metadata, clean markup, and prepare SVG assets for UI, docs, and frontend delivery.',
+    h1: 'SVG Optimizer & Formatter',
+    metaTitle: 'SVG Optimizer Online – Clean and Format SVG Markup',
+    metaDescription: 'Optimize SVG markup online by removing metadata and formatting the output for cleaner frontend assets. Free and browser-based.',
+    keywords: ['svg optimizer', 'svg formatter', 'clean svg', 'minify svg online'],
+    icon: '⬡',
+    component: 'SVGOptimizer',
+    new: true,
+    relatedSlugs: ['image-to-base64', 'color-converter', 'html-viewer'],
+    faq: [
+      { q: 'What does SVG optimization remove?', a: 'This tool strips common metadata and whitespace so SVG markup is easier to ship and maintain.' },
+    ],
+  },
+  {
+    slug: 'image-to-base64',
+    category: 'image',
+    name: 'Image to Base64',
+    tagline: 'Convert image files into raw Base64 or full Data URI output',
+    description: 'Free online image to Base64 converter. Upload an image, preview it instantly, and copy either the raw Base64 string or the full Data URI for embeds.',
+    h1: 'Image to Base64 Converter (Free Online)',
+    metaTitle: 'Image to Base64 Online – Copy Base64 or Data URI',
+    metaDescription: 'Convert images to Base64 or Data URI directly in the browser. Great for embeds, prototypes, and frontend asset workflows.',
+    keywords: ['image to base64', 'data uri generator', 'base64 image converter', 'image data uri'],
+    icon: '🖼️',
+    component: 'ImageToBase64',
+    new: true,
+    relatedSlugs: ['base64-encode', 'svg-optimizer', 'background-remover'],
+    faq: [
+      { q: 'What is the difference between Base64 and a Data URI?', a: 'Base64 is just the encoded content, while a Data URI also includes the MIME type prefix needed for direct embedding.' },
+    ],
+  },
+  {
+    slug: 'package-json-explorer',
+    category: 'developer',
+    name: 'Package.json Explorer',
+    tagline: 'Inspect scripts, dependencies, and install commands instantly',
+    description: 'Free online package.json explorer. Paste package metadata to inspect scripts, dependencies, devDependencies, and copy install commands by package manager.',
+    h1: 'Package.json Explorer Tool (Free Online)',
+    metaTitle: 'Package.json Explorer – Inspect Scripts & Dependencies',
+    metaDescription: 'Paste any package.json file to inspect scripts, dependency groups, and install commands. Useful for npm, pnpm, and Yarn workflows.',
+    keywords: ['package json viewer', 'package json explorer', 'npm package json', 'pnpm dependencies'],
+    icon: '📦',
+    component: 'PackageJsonExplorer',
+    new: true,
+    relatedSlugs: ['json-formatter', 'code-formatter', 'uuid-generator'],
+    faq: [
+      { q: 'Why use a package.json explorer?', a: 'It helps teams quickly inspect scripts, dependency groups, and reusable install commands without opening an IDE or terminal.' },
+    ],
+  },
+  {
+    slug: 'ci-matrix-generator',
+    category: 'developer',
+    name: 'CI Matrix Generator',
+    tagline: 'Build GitHub Actions job matrices for Node, OS, and package managers',
+    description: 'Free online CI matrix generator. Create copy-ready GitHub Actions matrices for Node.js versions, operating systems, and package manager combinations.',
+    h1: 'CI Matrix Generator (GitHub Actions)',
+    metaTitle: 'CI Matrix Generator – GitHub Actions Matrix Builder',
+    metaDescription: 'Build GitHub Actions matrices for Node versions, operating systems, and package managers. Copy clean YAML-ready output instantly.',
+    keywords: ['ci matrix generator', 'github actions matrix', 'node ci matrix', 'yaml matrix builder'],
+    icon: '🛠️',
+    component: 'CIMatrixBuilder',
+    new: true,
+    relatedSlugs: ['json-formatter', 'package-json-explorer', 'timestamp-converter'],
+    faq: [
+      { q: 'What is a CI matrix?', a: 'A CI matrix runs the same workflow across multiple operating systems, runtimes, or configurations so you can test broader compatibility.' },
+    ],
+  },
+  {
+    slug: 'prompt-template-builder',
+    category: 'text',
+    name: 'Prompt Template Builder',
+    tagline: 'Structure AI-ready prompts with context, constraints, and output rules',
+    description: 'Free online prompt template builder for AI developer workflows. Assemble task, context, constraints, examples, and output format into a reusable master prompt.',
+    h1: 'Prompt Template Builder for AI Developer Workflows',
+    metaTitle: 'Prompt Template Builder – Create Reusable AI Prompts',
+    metaDescription: 'Build reusable AI prompts with sections for task, context, constraints, examples, and output format. Ideal for AI developer workflows.',
+    keywords: ['prompt builder', 'ai prompt template', 'developer prompt builder', 'master prompt generator'],
+    icon: '🤖',
+    component: 'PromptTemplateBuilder',
+    new: true,
+    popular: true,
+    relatedSlugs: ['markdown-previewer', 'json-formatter', 'code-formatter'],
+    faq: [
+      { q: 'Why use a structured prompt template?', a: 'A structured prompt keeps instructions reusable and consistent across repeated AI-assisted development tasks.' },
+    ],
+  },
+  {
+    slug: 'ai-chat-workbench',
+    category: 'developer',
+    name: 'AI Chat Workbench',
+    tagline: 'Chat with LemonfoxAI for drafts, explanations, and technical help',
+    description: 'AI chat workbench powered by LemonfoxAI. Generate content, refine developer copy, explain code, and get practical workflow help inside DevBoosty.',
+    h1: 'AI Chat Workbench',
+    metaTitle: 'AI Chat Workbench – LemonfoxAI Assistant for Developers',
+    metaDescription: 'Use LemonfoxAI chat inside DevBoosty to draft copy, explain technical issues, and accelerate developer workflows.',
+    keywords: ['ai chat tool', 'developer ai assistant', 'llm workbench', 'lemonfox chat'],
+    icon: '◎',
+    component: 'AIChatWorkbench',
+    new: true,
+    popular: true,
+    relatedSlugs: ['prompt-template-builder', 'speech-to-text', 'text-to-speech'],
+    faq: [
+      { q: 'What can I use the AI chat workbench for?', a: 'It works well for product copy drafts, technical explanations, prompt rewrites, README help, and developer workflow support.' },
+    ],
+  },
+  {
+    slug: 'speech-to-text',
+    category: 'developer',
+    name: 'Speech to Text',
+    tagline: 'Transcribe audio files and public audio URLs with AI',
+    description: 'Speech-to-text tool powered by LemonfoxAI. Upload audio or pass a public audio URL to generate transcripts, captions, or structured transcription output quickly.',
+    h1: 'Speech to Text Tool',
+    metaTitle: 'Speech to Text Online – LemonfoxAI Transcription Tool',
+    metaDescription: 'Transcribe audio files and URLs into text with LemonfoxAI speech recognition inside DevBoosty.',
+    keywords: ['speech to text', 'audio transcription', 'ai transcript tool', 'whisper alternative'],
+    icon: '🎙️',
+    component: 'SpeechToTextTool',
+    new: true,
+    popular: true,
+    relatedSlugs: ['text-to-speech', 'ai-chat-workbench', 'markdown-previewer'],
+    faq: [
+      { q: 'Can I transcribe a file or a URL?', a: 'Yes. You can either upload an audio file directly or pass a public audio URL to the transcription route.' },
+    ],
+  },
+  {
+    slug: 'text-to-speech',
+    category: 'developer',
+    name: 'Text to Speech',
+    tagline: 'Turn text into downloadable AI voice output',
+    description: 'Text-to-speech tool powered by LemonfoxAI. Convert text into natural speech, preview the audio, and download it in multiple audio formats.',
+    h1: 'Text to Speech Tool',
+    metaTitle: 'Text to Speech Online – LemonfoxAI Voice Generator',
+    metaDescription: 'Generate speech from text with LemonfoxAI voices, preview audio, and download the result in DevBoosty.',
+    keywords: ['text to speech', 'ai voice generator', 'tts tool', 'speech api'],
+    icon: '🔊',
+    component: 'TextToSpeechStudio',
+    new: true,
+    relatedSlugs: ['speech-to-text', 'ai-chat-workbench', 'prompt-template-builder'],
+    faq: [
+      { q: 'What can I use text-to-speech for?', a: 'It is useful for narration, accessibility previews, product demos, video voiceovers, and spoken documentation clips.' },
+    ],
+  },
+  {
+    slug: 'ai-image-generator',
+    category: 'image',
+    name: 'AI Image Generator',
+    tagline: 'Generate illustrations, graphics, and product visuals from prompts',
+    description: 'AI image generator powered by LemonfoxAI. Create concept art, social graphics, thumbnails, and UI visuals from text prompts in seconds.',
+    h1: 'AI Image Generator',
+    metaTitle: 'AI Image Generator Online – LemonfoxAI SDXL Tool',
+    metaDescription: 'Generate images from prompts with LemonfoxAI inside DevBoosty. Great for thumbnails, graphics, concepts, and product visuals.',
+    keywords: ['ai image generator', 'sdxl api tool', 'text to image', 'lemonfox image generation'],
+    icon: '🪄',
+    component: 'AIImageGenerator',
+    new: true,
+    popular: true,
+    relatedSlugs: ['background-remover', 'image-enhancer', 'prompt-template-builder'],
+    faq: [
+      { q: 'What kind of images can I generate?', a: 'You can generate hero visuals, illustrations, thumbnails, concept art, and other prompt-driven graphics.' },
     ],
   },
 ];
@@ -762,6 +1188,163 @@ export const CATEGORIES: Record<ToolCategory, {
   },
 };
 
+export const WORKSPACE_CATEGORIES: Record<WorkspaceCategory, {
+  name: string;
+  shortName: string;
+  description: string;
+  icon: string;
+  color: string;
+  badgeClassName: string;
+}> = {
+  'frontend-tools': {
+    name: 'Frontend Tools',
+    shortName: 'Frontend',
+    description: 'Format UI code, preview markup, and ship cleaner front-end snippets.',
+    icon: '</>',
+    color: 'from-sky-500 via-cyan-500 to-teal-500',
+    badgeClassName: 'border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-500/30 dark:bg-sky-500/10 dark:text-sky-200',
+  },
+  'backend-api': {
+    name: 'Backend & API Tools',
+    shortName: 'Backend & API',
+    description: 'Inspect payloads, encode values, and prepare API-friendly data quickly.',
+    icon: '{ }',
+    color: 'from-emerald-500 via-teal-500 to-green-600',
+    badgeClassName: 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-200',
+  },
+  'devops-ci-cd': {
+    name: 'DevOps & CI/CD Tools',
+    shortName: 'DevOps',
+    description: 'Build config snippets and workflow matrices for repeatable delivery pipelines.',
+    icon: '⚙️',
+    color: 'from-orange-500 via-amber-500 to-yellow-500',
+    badgeClassName: 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200',
+  },
+  testing: {
+    name: 'Testing Tools',
+    shortName: 'Testing',
+    description: 'Debug matching logic and validate tricky input patterns before shipping.',
+    icon: '🧪',
+    color: 'from-violet-500 via-fuchsia-500 to-pink-500',
+    badgeClassName: 'border-fuchsia-200 bg-fuchsia-50 text-fuchsia-700 dark:border-fuchsia-500/30 dark:bg-fuchsia-500/10 dark:text-fuchsia-200',
+  },
+  'code-editors-ide': {
+    name: 'Code Editors & IDE',
+    shortName: 'Editors & IDE',
+    description: 'Draft docs, preview Markdown, and clean source snippets in one place.',
+    icon: '⌘',
+    color: 'from-indigo-500 via-blue-500 to-sky-500',
+    badgeClassName: 'border-indigo-200 bg-indigo-50 text-indigo-700 dark:border-indigo-500/30 dark:bg-indigo-500/10 dark:text-indigo-200',
+  },
+  'package-managers': {
+    name: 'Package Managers',
+    shortName: 'Packages',
+    description: 'Inspect dependencies and generate install commands for npm, pnpm, and Yarn.',
+    icon: '📚',
+    color: 'from-cyan-500 via-sky-500 to-blue-600',
+    badgeClassName: 'border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-200',
+  },
+  'ui-ux-design': {
+    name: 'UI/UX & Design Tools',
+    shortName: 'UI/UX',
+    description: 'Prepare visuals, generate palettes, and clean creative assets faster.',
+    icon: '✦',
+    color: 'from-rose-500 via-pink-500 to-orange-400',
+    badgeClassName: 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-200',
+  },
+  'performance-seo': {
+    name: 'Performance & SEO Tools',
+    shortName: 'Performance & SEO',
+    description: 'Optimize assets, generate SEO metadata, and tighten technical discoverability.',
+    icon: '🚀',
+    color: 'from-lime-500 via-emerald-500 to-teal-500',
+    badgeClassName: 'border-lime-200 bg-lime-50 text-lime-700 dark:border-lime-500/30 dark:bg-lime-500/10 dark:text-lime-200',
+  },
+  security: {
+    name: 'Security Tools',
+    shortName: 'Security',
+    description: 'Inspect tokens, generate strong credentials, and handle sensitive values safely.',
+    icon: '🔐',
+    color: 'from-slate-700 via-slate-900 to-black',
+    badgeClassName: 'border-slate-300 bg-slate-100 text-slate-700 dark:border-slate-600 dark:bg-slate-800/60 dark:text-slate-200',
+  },
+  'ai-developer': {
+    name: 'AI Developer Tools',
+    shortName: 'AI Dev',
+    description: 'Build reusable prompt workflows and AI-ready task templates for development teams.',
+    icon: '◎',
+    color: 'from-purple-500 via-pink-500 to-rose-500',
+    badgeClassName: 'border-purple-200 bg-purple-50 text-purple-700 dark:border-purple-500/30 dark:bg-purple-500/10 dark:text-purple-200',
+  },
+};
+
+const WORKSPACE_CATEGORY_BY_SLUG: Record<string, WorkspaceCategory> = {
+  'json-formatter': 'backend-api',
+  'json-minify': 'backend-api',
+  'base64-encode': 'backend-api',
+  'html-viewer': 'code-editors-ide',
+  'html-formatter': 'frontend-tools',
+  'url-encoder': 'backend-api',
+  'jwt-decoder': 'security',
+  'regex-tester': 'testing',
+  'word-counter': 'code-editors-ide',
+  'case-converter': 'code-editors-ide',
+  'remove-line-breaks': 'code-editors-ide',
+  'text-sorter': 'code-editors-ide',
+  'duplicate-line-remover': 'code-editors-ide',
+  'meta-tag-generator': 'performance-seo',
+  'keyword-density': 'performance-seo',
+  'slug-generator': 'performance-seo',
+  'robots-txt-generator': 'performance-seo',
+  'image-compressor': 'performance-seo',
+  'jpg-to-png': 'ui-ux-design',
+  'png-to-webp': 'ui-ux-design',
+  'image-resizer': 'ui-ux-design',
+  'pdf-merge': 'code-editors-ide',
+  'pdf-split': 'code-editors-ide',
+  'pdf-compressor': 'code-editors-ide',
+  'pdf-to-word': 'code-editors-ide',
+  'cm-to-inch': 'ui-ux-design',
+  'kg-to-lbs': 'ui-ux-design',
+  'celsius-to-fahrenheit': 'ui-ux-design',
+  'timestamp-converter': 'backend-api',
+  'password-generator': 'security',
+  'uuid-generator': 'backend-api',
+  'lorem-ipsum-generator': 'ui-ux-design',
+  'number-base-converter': 'backend-api',
+  'html-entity-encoder': 'frontend-tools',
+  'css-minifier': 'frontend-tools',
+  'js-minifier': 'frontend-tools',
+  'color-converter': 'ui-ux-design',
+  'background-remover': 'ui-ux-design',
+  'image-enhancer': 'ui-ux-design',
+  'markdown-previewer': 'code-editors-ide',
+  'code-formatter': 'frontend-tools',
+  'data-format-converter': 'backend-api',
+  'json-diff': 'testing',
+  'text-diff': 'testing',
+  'hash-generator': 'security',
+  'hmac-generator': 'security',
+  'curl-fetch-converter': 'backend-api',
+  'query-params-parser': 'backend-api',
+  'contrast-checker': 'ui-ux-design',
+  'css-gradient-generator': 'ui-ux-design',
+  'svg-optimizer': 'frontend-tools',
+  'image-to-base64': 'frontend-tools',
+  'package-json-explorer': 'package-managers',
+  'ci-matrix-generator': 'devops-ci-cd',
+  'prompt-template-builder': 'ai-developer',
+  'ai-chat-workbench': 'ai-developer',
+  'speech-to-text': 'ai-developer',
+  'text-to-speech': 'ai-developer',
+  'ai-image-generator': 'ai-developer',
+};
+
+const TOOLS: Tool[] = TOOL_DEFINITIONS.map((tool) => ({
+  ...tool,
+  workspaceCategory: WORKSPACE_CATEGORY_BY_SLUG[tool.slug] ?? 'backend-api',
+}));
+
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 export function getAllTools(): Tool[] {
   return TOOLS;
@@ -775,9 +1358,13 @@ export function getToolsByCategory(category: ToolCategory): Tool[] {
   return TOOLS.filter(t => t.category === category);
 }
 
+export function getToolsByWorkspaceCategory(category: WorkspaceCategory): Tool[] {
+  return TOOLS.filter((tool) => tool.workspaceCategory === category);
+}
+
 export function getRelatedTools(tool: Tool): Tool[] {
   if (!tool.relatedSlugs?.length) {
-    return TOOLS.filter(t => t.category === tool.category && t.slug !== tool.slug).slice(0, 4);
+    return TOOLS.filter((item) => item.workspaceCategory === tool.workspaceCategory && item.slug !== tool.slug).slice(0, 4);
   }
   return tool.relatedSlugs
     .map(slug => TOOLS.find(t => t.slug === slug))
@@ -785,5 +1372,9 @@ export function getRelatedTools(tool: Tool): Tool[] {
 }
 
 export function getPopularTools(): Tool[] {
-  return TOOLS.filter(t => t.popular);
+  return [...TOOLS].reverse().filter((tool) => tool.popular);
+}
+
+export function getNewTools(): Tool[] {
+  return [...TOOLS].reverse().filter((tool) => tool.new);
 }

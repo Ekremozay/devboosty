@@ -1,146 +1,217 @@
-// src/app/page.tsx
+'use client';
+
 import Link from 'next/link';
-import { getPopularTools, getAllTools, CATEGORIES } from '@/lib/tools-registry';
-import type { ToolCategory } from '@/lib/tools-registry';
-import ToolCard from '@/components/ui/ToolCard';
+import { useTranslations } from 'next-intl';
 import { AdBanner } from '@/components/layout/AdBanner';
+import ToolCard from '@/components/ui/ToolCard';
+import { WORKSPACE_CATEGORIES, getAllTools, getNewTools, getPopularTools, getToolBySlug, type WorkspaceCategory } from '@/lib/tools-registry';
+
+const BUILT_IN_ESSENTIALS = [
+  'background-remover',
+  'image-enhancer',
+  'html-viewer',
+  'json-formatter',
+  'base64-encode',
+  'url-encoder',
+  'color-converter',
+  'regex-tester',
+  'markdown-previewer',
+  'code-formatter',
+  'ai-chat-workbench',
+  'speech-to-text',
+  'ai-image-generator',
+];
 
 export default function HomePage() {
-  const popular = getPopularTools();
+  const t = useTranslations('home');
   const allTools = getAllTools();
-  const categories = Object.keys(CATEGORIES) as ToolCategory[];
-
-  const stats = [
-    { value: `${allTools.length}+`, label: 'Free Tools' },
-    { value: '100%', label: 'Browser-Based' },
-    { value: '0', label: 'Sign-ups Needed' },
-    { value: '∞', label: 'Uses Per Day' },
-  ];
+  const popular = getPopularTools().slice(0, 8);
+  const fresh = getNewTools().slice(0, 6);
+  const essentials = BUILT_IN_ESSENTIALS
+    .map((slug) => getToolBySlug(slug))
+    .filter(Boolean);
+  const workspaceCategories = Object.keys(WORKSPACE_CATEGORIES) as WorkspaceCategory[];
 
   return (
-    <div>
-      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-900 via-brand-950 to-slate-900 text-white">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 relative">
-          <div className="text-center max-w-3xl mx-auto">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm font-medium mb-6 backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              Free · No signup · Browser-based
-            </div>
-
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-              Boost your dev workflow,{' '}
-              <span className="gradient-text">completely free</span>
+    <div className="space-y-6">
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_360px]">
+        <div className="dashboard-panel relative overflow-hidden px-6 py-6 sm:px-8 sm:py-8">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(242,140,15,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(36,180,140,0.14),transparent_26%)]" />
+          <div className="relative">
+            <span className="dashboard-badge bg-white/85 text-brand-700 dark:bg-slate-950/80 dark:text-brand-200">
+              {t('badge')}
+            </span>
+            <h1 className="mt-5 max-w-4xl font-display text-4xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-5xl lg:text-[3.5rem]">
+              {t('title').split(',')[0]},
+              {' '}
+              <span className="gradient-text">{t('title').split(',').slice(1).join(',').trim()}</span>
             </h1>
-
-            <p className="mt-6 text-xl text-slate-300 leading-relaxed">
-              {allTools.length}+ developer tools for coders, designers, and content creators.
-              Format JSON, minify CSS, compress images, and more — all in your browser.
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-500 dark:text-slate-400 sm:text-lg">
+              {t('description')}
             </p>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link href="/tools" className="btn-primary text-base px-8 py-3.5 text-lg rounded-2xl">
-                Browse All Tools
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link href="/tools" className="btn-primary px-6 py-3.5 text-base">
+                {t('browseAll')}
               </Link>
-              <Link href="/tools/developer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl border border-white/20 text-white/90 hover:bg-white/10 transition-all text-base font-semibold">
-                Developer Tools →
+              <Link href="/workspace" className="btn-secondary px-6 py-3.5 text-base">
+                {t('openWorkspace')}
               </Link>
+            </div>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {[
+                [`${allTools.length}+`, t('statsTools')],
+                [`${workspaceCategories.length}`, t('statsCategories')],
+                ['Auto', t('statsTheme')],
+                ['0', t('statsSignup')],
+              ].map(([value, label]) => (
+                <div key={label} className="dashboard-stat px-4 py-4">
+                  <p className="font-display text-3xl font-bold text-slate-950 dark:text-white">{value}</p>
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div className="dashboard-panel px-5 py-5">
+            <span className="dashboard-badge">{t('whatShips')}</span>
+            <div className="mt-5 space-y-4">
+              {[
+                [t('featureSearchTitle'), t('featureSearchDesc')],
+                [t('featureWorkspaceTitle'), t('featureWorkspaceDesc')],
+                [t('featureAiTitle'), t('featureAiDesc')],
+                [t('featureBrowserTitle'), t('featureBrowserDesc')],
+              ].map(([title, description]) => (
+                <div key={title} className="rounded-[22px] border border-slate-200 bg-white/80 p-4 dark:border-slate-800 dark:bg-slate-950/70">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white">{title}</p>
+                  <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">{description}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Stats */}
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
-            {stats.map(({ value, label }) => (
-              <div key={label} className="text-center bg-white/5 rounded-2xl p-4 border border-white/10 backdrop-blur-sm">
-                <div className="font-display text-3xl font-bold text-white">{value}</div>
-                <div className="text-sm text-slate-400 mt-1">{label}</div>
-              </div>
-            ))}
-          </div>
+          <AdBanner slot="HOME_TOP_SLOT" format="rectangle" className="h-72" />
         </div>
       </section>
 
-      {/* ── Top Ad ────────────────────────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-        <AdBanner slot="HOME_TOP_SLOT" format="leaderboard" className="h-24" />
-      </div>
-
-      {/* ── Popular Tools ─────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="flex items-center justify-between mb-6">
+      <section className="dashboard-panel px-5 py-5 sm:px-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="font-display text-3xl font-bold text-slate-900 dark:text-white">Most Popular Tools</h2>
-            <p className="text-slate-500 dark:text-slate-400 mt-1">Used by thousands of developers and creators daily</p>
+            <span className="dashboard-badge">{t('coreEssentials')}</span>
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-950 dark:text-white">{t('coreTitle')}</h2>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t('coreDesc')}</p>
           </div>
-          <Link href="/tools" className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-700 font-semibold hidden sm:block">
-            View all {allTools.length} tools →
+          <Link href="/tools" className="btn-ghost self-start sm:self-auto">
+            {t('viewFullLibrary')}
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {popular.map((tool, i) => <ToolCard key={tool.slug} tool={tool} index={i} />)}
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+          {essentials.map((tool, index) => (
+            <ToolCard key={tool!.slug} tool={tool!} index={index} />
+          ))}
         </div>
       </section>
 
-      {/* ── Categories ────────────────────────────────────────────────────────── */}
-      <section className="bg-slate-50 dark:bg-slate-800/50 py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Browse by Category</h2>
-          <p className="text-slate-500 dark:text-slate-400 mb-8">Organized into {categories.length} categories covering all your needs</p>
+      <section className="dashboard-panel px-5 py-5 sm:px-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <span className="dashboard-badge">{t('trendingBadge')}</span>
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-950 dark:text-white">{t('trendingTitle')}</h2>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t('trendingDesc')}</p>
+          </div>
+          <Link href="/tools?mode=popular" className="btn-ghost self-start sm:self-auto">
+            {t('seeAllPopular')}
+          </Link>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {categories.map((cat, i) => {
-              const info = CATEGORIES[cat];
-              const tools = allTools.filter(t => t.category === cat);
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {popular.map((tool, index) => (
+            <ToolCard key={tool.slug} tool={tool} index={index} />
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+        <div className="dashboard-panel px-5 py-5 sm:px-6">
+          <span className="dashboard-badge">{t('categoriesBadge')}</span>
+          <h2 className="mt-3 font-display text-3xl font-bold text-slate-950 dark:text-white">{t('categoriesTitle')}</h2>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            {t('categoriesDesc')}
+          </p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {workspaceCategories.map((category) => {
+              const info = WORKSPACE_CATEGORIES[category];
+              const count = allTools.filter((tool) => tool.workspaceCategory === category).length;
+
               return (
-                <Link key={cat} href={`/tools/${cat}`}
-                  className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 animate-slide-up"
-                  style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
-                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${info.color} text-2xl shadow-md mb-4`}>
-                    {info.icon}
+                <Link
+                  key={category}
+                  href={`/tools?workspace=${category}`}
+                  className="group rounded-[26px] border border-slate-200 bg-white/80 p-5 transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_28px_56px_-30px_rgba(18,32,49,0.32)] dark:border-slate-800 dark:bg-slate-950/70 dark:hover:border-slate-700"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <span className={`flex h-14 w-14 items-center justify-center rounded-[22px] bg-gradient-to-br ${info.color} text-xl text-white shadow-lg`}>
+                      {info.icon}
+                    </span>
+                    <span className="dashboard-badge bg-slate-100 text-slate-600 dark:bg-slate-900 dark:text-slate-300">{count} {t('tools')}</span>
                   </div>
-                  <h3 className="font-display font-bold text-slate-800 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors text-xl">{info.name}</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5">{info.description}</p>
-                  <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-50 dark:border-slate-700">
-                    <span className="text-xs text-slate-400 font-medium">{tools.length} tools</span>
-                    <span className="text-xs text-brand-500 dark:text-brand-400 ml-auto group-hover:translate-x-0.5 transition-transform">Browse →</span>
-                  </div>
+                  <h3 className="mt-5 font-display text-xl font-bold text-slate-950 transition-colors group-hover:text-brand-700 dark:text-white dark:group-hover:text-brand-200">
+                    {info.name}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">{info.description}</p>
                 </Link>
               );
             })}
           </div>
         </div>
-      </section>
 
-      {/* ── Middle Ad ─────────────────────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <AdBanner slot="HOME_MID_SLOT" format="rectangle" className="h-64 max-w-md mx-auto" />
-      </div>
-
-      {/* ── Why DevBoosty ─────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <h2 className="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2 text-center">Why DevBoosty?</h2>
-        <p className="text-slate-500 dark:text-slate-400 text-center mb-10">Simple, fast, and respects your privacy</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { icon: '🔒', title: 'Privacy First', desc: 'All tools run in your browser. Your data never leaves your device or gets uploaded to any server.' },
-            { icon: '⚡', title: 'Instant Results', desc: 'No waiting, no loading spinners. Client-side processing means instant output as you type.' },
-            { icon: '🆓', title: 'Always Free', desc: 'Every tool is completely free with no usage limits. No paywalls, no sign-ups required.' },
-            { icon: '📱', title: 'Works Everywhere', desc: 'Fully responsive on desktop, tablet, and mobile. Use it from any device, any browser.' },
-          ].map(({ icon, title, desc }) => (
-            <div key={title} className="text-center p-6">
-              <div className="text-4xl mb-4">{icon}</div>
-              <h3 className="font-display font-bold text-slate-800 dark:text-slate-100 mb-2">{title}</h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{desc}</p>
+        <div className="space-y-6">
+          <div className="dashboard-panel px-5 py-5">
+            <span className="dashboard-badge">{t('workspaceModeBadge')}</span>
+            <h2 className="mt-3 font-display text-2xl font-bold text-slate-950 dark:text-white">{t('combineTitle')}</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+              {t('combineDesc')}
+            </p>
+            <div className="mt-5 space-y-3">
+              {[t('combineBullet1'), t('combineBullet2'), t('combineBullet3')].map((item) => (
+                <div key={item} className="rounded-[20px] border border-slate-200 bg-white/80 px-4 py-3 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-950/70 dark:text-slate-300">
+                  {item}
+                </div>
+              ))}
             </div>
-          ))}
+            <Link href="/workspace" className="btn-primary mt-6">
+              {t('launchWorkspace')}
+            </Link>
+          </div>
+
+          <AdBanner slot="HOME_MID_SLOT" format="leaderboard" className="h-28" />
         </div>
       </section>
+
+      {fresh.length > 0 && (
+        <section className="dashboard-panel px-5 py-5 sm:px-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <span className="dashboard-badge">{t('newAdditionsBadge')}</span>
+              <h2 className="mt-3 font-display text-3xl font-bold text-slate-950 dark:text-white">{t('freshTools')}</h2>
+            </div>
+            <Link href="/tools?mode=new" className="btn-ghost self-start sm:self-auto">
+              {t('exploreNew')}
+            </Link>
+          </div>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {fresh.map((tool, index) => (
+              <ToolCard key={tool.slug} tool={tool} index={index} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

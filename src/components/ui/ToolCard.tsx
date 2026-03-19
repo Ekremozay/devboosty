@@ -1,54 +1,50 @@
-// src/components/ui/ToolCard.tsx
-import Link from 'next/link';
-import type { Tool } from '@/lib/tools-registry';
+'use client';
 
-const CHIP_CLASSES: Record<string, string> = {
-  developer: 'chip-developer',
-  text: 'chip-text',
-  seo: 'chip-seo',
-  image: 'chip-image',
-  pdf: 'chip-pdf',
-  converter: 'chip-converter',
-};
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { WORKSPACE_CATEGORIES, type Tool } from '@/lib/tools-registry';
 
 export default function ToolCard({ tool, index = 0 }: { tool: Tool; index?: number }) {
+  const workspaceCategory = WORKSPACE_CATEGORIES[tool.workspaceCategory];
+  const t = useTranslations('ui');
+
   return (
     <Link
       href={`/tools/${tool.category}/${tool.slug}`}
-      className="tool-card group flex flex-col gap-3 animate-fade-in"
+      className="tool-card group flex h-full flex-col gap-4 p-5 animate-fade-in transition-all duration-200 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_28px_56px_-30px_rgba(140,78,3,0.24)] dark:hover:border-brand-500/25"
       style={{ animationDelay: `${index * 0.04}s`, opacity: 0 }}
     >
-      {/* Icon + badges row */}
-      <div className="flex items-start justify-between">
-        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center text-xl border border-slate-100 dark:border-slate-600">
+      <div className="flex items-start justify-between gap-3">
+        <span className="flex h-12 w-12 items-center justify-center rounded-[20px] border border-slate-200 bg-white text-xl shadow-sm dark:border-slate-700 dark:bg-slate-950/70">
           {tool.icon}
-        </div>
-        <div className="flex gap-1.5">
+        </span>
+        <div className="flex flex-wrap justify-end gap-1.5">
           {tool.popular && (
-            <span className="text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-100 px-2 py-0.5 rounded-full">
-              Popular
+            <span className="rounded-full border border-brand-200 bg-brand-50 px-2.5 py-1 text-[11px] font-semibold text-brand-800 dark:border-brand-500/30 dark:bg-brand-500/10 dark:text-brand-200">
+              {t('popular')}
             </span>
           )}
           {tool.new && (
-            <span className="text-[10px] font-semibold bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded-full">
-              New
+            <span className="rounded-full border border-slate-300 bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-200">
+              {t('new')}
             </span>
           )}
         </div>
       </div>
 
-      {/* Name + tagline */}
-      <div>
-        <h3 className="font-display font-bold text-slate-800 group-hover:text-brand-600 transition-colors leading-tight">
+      <div className="min-h-[88px]">
+        <h3 className="font-display text-lg font-bold leading-tight text-slate-950 transition-colors group-hover:text-brand-700 dark:text-white dark:group-hover:text-brand-200">
           {tool.name}
         </h3>
-        <p className="text-sm text-slate-500 mt-1 line-clamp-2">{tool.tagline}</p>
+        <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">{tool.tagline}</p>
       </div>
 
-      {/* Category chip */}
-      <div className="mt-auto pt-2">
-        <span className={`text-[11px] font-medium border px-2.5 py-0.5 rounded-full capitalize ${CHIP_CLASSES[tool.category]}`}>
-          {tool.category}
+      <div className="mt-auto flex items-center justify-between gap-3 border-t border-slate-200/80 pt-4 dark:border-slate-800">
+        <span className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${workspaceCategory.badgeClassName}`}>
+          {workspaceCategory.shortName}
+        </span>
+        <span className="text-sm font-semibold text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-brand-600 dark:text-slate-500 dark:group-hover:text-brand-300">
+          {t('open')}
         </span>
       </div>
     </Link>

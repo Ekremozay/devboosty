@@ -1,7 +1,6 @@
 'use client';
 // src/components/tools/TimestampConverter.tsx
 import { useState, useCallback } from 'react';
-import { toast } from '@/hooks/useToast';
 
 type ConvertMode = 'toHuman' | 'toUnix';
 
@@ -105,24 +104,24 @@ export default function TimestampConverter() {
     });
   }, [dateInput, timezone, relativeTime]);
 
-  const copyValue = (value: string, label: string) => {
-    navigator.clipboard.writeText(value).then(() => {
-      toast(`Copied ${label}!`);
-    });
+  const ResultRow = ({ label, value }: { label: string; value: string }) => {
+    const [rowCopied, setRowCopied] = useState(false);
+    const copyValue = () => {
+      navigator.clipboard.writeText(value).then(() => {
+        setRowCopied(true);
+        setTimeout(() => setRowCopied(false), 1800);
+      });
+    };
+    return (
+      <div className="flex items-start justify-between gap-3 py-2.5 border-b border-slate-100 dark:border-slate-700 last:border-0">
+        <span className="text-sm text-slate-500 dark:text-slate-400 font-medium w-32 flex-shrink-0">{label}</span>
+        <span className="text-sm font-mono text-slate-800 dark:text-slate-200 break-all flex-1">{value}</span>
+        <button onClick={copyValue} className="text-xs btn-ghost py-1 flex-shrink-0">
+          {rowCopied ? '✓' : 'Copy'}
+        </button>
+      </div>
+    );
   };
-
-  const ResultRow = ({ label, value }: { label: string; value: string }) => (
-    <div className="flex items-start justify-between gap-3 py-2.5 border-b border-slate-100 dark:border-slate-700 last:border-0">
-      <span className="text-sm text-slate-500 dark:text-slate-400 font-medium w-32 flex-shrink-0">{label}</span>
-      <span className="text-sm font-mono text-slate-800 dark:text-slate-200 break-all flex-1">{value}</span>
-      <button
-        onClick={() => copyValue(value, label)}
-        className="text-xs btn-ghost py-1 flex-shrink-0"
-      >
-        Copy
-      </button>
-    </div>
-  );
 
   return (
     <div className="space-y-6">

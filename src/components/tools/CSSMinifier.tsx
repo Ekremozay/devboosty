@@ -1,7 +1,6 @@
 'use client';
 // src/components/tools/CSSMinifier.tsx
 import { useState, useCallback } from 'react';
-import { toast } from '@/hooks/useToast';
 
 const SAMPLE_CSS = `/* Navigation styles */
 .navbar {
@@ -88,7 +87,6 @@ export default function CSSMinifier() {
     if (!output) return;
     navigator.clipboard.writeText(output).then(() => {
       setCopied(true);
-      toast('Copied to clipboard!');
       setTimeout(() => setCopied(false), 2000);
     });
   }, [output]);

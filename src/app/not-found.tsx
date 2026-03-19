@@ -1,27 +1,62 @@
-// src/app/not-found.tsx
+'use client';
+
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { getPopularTools } from '@/lib/tools-registry';
 
 export default function NotFound() {
+  const t = useTranslations('notFound');
   const popular = getPopularTools().slice(0, 4);
+
   return (
-    <div className="max-w-2xl mx-auto px-4 py-24 text-center">
-      <div className="text-8xl mb-6">🔧</div>
-      <h1 className="font-display text-5xl font-bold text-slate-900 mb-4">404</h1>
-      <p className="text-xl text-slate-500 mb-8">This page doesn't exist — but we have {' '}
-        <Link href="/tools" className="text-brand-600 hover:underline">30+ free tools</Link> waiting for you.
-      </p>
-      <div className="flex flex-wrap justify-center gap-3 mb-10">
-        {popular.map(tool => (
-          <Link key={tool.slug} href={`/tools/${tool.category}/${tool.slug}`}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-sm font-medium text-slate-700 hover:border-brand-300 hover:text-brand-600 transition-all shadow-sm">
-            {tool.icon} {tool.name}
-          </Link>
-        ))}
-      </div>
-      <Link href="/" className="btn-primary text-base px-8 py-3">
-        ← Back to Home
-      </Link>
+    <div className="space-y-6">
+      <section className="dashboard-panel px-6 py-10 text-center sm:px-8 sm:py-12">
+        <div className="mx-auto max-w-2xl">
+          <span className="dashboard-badge">{t('badge')}</span>
+          <h1 className="mt-5 font-display text-5xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-6xl">
+            {t('title')}
+          </h1>
+          <p className="mt-4 text-base leading-7 text-slate-500 dark:text-slate-400">
+            {t('description')}
+          </p>
+
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href="/" className="btn-primary">
+              {t('backHome')}
+            </Link>
+            <Link href="/tools" className="btn-secondary">
+              {t('browseTools')}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="dashboard-panel px-5 py-5 sm:px-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <span className="dashboard-badge">{t('popularRoutes')}</span>
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-950 dark:text-white">{t('jumpBack')}</h2>
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {popular.map((tool) => (
+            <Link
+              key={tool.slug}
+              href={`/tools/${tool.category}/${tool.slug}`}
+              className="tool-card flex items-center gap-4 p-4 transition-all duration-200 hover:-translate-y-1"
+            >
+              <span className="flex h-12 w-12 items-center justify-center rounded-[20px] border border-slate-200 bg-white text-xl dark:border-slate-700 dark:bg-slate-950">
+                {tool.icon}
+              </span>
+              <span className="min-w-0">
+                <span className="block truncate text-sm font-semibold text-slate-900 dark:text-white">{tool.name}</span>
+                <span className="block truncate text-xs text-slate-500 dark:text-slate-400">{tool.tagline}</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

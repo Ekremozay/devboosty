@@ -11,6 +11,7 @@ export function useRecentTools() {
 
   const addRecent = useCallback((slug: string) => {
     setRecents(prev => {
+      if (prev[0] === slug) return prev;
       const filtered = prev.filter(s => s !== slug);
       return [slug, ...filtered].slice(0, MAX_RECENT);
     });

@@ -76,7 +76,7 @@ export function StickyMobileAd() {
   }, [adsenseId]);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-white border-t border-slate-200 shadow-lg">
+    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200/80 bg-[#fff8f1]/95 backdrop-blur-md shadow-lg dark:border-slate-800 dark:bg-[#241b14]/95 sm:hidden">
       {adsenseId ? (
         <ins
           className="adsbygoogle"
