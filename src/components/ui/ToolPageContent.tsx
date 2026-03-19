@@ -27,39 +27,41 @@ export default function ToolPageContent({ tool, related, workspaceInfo }: ToolPa
 
   return (
     <>
-      <div className="space-y-6 pb-24">
-        <nav className="flex flex-wrap items-center gap-2 text-sm text-slate-400 dark:text-slate-500" aria-label="Breadcrumb">
-          <Link href="/" className="transition-colors hover:text-slate-600 dark:hover:text-slate-300">{t('home')}</Link>
-          <span>/</span>
-          <Link href="/tools" className="transition-colors hover:text-slate-600 dark:hover:text-slate-300">{t('tools')}</Link>
-          <span>/</span>
-          <Link href={`/tools?workspace=${tool.workspaceCategory}`} className="transition-colors hover:text-slate-600 dark:hover:text-slate-300">
+      <div className="space-y-4 pb-24 sm:space-y-6">
+        {/* Breadcrumb - scrollable on mobile */}
+        <nav className="flex items-center gap-2 overflow-x-auto text-xs text-slate-400 dark:text-slate-500 sm:text-sm" aria-label="Breadcrumb">
+          <Link href="/" className="flex-shrink-0 transition-colors hover:text-slate-600 dark:hover:text-slate-300">{t('home')}</Link>
+          <span className="flex-shrink-0">/</span>
+          <Link href="/tools" className="flex-shrink-0 transition-colors hover:text-slate-600 dark:hover:text-slate-300">{t('tools')}</Link>
+          <span className="flex-shrink-0">/</span>
+          <Link href={`/tools?workspace=${tool.workspaceCategory}`} className="flex-shrink-0 transition-colors hover:text-slate-600 dark:hover:text-slate-300">
             {workspaceInfo.name}
           </Link>
-          <span>/</span>
-          <span className="font-medium text-slate-600 dark:text-slate-300">{tool.name}</span>
+          <span className="flex-shrink-0">/</span>
+          <span className="flex-shrink-0 font-medium text-slate-600 dark:text-slate-300">{tool.name}</span>
         </nav>
 
-        <section className="dashboard-panel relative overflow-hidden px-6 py-6 sm:px-8">
+        {/* Hero section - stacked on mobile */}
+        <section className="dashboard-panel relative overflow-hidden px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(87,80,241,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(22,184,166,0.14),transparent_26%)]" />
-          <div className="relative grid gap-6 xl:grid-cols-[minmax(0,1.4fr)_300px] xl:items-start">
+          <div className="relative space-y-5 xl:grid xl:grid-cols-[minmax(0,1.4fr)_300px] xl:items-start xl:gap-6 xl:space-y-0">
             <div>
               <span className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${workspaceInfo.badgeClassName}`}>
                 {workspaceInfo.shortName}
               </span>
-              <div className="mt-5 flex items-start gap-4">
-                <span className="flex h-16 w-16 items-center justify-center rounded-[24px] border border-slate-200 bg-white text-3xl shadow-sm dark:border-slate-700 dark:bg-slate-950">
+              <div className="mt-4 flex items-start gap-3 sm:mt-5 sm:gap-4">
+                <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[18px] border border-slate-200 bg-white text-2xl shadow-sm dark:border-slate-700 dark:bg-slate-950 sm:h-16 sm:w-16 sm:rounded-[24px] sm:text-3xl">
                   {tool.icon}
                 </span>
                 <div className="min-w-0">
-                  <h1 className="font-display text-3xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
+                  <h1 className="font-display text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl lg:text-4xl">
                     {tool.h1}
                   </h1>
-                  <p className="mt-3 max-w-3xl text-base leading-7 text-slate-500 dark:text-slate-400">{tool.description}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400 sm:mt-3 sm:text-base sm:leading-7 md:max-w-3xl">{tool.description}</p>
                 </div>
               </div>
 
-              <div className="mt-6 flex flex-wrap items-center gap-3">
+              <div className="mt-4 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
                 <span className="dashboard-badge bg-white/85 text-slate-700 dark:bg-slate-950/80 dark:text-slate-300">{t('freeBadge')}</span>
                 <span className="dashboard-badge bg-white/85 text-slate-700 dark:bg-slate-950/80 dark:text-slate-300">{t('noSignup')}</span>
                 <span className="dashboard-badge bg-white/85 text-slate-700 dark:bg-slate-950/80 dark:text-slate-300">{t('browserBased')}</span>
@@ -67,34 +69,37 @@ export default function ToolPageContent({ tool, related, workspaceInfo }: ToolPa
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
+            {/* Stats - horizontal on mobile, vertical on desktop */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 xl:grid-cols-1">
               {[
                 [t('category'), workspaceInfo.name],
                 [t('related'), String(related.length)],
                 [t('mode'), t('clientSide')],
               ].map(([label, value]) => (
-                <div key={label} className="dashboard-stat px-4 py-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">{label}</p>
-                  <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">{value}</p>
+                <div key={label} className="dashboard-stat px-3 py-3 sm:px-4 sm:py-4">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 sm:text-xs">{label}</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-white sm:mt-2 sm:text-lg">{value}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_340px]">
-          <div className="space-y-6">
+        {/* Main content + sidebar grid */}
+        <div className="grid gap-4 sm:gap-6 xl:grid-cols-[minmax(0,1.45fr)_340px]">
+          <div className="space-y-4 sm:space-y-6">
             <AdBanner slot="TOP_BANNER_SLOT" format="leaderboard" className="h-28" label={t('advertisement')} />
 
-            <section className="dashboard-panel p-4 sm:p-6">
+            {/* Tool interface panel */}
+            <section className="dashboard-panel p-3 sm:p-4 md:p-6">
               <ToolLoader component={tool.component} />
             </section>
 
             {tool.faq && tool.faq.length > 0 && <FAQSection faqs={tool.faq} />}
 
-            <section className="dashboard-panel px-5 py-5 sm:px-6">
+            <section className="dashboard-panel px-4 py-4 sm:px-5 sm:py-5 md:px-6">
               <span className="dashboard-badge">{t('aboutBadge')}</span>
-              <h2 className="mt-3 font-display text-2xl font-bold text-slate-950 dark:text-white">{t('whyTitle', { name: tool.name })}</h2>
+              <h2 className="mt-3 font-display text-xl font-bold text-slate-950 dark:text-white sm:text-2xl">{t('whyTitle', { name: tool.name })}</h2>
               <div className="prose-blog mt-4">
                 <p>{tool.description}</p>
                 <p>{t('whyDesc')}</p>
@@ -104,7 +109,8 @@ export default function ToolPageContent({ tool, related, workspaceInfo }: ToolPa
             <RelatedTools tools={related} currentSlug={tool.slug} />
           </div>
 
-          <aside className="space-y-6">
+          {/* Sidebar - hidden on mobile, shown on xl */}
+          <aside className="hidden space-y-6 xl:block">
             <ToolAIAssistant
               toolName={tool.name}
               description={tool.description}

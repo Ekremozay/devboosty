@@ -9,6 +9,18 @@
     "favorites": "Favoriten",
     "blog": "Blog"
   },
+  "navLinks": {
+    "overview": "Übersicht",
+    "overviewDesc": "Starte von der Dashboard-Startseite.",
+    "allTools": "Alle Tools",
+    "allToolsDesc": "Die gesamte Bibliothek durchsuchen und filtern.",
+    "workspace": "Workspace",
+    "workspaceDesc": "Mehrere Tools in einer Ansicht nutzen.",
+    "favorites": "Favoriten",
+    "favoritesDesc": "Häufig genutzte Tools griffbereit halten.",
+    "blog": "Blog",
+    "blogDesc": "Anleitungen, Tutorials und Tipps."
+  },
   "hero": {
     "badge": "Kostenlos · Kein Login · Browserbasiert",
     "title": "Optimiere deinen Entwickler-Workflow,",
@@ -48,7 +60,251 @@
     "browserOnly": "Dieses Tool arbeitet vollständig in Ihrem Browser — keine Server-Uploads, kein Konto erforderlich. Ihre Daten bleiben auf Ihrem Gerät.",
     "noTools": "{count} kostenlose Tools · Keine Registrierung",
     "loadSample": "Beispiel laden",
-    "download": "Herunterladen"
+    "download": "Herunterladen",
+    "input": "Eingabe",
+    "output": "Ausgabe",
+    "chars": "{count} Zeichen",
+    "process": "Verarbeiten",
+    "indent": "Einrückung",
+    "tab": "Tab",
+    "valid": "Gültig",
+    "invalid": "Ungültig",
+    "outputPlaceholder": "Ausgabe erscheint hier..."
+  },
+  "tools": {
+    "jsonFormatter": {
+      "name": "JSON Formatierer",
+      "inputLabel": "JSON Eingabe",
+      "outputLabel": "Ausgabe",
+      "placeholder": "{\"schlüssel\": \"wert\", \"array\": [1, 2, 3]}",
+      "modeFormat": "Formatieren",
+      "modeMinify": "Minifizieren",
+      "modeValidate": "Validieren",
+      "formatAction": "JSON formatieren",
+      "minifyAction": "JSON minifizieren",
+      "validateAction": "JSON validieren",
+      "validJson": "Gültiges JSON",
+      "invalidJson": "Ungültiges JSON"
+    },
+    "jsonMinify": {
+      "name": "JSON Minifizierer",
+      "inputLabel": "JSON Eingabe",
+      "outputLabel": "Minifizierte Ausgabe",
+      "placeholder": "JSON hier einfügen..."
+    },
+    "base64": {
+      "name": "Base64 Kodieren/Dekodieren",
+      "inputLabel": "Eingabe",
+      "outputLabel": "Ausgabe",
+      "encode": "Kodieren",
+      "decode": "Dekodieren",
+      "placeholder": "Text zum Kodieren/Dekodieren eingeben..."
+    },
+    "htmlViewer": {
+      "name": "HTML Betrachter",
+      "inputLabel": "HTML Code",
+      "previewLabel": "Live-Vorschau",
+      "placeholder": "HTML hier eingeben..."
+    },
+    "htmlFormatter": {
+      "name": "HTML Formatierer",
+      "inputLabel": "HTML Eingabe",
+      "outputLabel": "Formatiertes HTML",
+      "placeholder": "<div><p>Ihr HTML hier</p></div>"
+    },
+    "urlEncoder": {
+      "name": "URL Kodierer/Dekodierer",
+      "inputLabel": "Eingabe",
+      "outputLabel": "Ausgabe",
+      "encode": "Kodieren",
+      "decode": "Dekodieren",
+      "placeholder": "URL oder Text eingeben..."
+    },
+    "jwtDecoder": {
+      "name": "JWT Dekodierer",
+      "inputLabel": "JWT Token",
+      "headerLabel": "Header",
+      "payloadLabel": "Payload",
+      "placeholder": "JWT Token hier einfügen..."
+    },
+    "regexTester": {
+      "name": "Regex Tester",
+      "patternLabel": "Muster",
+      "flagsLabel": "Flags",
+      "testStringLabel": "Testtext",
+      "matchesLabel": "Treffer",
+      "placeholder": "Regex-Muster eingeben...",
+      "testPlaceholder": "Text zum Testen eingeben...",
+      "noMatches": "Keine Treffer gefunden",
+      "matchCount": "{count} Treffer gefunden"
+    },
+    "wordCounter": {
+      "name": "Wortzähler",
+      "inputLabel": "Ihr Text",
+      "placeholder": "Tippen oder Text hier einfügen...",
+      "words": "Wörter",
+      "characters": "Zeichen",
+      "sentences": "Sätze",
+      "paragraphs": "Absätze",
+      "readingTime": "Lesezeit",
+      "minutes": "Min"
+    },
+    "caseConverter": {
+      "name": "Groß-/Kleinschreibung Konverter",
+      "inputLabel": "Eingabetext",
+      "placeholder": "Text zum Konvertieren eingeben...",
+      "uppercase": "GROSSBUCHSTABEN",
+      "lowercase": "kleinbuchstaben",
+      "titleCase": "Titelschreibung",
+      "sentenceCase": "Satzschreibung",
+      "camelCase": "camelCase",
+      "pascalCase": "PascalCase",
+      "snakeCase": "snake_case",
+      "kebabCase": "kebab-case"
+    },
+    "imageCompressor": {
+      "name": "Bildkompressor",
+      "dropzone": "Bilder hier ablegen oder klicken zum Auswählen",
+      "dropzoneHint": "Unterstützt JPG, PNG, WebP — bis zu 10 MB",
+      "quality": "Qualität",
+      "compress": "Komprimieren",
+      "compressing": "Komprimiere...",
+      "original": "Original",
+      "compressed": "Komprimiert",
+      "savedPercent": "{percent}% gespart",
+      "downloadAll": "Alle herunterladen"
+    },
+    "metaTagGenerator": {
+      "name": "Meta-Tag Generator",
+      "titleLabel": "Seitentitel",
+      "descriptionLabel": "Seitenbeschreibung",
+      "keywordsLabel": "Schlüsselwörter",
+      "outputLabel": "Generierte Meta-Tags",
+      "generate": "Tags generieren",
+      "titlePlaceholder": "Seitentitel eingeben...",
+      "descriptionPlaceholder": "Seitenbeschreibung eingeben...",
+      "keywordsPlaceholder": "Schlüsselwort1, Schlüsselwort2, Schlüsselwort3..."
+    },
+    "passwordGenerator": {
+      "name": "Passwort-Generator",
+      "length": "Länge",
+      "includeUppercase": "Großbuchstaben (A-Z)",
+      "includeLowercase": "Kleinbuchstaben (a-z)",
+      "includeNumbers": "Zahlen (0-9)",
+      "includeSymbols": "Symbole (!@#$...)",
+      "generate": "Passwort generieren",
+      "strength": "Stärke",
+      "weak": "Schwach",
+      "fair": "Mittel",
+      "strong": "Stark",
+      "veryStrong": "Sehr stark"
+    },
+    "colorConverter": {
+      "name": "Farbkonverter",
+      "inputLabel": "Farbwert",
+      "placeholder": "#ff6600 oder rgb(255, 102, 0) oder hsl(24, 100%, 50%)",
+      "hex": "HEX",
+      "rgb": "RGB",
+      "hsl": "HSL",
+      "preview": "Vorschau"
+    },
+    "markdownPreviewer": {
+      "name": "Markdown Vorschau",
+      "inputLabel": "Markdown",
+      "previewLabel": "Vorschau",
+      "placeholder": "# Markdown hier schreiben..."
+    },
+    "diffChecker": {
+      "name": "Differenz-Prüfer",
+      "originalLabel": "Originaltext",
+      "modifiedLabel": "Geänderter Text",
+      "resultLabel": "Differenz-Ergebnis",
+      "compare": "Vergleichen",
+      "originalPlaceholder": "Originaltext einfügen...",
+      "modifiedPlaceholder": "Geänderten Text einfügen...",
+      "noDifferences": "Keine Unterschiede gefunden",
+      "additions": "Hinzufügungen",
+      "deletions": "Löschungen"
+    },
+    "loremIpsum": {
+      "name": "Lorem Ipsum Generator",
+      "paragraphs": "Absätze",
+      "generate": "Generieren",
+      "outputLabel": "Generierter Text"
+    },
+    "slugGenerator": {
+      "name": "Slug Generator",
+      "inputLabel": "Text",
+      "outputLabel": "Slug",
+      "placeholder": "Text zum Konvertieren in Slug eingeben..."
+    },
+    "cssMinifier": {
+      "name": "CSS Minifizierer",
+      "inputLabel": "CSS Eingabe",
+      "outputLabel": "Minifiziertes CSS",
+      "placeholder": "CSS hier einfügen..."
+    },
+    "jsMinifier": {
+      "name": "JS Minifizierer",
+      "inputLabel": "JavaScript Eingabe",
+      "outputLabel": "Minifiziertes JavaScript",
+      "placeholder": "JavaScript hier einfügen..."
+    },
+    "timestampConverter": {
+      "name": "Zeitstempel-Konverter",
+      "inputLabel": "Unix Zeitstempel",
+      "outputLabel": "Lesbares Format",
+      "placeholder": "Unix Zeitstempel eingeben...",
+      "currentTimestamp": "Aktueller Zeitstempel",
+      "toTimestamp": "Zu Zeitstempel",
+      "toDate": "Zu Datum"
+    },
+    "hashToolkit": {
+      "name": "Hash Toolkit",
+      "inputLabel": "Eingabetext",
+      "placeholder": "Text zum Hashen eingeben...",
+      "algorithm": "Algorithmus",
+      "result": "Hash-Ergebnis"
+    },
+    "unitConverter": {
+      "name": "Einheitenkonverter",
+      "from": "Von",
+      "to": "Nach",
+      "result": "Ergebnis",
+      "category": "Kategorie"
+    },
+    "pdfMerge": {
+      "name": "PDF Zusammenführen",
+      "dropzone": "PDF-Dateien hier ablegen oder klicken zum Auswählen",
+      "dropzoneHint": "Mehrere PDFs zum Zusammenführen auswählen",
+      "merge": "PDFs zusammenführen",
+      "merging": "Zusammenführen...",
+      "download": "Zusammengeführtes PDF herunterladen"
+    },
+    "pdfSplit": {
+      "name": "PDF Teilen",
+      "dropzone": "PDF-Datei hier ablegen oder klicken zum Auswählen",
+      "pageRange": "Seitenbereich",
+      "pageRangeHint": "z.B. 1-3, 5, 7-9",
+      "split": "PDF teilen",
+      "splitting": "Teilen..."
+    },
+    "imageResizer": {
+      "name": "Bildgrößenänderung",
+      "dropzone": "Bild hier ablegen oder klicken zum Auswählen",
+      "width": "Breite",
+      "height": "Höhe",
+      "maintainAspect": "Seitenverhältnis beibehalten",
+      "resize": "Größe ändern",
+      "resizing": "Größe wird geändert..."
+    },
+    "imageConverter": {
+      "name": "Bildkonverter",
+      "dropzone": "Bild hier ablegen oder klicken zum Auswählen",
+      "format": "Ausgabeformat",
+      "convert": "Konvertieren",
+      "converting": "Konvertiere..."
+    }
   },
   "search": {
     "placeholder": "Tools suchen...",
@@ -166,7 +422,8 @@
     "openNav": "Navigation öffnen",
     "tagline": "Entwickler-Tools-Plattform",
     "closeLang": "Sprachmenü schließen",
-    "active": "Aktiv"
+    "active": "Aktiv",
+    "overview": "Übersicht"
   },
   "toolsPage": {
     "badge": "Entwickler-Hub",

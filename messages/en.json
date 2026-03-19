@@ -9,6 +9,18 @@
     "favorites": "Favorites",
     "blog": "Blog"
   },
+  "navLinks": {
+    "overview": "Overview",
+    "overviewDesc": "Start from the dashboard home.",
+    "allTools": "All tools",
+    "allToolsDesc": "Search and filter the full library.",
+    "workspace": "Workspace",
+    "workspaceDesc": "Use multiple tools in one view.",
+    "favorites": "Favorites",
+    "favoritesDesc": "Keep frequently used tools close.",
+    "blog": "Blog",
+    "blogDesc": "Guides, tutorials, and tips."
+  },
   "hero": {
     "badge": "Free · No signup · Browser-based",
     "title": "Boost your dev workflow,",
@@ -48,7 +60,251 @@
     "browserOnly": "This tool works entirely in your browser — no server uploads, no account required. Your data stays on your device at all times.",
     "noTools": "{count} free tools · No signup required",
     "loadSample": "Load Sample",
-    "download": "Download"
+    "download": "Download",
+    "input": "Input",
+    "output": "Output",
+    "chars": "{count} chars",
+    "process": "Process",
+    "indent": "Indent",
+    "tab": "Tab",
+    "valid": "Valid",
+    "invalid": "Invalid",
+    "outputPlaceholder": "Output will appear here..."
+  },
+  "tools": {
+    "jsonFormatter": {
+      "name": "JSON Formatter",
+      "inputLabel": "Input JSON",
+      "outputLabel": "Output",
+      "placeholder": "{\"key\": \"value\", \"array\": [1, 2, 3]}",
+      "modeFormat": "Format",
+      "modeMinify": "Minify",
+      "modeValidate": "Validate",
+      "formatAction": "Format JSON",
+      "minifyAction": "Minify JSON",
+      "validateAction": "Validate JSON",
+      "validJson": "Valid JSON",
+      "invalidJson": "Invalid JSON"
+    },
+    "jsonMinify": {
+      "name": "JSON Minify",
+      "inputLabel": "Input JSON",
+      "outputLabel": "Minified Output",
+      "placeholder": "Paste your JSON here..."
+    },
+    "base64": {
+      "name": "Base64 Encode/Decode",
+      "inputLabel": "Input",
+      "outputLabel": "Output",
+      "encode": "Encode",
+      "decode": "Decode",
+      "placeholder": "Enter text to encode/decode..."
+    },
+    "htmlViewer": {
+      "name": "HTML Viewer",
+      "inputLabel": "HTML Code",
+      "previewLabel": "Live Preview",
+      "placeholder": "Enter your HTML here..."
+    },
+    "htmlFormatter": {
+      "name": "HTML Formatter",
+      "inputLabel": "Input HTML",
+      "outputLabel": "Formatted HTML",
+      "placeholder": "<div><p>Your HTML here</p></div>"
+    },
+    "urlEncoder": {
+      "name": "URL Encoder/Decoder",
+      "inputLabel": "Input",
+      "outputLabel": "Output",
+      "encode": "Encode",
+      "decode": "Decode",
+      "placeholder": "Enter URL or text..."
+    },
+    "jwtDecoder": {
+      "name": "JWT Decoder",
+      "inputLabel": "JWT Token",
+      "headerLabel": "Header",
+      "payloadLabel": "Payload",
+      "placeholder": "Paste your JWT token here..."
+    },
+    "regexTester": {
+      "name": "Regex Tester",
+      "patternLabel": "Pattern",
+      "flagsLabel": "Flags",
+      "testStringLabel": "Test String",
+      "matchesLabel": "Matches",
+      "placeholder": "Enter regex pattern...",
+      "testPlaceholder": "Enter text to test against...",
+      "noMatches": "No matches found",
+      "matchCount": "{count} match(es) found"
+    },
+    "wordCounter": {
+      "name": "Word Counter",
+      "inputLabel": "Your Text",
+      "placeholder": "Start typing or paste your text here...",
+      "words": "Words",
+      "characters": "Characters",
+      "sentences": "Sentences",
+      "paragraphs": "Paragraphs",
+      "readingTime": "Reading Time",
+      "minutes": "min"
+    },
+    "caseConverter": {
+      "name": "Case Converter",
+      "inputLabel": "Input Text",
+      "placeholder": "Enter text to convert...",
+      "uppercase": "UPPER CASE",
+      "lowercase": "lower case",
+      "titleCase": "Title Case",
+      "sentenceCase": "Sentence case",
+      "camelCase": "camelCase",
+      "pascalCase": "PascalCase",
+      "snakeCase": "snake_case",
+      "kebabCase": "kebab-case"
+    },
+    "imageCompressor": {
+      "name": "Image Compressor",
+      "dropzone": "Drop images here or click to select",
+      "dropzoneHint": "Supports JPG, PNG, WebP — up to 10 MB",
+      "quality": "Quality",
+      "compress": "Compress",
+      "compressing": "Compressing...",
+      "original": "Original",
+      "compressed": "Compressed",
+      "savedPercent": "Saved {percent}%",
+      "downloadAll": "Download All"
+    },
+    "metaTagGenerator": {
+      "name": "Meta Tag Generator",
+      "titleLabel": "Page Title",
+      "descriptionLabel": "Page Description",
+      "keywordsLabel": "Keywords",
+      "outputLabel": "Generated Meta Tags",
+      "generate": "Generate Tags",
+      "titlePlaceholder": "Enter your page title...",
+      "descriptionPlaceholder": "Enter page description...",
+      "keywordsPlaceholder": "keyword1, keyword2, keyword3..."
+    },
+    "passwordGenerator": {
+      "name": "Password Generator",
+      "length": "Length",
+      "includeUppercase": "Uppercase (A-Z)",
+      "includeLowercase": "Lowercase (a-z)",
+      "includeNumbers": "Numbers (0-9)",
+      "includeSymbols": "Symbols (!@#$...)",
+      "generate": "Generate Password",
+      "strength": "Strength",
+      "weak": "Weak",
+      "fair": "Fair",
+      "strong": "Strong",
+      "veryStrong": "Very Strong"
+    },
+    "colorConverter": {
+      "name": "Color Converter",
+      "inputLabel": "Color Value",
+      "placeholder": "#ff6600 or rgb(255, 102, 0) or hsl(24, 100%, 50%)",
+      "hex": "HEX",
+      "rgb": "RGB",
+      "hsl": "HSL",
+      "preview": "Preview"
+    },
+    "markdownPreviewer": {
+      "name": "Markdown Previewer",
+      "inputLabel": "Markdown",
+      "previewLabel": "Preview",
+      "placeholder": "# Write your markdown here..."
+    },
+    "diffChecker": {
+      "name": "Diff Checker",
+      "originalLabel": "Original Text",
+      "modifiedLabel": "Modified Text",
+      "resultLabel": "Diff Result",
+      "compare": "Compare",
+      "originalPlaceholder": "Paste original text...",
+      "modifiedPlaceholder": "Paste modified text...",
+      "noDifferences": "No differences found",
+      "additions": "Additions",
+      "deletions": "Deletions"
+    },
+    "loremIpsum": {
+      "name": "Lorem Ipsum Generator",
+      "paragraphs": "Paragraphs",
+      "generate": "Generate",
+      "outputLabel": "Generated Text"
+    },
+    "slugGenerator": {
+      "name": "Slug Generator",
+      "inputLabel": "Text",
+      "outputLabel": "Slug",
+      "placeholder": "Enter text to convert to slug..."
+    },
+    "cssMinifier": {
+      "name": "CSS Minifier",
+      "inputLabel": "Input CSS",
+      "outputLabel": "Minified CSS",
+      "placeholder": "Paste your CSS here..."
+    },
+    "jsMinifier": {
+      "name": "JS Minifier",
+      "inputLabel": "Input JavaScript",
+      "outputLabel": "Minified JavaScript",
+      "placeholder": "Paste your JavaScript here..."
+    },
+    "timestampConverter": {
+      "name": "Timestamp Converter",
+      "inputLabel": "Unix Timestamp",
+      "outputLabel": "Human Readable",
+      "placeholder": "Enter Unix timestamp...",
+      "currentTimestamp": "Current Timestamp",
+      "toTimestamp": "To Timestamp",
+      "toDate": "To Date"
+    },
+    "hashToolkit": {
+      "name": "Hash Toolkit",
+      "inputLabel": "Input Text",
+      "placeholder": "Enter text to hash...",
+      "algorithm": "Algorithm",
+      "result": "Hash Result"
+    },
+    "unitConverter": {
+      "name": "Unit Converter",
+      "from": "From",
+      "to": "To",
+      "result": "Result",
+      "category": "Category"
+    },
+    "pdfMerge": {
+      "name": "PDF Merge",
+      "dropzone": "Drop PDF files here or click to select",
+      "dropzoneHint": "Select multiple PDFs to merge",
+      "merge": "Merge PDFs",
+      "merging": "Merging...",
+      "download": "Download Merged PDF"
+    },
+    "pdfSplit": {
+      "name": "PDF Split",
+      "dropzone": "Drop a PDF file here or click to select",
+      "pageRange": "Page Range",
+      "pageRangeHint": "e.g. 1-3, 5, 7-9",
+      "split": "Split PDF",
+      "splitting": "Splitting..."
+    },
+    "imageResizer": {
+      "name": "Image Resizer",
+      "dropzone": "Drop an image here or click to select",
+      "width": "Width",
+      "height": "Height",
+      "maintainAspect": "Maintain aspect ratio",
+      "resize": "Resize",
+      "resizing": "Resizing..."
+    },
+    "imageConverter": {
+      "name": "Image Converter",
+      "dropzone": "Drop an image here or click to select",
+      "format": "Output Format",
+      "convert": "Convert",
+      "converting": "Converting..."
+    }
   },
   "search": {
     "placeholder": "Search tools...",
@@ -166,7 +422,8 @@
     "openNav": "Open navigation",
     "tagline": "Developer tools platform",
     "closeLang": "Close language menu",
-    "active": "On"
+    "active": "On",
+    "overview": "Overview"
   },
   "toolsPage": {
     "badge": "Developer hub",

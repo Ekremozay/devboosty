@@ -9,6 +9,18 @@
     "favorites": "المفضلة",
     "blog": "المدونة"
   },
+  "navLinks": {
+    "overview": "نظرة عامة",
+    "overviewDesc": "ابدأ من الصفحة الرئيسية للوحة التحكم.",
+    "allTools": "جميع الأدوات",
+    "allToolsDesc": "ابحث وصفّ المكتبة الكاملة.",
+    "workspace": "مساحة العمل",
+    "workspaceDesc": "استخدم أدوات متعددة في عرض واحد.",
+    "favorites": "المفضلة",
+    "favoritesDesc": "أبقِ الأدوات المستخدمة بكثرة قريبة.",
+    "blog": "المدونة",
+    "blogDesc": "أدلة ودروس ونصائح."
+  },
   "hero": {
     "badge": "مجاني · بدون تسجيل · يعمل في المتصفح",
     "title": "عزّز سير عمل التطوير لديك،",
@@ -48,7 +60,251 @@
     "browserOnly": "تعمل هذه الأداة بالكامل في متصفحك — لا رفع للخوادم، لا حساب مطلوب. تبقى بياناتك على جهازك دائماً.",
     "noTools": "{count} أداة مجانية · لا تسجيل مطلوب",
     "loadSample": "تحميل مثال",
-    "download": "تنزيل"
+    "download": "تنزيل",
+    "input": "الإدخال",
+    "output": "الإخراج",
+    "chars": "{count} حرف",
+    "process": "معالجة",
+    "indent": "المسافة البادئة",
+    "tab": "تبويب",
+    "valid": "صالح",
+    "invalid": "غير صالح",
+    "outputPlaceholder": "ستظهر النتيجة هنا..."
+  },
+  "tools": {
+    "jsonFormatter": {
+      "name": "منسق JSON",
+      "inputLabel": "إدخال JSON",
+      "outputLabel": "الإخراج",
+      "placeholder": "{\"مفتاح\": \"قيمة\", \"مصفوفة\": [1, 2, 3]}",
+      "modeFormat": "تنسيق",
+      "modeMinify": "تصغير",
+      "modeValidate": "تحقق",
+      "formatAction": "تنسيق JSON",
+      "minifyAction": "تصغير JSON",
+      "validateAction": "تحقق من JSON",
+      "validJson": "JSON صالح",
+      "invalidJson": "JSON غير صالح"
+    },
+    "jsonMinify": {
+      "name": "مصغّر JSON",
+      "inputLabel": "إدخال JSON",
+      "outputLabel": "الإخراج المصغّر",
+      "placeholder": "الصق JSON هنا..."
+    },
+    "base64": {
+      "name": "ترميز/فك ترميز Base64",
+      "inputLabel": "الإدخال",
+      "outputLabel": "الإخراج",
+      "encode": "ترميز",
+      "decode": "فك ترميز",
+      "placeholder": "أدخل نصاً للترميز/فك الترميز..."
+    },
+    "htmlViewer": {
+      "name": "عارض HTML",
+      "inputLabel": "كود HTML",
+      "previewLabel": "معاينة مباشرة",
+      "placeholder": "أدخل HTML هنا..."
+    },
+    "htmlFormatter": {
+      "name": "منسق HTML",
+      "inputLabel": "إدخال HTML",
+      "outputLabel": "HTML منسق",
+      "placeholder": "<div><p>HTML الخاص بك هنا</p></div>"
+    },
+    "urlEncoder": {
+      "name": "مرمّز/فاك ترميز URL",
+      "inputLabel": "الإدخال",
+      "outputLabel": "الإخراج",
+      "encode": "ترميز",
+      "decode": "فك ترميز",
+      "placeholder": "أدخل URL أو نصاً..."
+    },
+    "jwtDecoder": {
+      "name": "فاك ترميز JWT",
+      "inputLabel": "رمز JWT",
+      "headerLabel": "الرأس",
+      "payloadLabel": "الحمولة",
+      "placeholder": "الصق رمز JWT هنا..."
+    },
+    "regexTester": {
+      "name": "اختبار Regex",
+      "patternLabel": "النمط",
+      "flagsLabel": "العلامات",
+      "testStringLabel": "نص الاختبار",
+      "matchesLabel": "التطابقات",
+      "placeholder": "أدخل نمط regex...",
+      "testPlaceholder": "أدخل نصاً للاختبار...",
+      "noMatches": "لم يتم العثور على تطابقات",
+      "matchCount": "تم العثور على {count} تطابق(ات)"
+    },
+    "wordCounter": {
+      "name": "عداد الكلمات",
+      "inputLabel": "نصك",
+      "placeholder": "ابدأ بالكتابة أو الصق نصك هنا...",
+      "words": "كلمات",
+      "characters": "أحرف",
+      "sentences": "جمل",
+      "paragraphs": "فقرات",
+      "readingTime": "وقت القراءة",
+      "minutes": "دقيقة"
+    },
+    "caseConverter": {
+      "name": "محول حالة الأحرف",
+      "inputLabel": "نص الإدخال",
+      "placeholder": "أدخل نصاً للتحويل...",
+      "uppercase": "أحرف كبيرة",
+      "lowercase": "أحرف صغيرة",
+      "titleCase": "حالة العنوان",
+      "sentenceCase": "حالة الجملة",
+      "camelCase": "camelCase",
+      "pascalCase": "PascalCase",
+      "snakeCase": "snake_case",
+      "kebabCase": "kebab-case"
+    },
+    "imageCompressor": {
+      "name": "ضاغط الصور",
+      "dropzone": "أسقط الصور هنا أو انقر للاختيار",
+      "dropzoneHint": "يدعم JPG، PNG، WebP — حتى 10 ميجابايت",
+      "quality": "الجودة",
+      "compress": "ضغط",
+      "compressing": "جارٍ الضغط...",
+      "original": "الأصلي",
+      "compressed": "مضغوط",
+      "savedPercent": "تم توفير {percent}%",
+      "downloadAll": "تنزيل الكل"
+    },
+    "metaTagGenerator": {
+      "name": "مولد علامات Meta",
+      "titleLabel": "عنوان الصفحة",
+      "descriptionLabel": "وصف الصفحة",
+      "keywordsLabel": "الكلمات المفتاحية",
+      "outputLabel": "علامات Meta المولدة",
+      "generate": "إنشاء العلامات",
+      "titlePlaceholder": "أدخل عنوان صفحتك...",
+      "descriptionPlaceholder": "أدخل وصف الصفحة...",
+      "keywordsPlaceholder": "كلمة1، كلمة2، كلمة3..."
+    },
+    "passwordGenerator": {
+      "name": "مولد كلمات المرور",
+      "length": "الطول",
+      "includeUppercase": "أحرف كبيرة (A-Z)",
+      "includeLowercase": "أحرف صغيرة (a-z)",
+      "includeNumbers": "أرقام (0-9)",
+      "includeSymbols": "رموز (!@#$...)",
+      "generate": "إنشاء كلمة مرور",
+      "strength": "القوة",
+      "weak": "ضعيفة",
+      "fair": "متوسطة",
+      "strong": "قوية",
+      "veryStrong": "قوية جداً"
+    },
+    "colorConverter": {
+      "name": "محول الألوان",
+      "inputLabel": "قيمة اللون",
+      "placeholder": "#ff6600 أو rgb(255, 102, 0) أو hsl(24, 100%, 50%)",
+      "hex": "HEX",
+      "rgb": "RGB",
+      "hsl": "HSL",
+      "preview": "معاينة"
+    },
+    "markdownPreviewer": {
+      "name": "معاين Markdown",
+      "inputLabel": "Markdown",
+      "previewLabel": "معاينة",
+      "placeholder": "# اكتب Markdown هنا..."
+    },
+    "diffChecker": {
+      "name": "فاحص الفروقات",
+      "originalLabel": "النص الأصلي",
+      "modifiedLabel": "النص المعدل",
+      "resultLabel": "نتيجة الفرق",
+      "compare": "مقارنة",
+      "originalPlaceholder": "الصق النص الأصلي...",
+      "modifiedPlaceholder": "الصق النص المعدل...",
+      "noDifferences": "لم يتم العثور على فروقات",
+      "additions": "إضافات",
+      "deletions": "حذوفات"
+    },
+    "loremIpsum": {
+      "name": "مولد Lorem Ipsum",
+      "paragraphs": "فقرات",
+      "generate": "إنشاء",
+      "outputLabel": "النص المولد"
+    },
+    "slugGenerator": {
+      "name": "مولد Slug",
+      "inputLabel": "النص",
+      "outputLabel": "Slug",
+      "placeholder": "أدخل نصاً لتحويله إلى slug..."
+    },
+    "cssMinifier": {
+      "name": "مصغّر CSS",
+      "inputLabel": "إدخال CSS",
+      "outputLabel": "CSS مصغّر",
+      "placeholder": "الصق CSS هنا..."
+    },
+    "jsMinifier": {
+      "name": "مصغّر JS",
+      "inputLabel": "إدخال JavaScript",
+      "outputLabel": "JavaScript مصغّر",
+      "placeholder": "الصق JavaScript هنا..."
+    },
+    "timestampConverter": {
+      "name": "محول الطوابع الزمنية",
+      "inputLabel": "طابع Unix الزمني",
+      "outputLabel": "صيغة مقروءة",
+      "placeholder": "أدخل طابع Unix الزمني...",
+      "currentTimestamp": "الطابع الزمني الحالي",
+      "toTimestamp": "إلى طابع زمني",
+      "toDate": "إلى تاريخ"
+    },
+    "hashToolkit": {
+      "name": "مجموعة أدوات Hash",
+      "inputLabel": "نص الإدخال",
+      "placeholder": "أدخل نصاً للتجزئة...",
+      "algorithm": "الخوارزمية",
+      "result": "نتيجة التجزئة"
+    },
+    "unitConverter": {
+      "name": "محول الوحدات",
+      "from": "من",
+      "to": "إلى",
+      "result": "النتيجة",
+      "category": "الفئة"
+    },
+    "pdfMerge": {
+      "name": "دمج PDF",
+      "dropzone": "أسقط ملفات PDF هنا أو انقر للاختيار",
+      "dropzoneHint": "اختر عدة ملفات PDF للدمج",
+      "merge": "دمج PDF",
+      "merging": "جارٍ الدمج...",
+      "download": "تنزيل PDF المدمج"
+    },
+    "pdfSplit": {
+      "name": "تقسيم PDF",
+      "dropzone": "أسقط ملف PDF هنا أو انقر للاختيار",
+      "pageRange": "نطاق الصفحات",
+      "pageRangeHint": "مثلاً 1-3، 5، 7-9",
+      "split": "تقسيم PDF",
+      "splitting": "جارٍ التقسيم..."
+    },
+    "imageResizer": {
+      "name": "مغيّر حجم الصور",
+      "dropzone": "أسقط صورة هنا أو انقر للاختيار",
+      "width": "العرض",
+      "height": "الارتفاع",
+      "maintainAspect": "الحفاظ على نسبة العرض للارتفاع",
+      "resize": "تغيير الحجم",
+      "resizing": "جارٍ تغيير الحجم..."
+    },
+    "imageConverter": {
+      "name": "محول الصور",
+      "dropzone": "أسقط صورة هنا أو انقر للاختيار",
+      "format": "تنسيق الإخراج",
+      "convert": "تحويل",
+      "converting": "جارٍ التحويل..."
+    }
   },
   "search": {
     "placeholder": "ابحث عن الأدوات...",
@@ -166,7 +422,8 @@
     "openNav": "فتح التنقل",
     "tagline": "منصة أدوات المطورين",
     "closeLang": "إغلاق قائمة اللغة",
-    "active": "مفعّل"
+    "active": "مفعّل",
+    "overview": "نظرة عامة"
   },
   "toolsPage": {
     "badge": "مركز المطورين",

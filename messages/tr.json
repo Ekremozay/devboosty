@@ -9,6 +9,18 @@
     "favorites": "Favoriler",
     "blog": "Blog"
   },
+  "navLinks": {
+    "overview": "Genel Bakış",
+    "overviewDesc": "Pano ana sayfasından başlayın.",
+    "allTools": "Tüm araçlar",
+    "allToolsDesc": "Tam kütüphaneyi arayın ve filtreleyin.",
+    "workspace": "Çalışma Alanı",
+    "workspaceDesc": "Birden fazla aracı tek görünümde kullanın.",
+    "favorites": "Favoriler",
+    "favoritesDesc": "Sık kullanılan araçları yakında tutun.",
+    "blog": "Blog",
+    "blogDesc": "Kılavuzlar, eğitimler ve ipuçları."
+  },
   "hero": {
     "badge": "Ücretsiz · Kayıt yok · Tarayıcı tabanlı",
     "title": "Geliştirme iş akışınızı hızlandırın,",
@@ -48,7 +60,251 @@
     "browserOnly": "Bu araç tamamen tarayıcınızda çalışır — sunucuya yükleme yok, hesap gerekmez. Verileriniz her zaman cihazınızda kalır.",
     "noTools": "{count} ücretsiz araç · Kayıt gerekmez",
     "loadSample": "Örnek Yükle",
-    "download": "İndir"
+    "download": "İndir",
+    "input": "Girdi",
+    "output": "Çıktı",
+    "chars": "{count} karakter",
+    "process": "İşle",
+    "indent": "Girinti",
+    "tab": "Sekme",
+    "valid": "Geçerli",
+    "invalid": "Geçersiz",
+    "outputPlaceholder": "Çıktı burada görünecek..."
+  },
+  "tools": {
+    "jsonFormatter": {
+      "name": "JSON Biçimlendirici",
+      "inputLabel": "JSON Girdisi",
+      "outputLabel": "Çıktı",
+      "placeholder": "{\"anahtar\": \"değer\", \"dizi\": [1, 2, 3]}",
+      "modeFormat": "Biçimlendir",
+      "modeMinify": "Küçült",
+      "modeValidate": "Doğrula",
+      "formatAction": "JSON Biçimlendir",
+      "minifyAction": "JSON Küçült",
+      "validateAction": "JSON Doğrula",
+      "validJson": "Geçerli JSON",
+      "invalidJson": "Geçersiz JSON"
+    },
+    "jsonMinify": {
+      "name": "JSON Küçültücü",
+      "inputLabel": "JSON Girdisi",
+      "outputLabel": "Küçültülmüş Çıktı",
+      "placeholder": "JSON'unuzu buraya yapıştırın..."
+    },
+    "base64": {
+      "name": "Base64 Kodla/Çöz",
+      "inputLabel": "Girdi",
+      "outputLabel": "Çıktı",
+      "encode": "Kodla",
+      "decode": "Çöz",
+      "placeholder": "Kodlamak/çözmek için metin girin..."
+    },
+    "htmlViewer": {
+      "name": "HTML Görüntüleyici",
+      "inputLabel": "HTML Kodu",
+      "previewLabel": "Canlı Önizleme",
+      "placeholder": "HTML'inizi buraya girin..."
+    },
+    "htmlFormatter": {
+      "name": "HTML Biçimlendirici",
+      "inputLabel": "HTML Girdisi",
+      "outputLabel": "Biçimlendirilmiş HTML",
+      "placeholder": "<div><p>HTML'iniz buraya</p></div>"
+    },
+    "urlEncoder": {
+      "name": "URL Kodlayıcı/Çözücü",
+      "inputLabel": "Girdi",
+      "outputLabel": "Çıktı",
+      "encode": "Kodla",
+      "decode": "Çöz",
+      "placeholder": "URL veya metin girin..."
+    },
+    "jwtDecoder": {
+      "name": "JWT Çözücü",
+      "inputLabel": "JWT Token",
+      "headerLabel": "Başlık",
+      "payloadLabel": "İçerik",
+      "placeholder": "JWT tokenınızı buraya yapıştırın..."
+    },
+    "regexTester": {
+      "name": "Regex Test Aracı",
+      "patternLabel": "Desen",
+      "flagsLabel": "Bayraklar",
+      "testStringLabel": "Test Metni",
+      "matchesLabel": "Eşleşmeler",
+      "placeholder": "Regex deseni girin...",
+      "testPlaceholder": "Test edilecek metin girin...",
+      "noMatches": "Eşleşme bulunamadı",
+      "matchCount": "{count} eşleşme bulundu"
+    },
+    "wordCounter": {
+      "name": "Kelime Sayacı",
+      "inputLabel": "Metniniz",
+      "placeholder": "Yazmaya başlayın veya metninizi buraya yapıştırın...",
+      "words": "Kelime",
+      "characters": "Karakter",
+      "sentences": "Cümle",
+      "paragraphs": "Paragraf",
+      "readingTime": "Okuma Süresi",
+      "minutes": "dk"
+    },
+    "caseConverter": {
+      "name": "Büyük/Küçük Harf Dönüştürücü",
+      "inputLabel": "Girdi Metni",
+      "placeholder": "Dönüştürülecek metni girin...",
+      "uppercase": "BÜYÜK HARF",
+      "lowercase": "küçük harf",
+      "titleCase": "Başlık Düzeni",
+      "sentenceCase": "Cümle düzeni",
+      "camelCase": "camelCase",
+      "pascalCase": "PascalCase",
+      "snakeCase": "snake_case",
+      "kebabCase": "kebab-case"
+    },
+    "imageCompressor": {
+      "name": "Görsel Sıkıştırıcı",
+      "dropzone": "Görselleri buraya bırakın veya seçmek için tıklayın",
+      "dropzoneHint": "JPG, PNG, WebP desteklenir — en fazla 10 MB",
+      "quality": "Kalite",
+      "compress": "Sıkıştır",
+      "compressing": "Sıkıştırılıyor...",
+      "original": "Orijinal",
+      "compressed": "Sıkıştırılmış",
+      "savedPercent": "%{percent} tasarruf edildi",
+      "downloadAll": "Tümünü İndir"
+    },
+    "metaTagGenerator": {
+      "name": "Meta Etiket Oluşturucu",
+      "titleLabel": "Sayfa Başlığı",
+      "descriptionLabel": "Sayfa Açıklaması",
+      "keywordsLabel": "Anahtar Kelimeler",
+      "outputLabel": "Oluşturulan Meta Etiketler",
+      "generate": "Etiket Oluştur",
+      "titlePlaceholder": "Sayfa başlığınızı girin...",
+      "descriptionPlaceholder": "Sayfa açıklamasını girin...",
+      "keywordsPlaceholder": "anahtar1, anahtar2, anahtar3..."
+    },
+    "passwordGenerator": {
+      "name": "Şifre Oluşturucu",
+      "length": "Uzunluk",
+      "includeUppercase": "Büyük Harf (A-Z)",
+      "includeLowercase": "Küçük Harf (a-z)",
+      "includeNumbers": "Sayılar (0-9)",
+      "includeSymbols": "Semboller (!@#$...)",
+      "generate": "Şifre Oluştur",
+      "strength": "Güç",
+      "weak": "Zayıf",
+      "fair": "Orta",
+      "strong": "Güçlü",
+      "veryStrong": "Çok Güçlü"
+    },
+    "colorConverter": {
+      "name": "Renk Dönüştürücü",
+      "inputLabel": "Renk Değeri",
+      "placeholder": "#ff6600 veya rgb(255, 102, 0) veya hsl(24, 100%, 50%)",
+      "hex": "HEX",
+      "rgb": "RGB",
+      "hsl": "HSL",
+      "preview": "Önizleme"
+    },
+    "markdownPreviewer": {
+      "name": "Markdown Önizleyici",
+      "inputLabel": "Markdown",
+      "previewLabel": "Önizleme",
+      "placeholder": "# Markdown'ınızı buraya yazın..."
+    },
+    "diffChecker": {
+      "name": "Fark Denetleyici",
+      "originalLabel": "Orijinal Metin",
+      "modifiedLabel": "Değiştirilmiş Metin",
+      "resultLabel": "Fark Sonucu",
+      "compare": "Karşılaştır",
+      "originalPlaceholder": "Orijinal metni yapıştırın...",
+      "modifiedPlaceholder": "Değiştirilmiş metni yapıştırın...",
+      "noDifferences": "Fark bulunamadı",
+      "additions": "Eklemeler",
+      "deletions": "Silmeler"
+    },
+    "loremIpsum": {
+      "name": "Lorem Ipsum Oluşturucu",
+      "paragraphs": "Paragraf",
+      "generate": "Oluştur",
+      "outputLabel": "Oluşturulan Metin"
+    },
+    "slugGenerator": {
+      "name": "Slug Oluşturucu",
+      "inputLabel": "Metin",
+      "outputLabel": "Slug",
+      "placeholder": "Slug'a dönüştürülecek metin girin..."
+    },
+    "cssMinifier": {
+      "name": "CSS Küçültücü",
+      "inputLabel": "CSS Girdisi",
+      "outputLabel": "Küçültülmüş CSS",
+      "placeholder": "CSS'inizi buraya yapıştırın..."
+    },
+    "jsMinifier": {
+      "name": "JS Küçültücü",
+      "inputLabel": "JavaScript Girdisi",
+      "outputLabel": "Küçültülmüş JavaScript",
+      "placeholder": "JavaScript'inizi buraya yapıştırın..."
+    },
+    "timestampConverter": {
+      "name": "Zaman Damgası Dönüştürücü",
+      "inputLabel": "Unix Zaman Damgası",
+      "outputLabel": "Okunabilir Biçim",
+      "placeholder": "Unix zaman damgası girin...",
+      "currentTimestamp": "Şu Anki Zaman Damgası",
+      "toTimestamp": "Zaman Damgasına",
+      "toDate": "Tarihe"
+    },
+    "hashToolkit": {
+      "name": "Hash Araç Seti",
+      "inputLabel": "Girdi Metni",
+      "placeholder": "Hash'lenecek metni girin...",
+      "algorithm": "Algoritma",
+      "result": "Hash Sonucu"
+    },
+    "unitConverter": {
+      "name": "Birim Dönüştürücü",
+      "from": "Kaynak",
+      "to": "Hedef",
+      "result": "Sonuç",
+      "category": "Kategori"
+    },
+    "pdfMerge": {
+      "name": "PDF Birleştirici",
+      "dropzone": "PDF dosyalarını buraya bırakın veya seçmek için tıklayın",
+      "dropzoneHint": "Birleştirmek için birden fazla PDF seçin",
+      "merge": "PDF Birleştir",
+      "merging": "Birleştiriliyor...",
+      "download": "Birleştirilmiş PDF İndir"
+    },
+    "pdfSplit": {
+      "name": "PDF Bölücü",
+      "dropzone": "Bir PDF dosyası buraya bırakın veya seçmek için tıklayın",
+      "pageRange": "Sayfa Aralığı",
+      "pageRangeHint": "ör. 1-3, 5, 7-9",
+      "split": "PDF Böl",
+      "splitting": "Bölünüyor..."
+    },
+    "imageResizer": {
+      "name": "Görsel Boyutlandırıcı",
+      "dropzone": "Bir görsel buraya bırakın veya seçmek için tıklayın",
+      "width": "Genişlik",
+      "height": "Yükseklik",
+      "maintainAspect": "En boy oranını koru",
+      "resize": "Boyutlandır",
+      "resizing": "Boyutlandırılıyor..."
+    },
+    "imageConverter": {
+      "name": "Görsel Dönüştürücü",
+      "dropzone": "Bir görsel buraya bırakın veya seçmek için tıklayın",
+      "format": "Çıktı Formatı",
+      "convert": "Dönüştür",
+      "converting": "Dönüştürülüyor..."
+    }
   },
   "search": {
     "placeholder": "Araçlarda ara...",
@@ -166,7 +422,8 @@
     "openNav": "Navigasyonu aç",
     "tagline": "Geliştirici araçları platformu",
     "closeLang": "Dil menüsünü kapat",
-    "active": "Açık"
+    "active": "Açık",
+    "overview": "Genel Bakış"
   },
   "toolsPage": {
     "badge": "Geliştirici merkezi",

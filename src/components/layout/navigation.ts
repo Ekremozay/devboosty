@@ -9,6 +9,10 @@ export interface DashboardLink {
   description: string;
   match?: 'exact' | 'prefix';
   workspaceCategory?: WorkspaceCategory;
+  /** Translation key for label (used by translated sidebar/nav) */
+  labelKey?: string;
+  /** Translation key for description */
+  descriptionKey?: string;
 }
 
 export interface DashboardContext {
@@ -32,6 +36,8 @@ export const WORKSPACE_LINKS: DashboardLink[] = [
     icon: '01',
     description: 'Start from the dashboard home.',
     match: 'exact',
+    labelKey: 'navLinks.overview',
+    descriptionKey: 'navLinks.overviewDesc',
   },
   {
     href: '/tools',
@@ -39,6 +45,8 @@ export const WORKSPACE_LINKS: DashboardLink[] = [
     icon: '02',
     description: 'Search and filter the full library.',
     match: 'prefix',
+    labelKey: 'navLinks.allTools',
+    descriptionKey: 'navLinks.allToolsDesc',
   },
   {
     href: '/workspace',
@@ -46,6 +54,8 @@ export const WORKSPACE_LINKS: DashboardLink[] = [
     icon: '03',
     description: 'Use multiple tools in one view.',
     match: 'exact',
+    labelKey: 'navLinks.workspace',
+    descriptionKey: 'navLinks.workspaceDesc',
   },
   {
     href: '/favorites',
@@ -53,6 +63,8 @@ export const WORKSPACE_LINKS: DashboardLink[] = [
     icon: '04',
     description: 'Keep frequently used tools close.',
     match: 'exact',
+    labelKey: 'navLinks.favorites',
+    descriptionKey: 'navLinks.favoritesDesc',
   },
   {
     href: '/blog',
@@ -60,6 +72,8 @@ export const WORKSPACE_LINKS: DashboardLink[] = [
     icon: '05',
     description: 'Guides, tutorials, and tips.',
     match: 'prefix',
+    labelKey: 'navLinks.blog',
+    descriptionKey: 'navLinks.blogDesc',
   },
 ];
 
@@ -68,7 +82,7 @@ export const CATEGORY_LINKS: DashboardLink[] = (Object.keys(WORKSPACE_CATEGORIES
   label: WORKSPACE_CATEGORIES[category].name,
   icon: WORKSPACE_CATEGORIES[category].icon,
   description: WORKSPACE_CATEGORIES[category].description,
-  match: 'exact',
+  match: 'exact' as const,
   workspaceCategory: category,
 }));
 
